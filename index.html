@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#d80f1f" />
+  <title>KeyMaster Auto — Comparateur d'ébauches</title>
+  <style>
+    :root{
+      --red:#d80f1f;
+      --red-dark:#ab0d1a;
+      --red-soft:#ffe8eb;
+      --white:#ffffff;
+      --black:#121212;
+      --text:#1a1a1a;
+      --muted:#6b7280;
+      --line:#ececec;
+      --card:#ffffff;
+      --shadow:0 14px 34px rgba(0,0,0,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#fff 0%,#fff5f6 100%);
+    }
+    .app{max-width:1200px;margin:0 auto;padding:18px}
+    .hero{
+      background:linear-gradient(135deg,#1a1a1a 0%,#4b0c13 45%,#d80f1f 100%);
+      color:#fff;border-radius:28px;padding:22px;box-shadow:0 24px 50px rgba(216,15,31,.18)
+    }
+    .hero-top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+    .brand{
+      display:flex;align-items:center;gap:14px;flex-wrap:wrap
+    }
+    .brand img{
+      width:88px;height:88px;border-radius:22px;object-fit:cover;
+      border:2px solid rgba(255,255,255,.18);background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.22)
+    }
+    .brand-title{display:flex;flex-direction:column;gap:3px}
+    .brand-title strong{font-size:clamp(1.55rem,4vw,2.35rem);line-height:1;font-weight:900;letter-spacing:.02em}
+    .brand-title span{color:rgba(255,255,255,.82)}
+    .hero p{margin:14px 0 0;color:rgba(255,255,255,.84);max-width:760px;line-height:1.5}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .quick-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);color:#fff;padding:10px 14px;border-radius:999px;font-weight:700}
+
+    .grid{display:grid;gap:18px;margin-top:18px}
+    .two-col{grid-template-columns:1.2fr .8fr}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)
+    }
+    .card h2,.card h3{margin:0 0 12px;font-size:1.04rem}
+    .card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+    .card-head small{color:var(--muted)}
+    .row{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;align-items:end}
+    .field{grid-column:span 12}
+    .field.small{grid-column:span 6}
+    .field.third{grid-column:span 4}
+    label{display:block;font-size:.88rem;font-weight:700;margin-bottom:8px;color:#3b3b3b}
+    input,select,textarea{
+      width:100%;border:1px solid #e4e4e7;background:#fff;color:#111;border-radius:16px;padding:13px 14px;font-size:.96rem;outline:none
+    }
+    textarea{min-height:116px;resize:vertical}
+    input:focus,select:focus,textarea:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(216,15,31,.12)}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    button{
+      appearance:none;border:0;border-radius:16px;padding:12px 15px;font-size:.95rem;font-weight:800;cursor:pointer;
+      background:linear-gradient(135deg,var(--red),#ff3b4f);color:#fff;box-shadow:0 10px 22px rgba(216,15,31,.16);transition:.15s transform,.15s opacity,.15s filter
+    }
+    button:hover{transform:translateY(-1px);filter:brightness(1.02)}
+    button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+    button.secondary{background:#fff;color:#111;border:1px solid #ddd;box-shadow:none}
+    button.dark{background:#171717;color:#fff;box-shadow:none}
+    button.danger{background:#fff0f2;color:#b70f1c;border:1px solid #fecdd3;box-shadow:none}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+    .stat .value{font-size:1.3rem;font-weight:900;color:var(--red)}
+    .muted{color:var(--muted);font-size:.92rem}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .chip{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #e5e7eb;font-weight:700;cursor:pointer}
+    .chip.active{background:var(--red);border-color:var(--red);color:#fff}
+    .results{margin-top:18px;display:grid;gap:14px}
+    .result-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--shadow)}
+    .result-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .code{font-size:1.12rem;font-weight:900;letter-spacing:.03em}
+    .badge{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;font-size:.82rem;font-weight:800;background:var(--red-soft);color:var(--red);border:1px solid #ffd1d7}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tag{padding:7px 10px;border-radius:999px;background:#f7f7f8;border:1px solid #ececec;color:#3f3f46;font-size:.82rem;font-weight:700}
+    .meta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+    .meta div{background:#fafafa;border:1px solid #f0f0f0;border-radius:16px;padding:12px}
+    .meta strong{display:block;font-size:.8rem;color:var(--muted);margin-bottom:5px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:11px 10px;border-bottom:1px solid #efefef;text-align:left;font-size:.92rem;vertical-align:top}
+    th{font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+    .footer-note{margin-top:18px;padding:16px;border-radius:18px;background:#fff;border:1px dashed #e5b4bb;color:#5a5a5a}
+    .empty{padding:28px;text-align:center;border:1px dashed #e5c0c5;border-radius:20px;background:#fff}
+    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:#171717;color:#fff;padding:12px 16px;border-radius:14px;box-shadow:0 18px 32px rgba(0,0,0,.2);transition:.25s;z-index:99;font-weight:700}
+    .toast.show{transform:translateX(-50%) translateY(0)}
+    @media (max-width: 920px){.two-col{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.meta{grid-template-columns:1fr}}
+    @media (max-width: 640px){.app{padding:14px}.hero{padding:18px}.brand img{width:72px;height:72px}.field.small,.field.third{grid-column:span 12}button{width:100%}.btns{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="brand">
+          <img src="logo-keymaster.png" alt="Logo KeyMaster Auto" />
+          <div class="brand-title">
+            <strong>KeyMaster Auto</strong>
+            <span>Comparateur d'ébauches • version web</span>
+          </div>
+        </div>
+      </div>
+      <p>Recherche rapide par référence, marque, véhicule ou notes. Tu peux aussi ajouter tes propres fiches, exporter la base en JSON et réinitialiser les données de démonstration.</p>
+      <div class="hero-actions">
+        <span class="quick-pill">Blanc & Rouge</span>
+        <span class="quick-pill">Mobile friendly</span>
+        <span class="quick-pill">Fonctionne sans base serveur</span>
+      </div>
+    </section>
+
+    <div class="grid two-col">
+      <section class="card">
+        <div class="card-head">
+          <h2>Recherche d'ébauches</h2>
+          <small>Les boutons fonctionnent avec stockage local du navigateur.</small>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="searchInput">Recherche libre</label>
+            <input id="searchInput" type="text" placeholder="Ex: TOY43, VA2, Yaris, Renault, télécommande" />
+          </div>
+          <div class="field small">
+            <label for="brandFilter">Marque</label>
+            <select id="brandFilter">
+              <option value="">Toutes les marques</option>
+              <option value="Silca">Silca</option>
+              <option value="JMA">JMA</option>
+              <option value="Keyline">Keyline</option>
+              <option value="Errebi">Errebi</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+          <div class="field small">
+            <label for="typeFilter">Type</label>
+            <select id="typeFilter">
+              <option value="">Tous les types</option>
+              <option value="Mécanique">Mécanique</option>
+              <option value="Télécommande">Télécommande</option>
+              <option value="Lame laser">Lame laser</option>
+            </select>
+          </div>
+        </div>
+        <div class="btns">
+          <button id="searchBtn">Rechercher</button>
+          <button id="resetBtn" class="secondary">Réinitialiser</button>
+          <button id="exportBtn" class="dark">Exporter JSON</button>
+        </div>
+        <div class="filters" id="quickFilters"></div>
+      </section>
+
+      <aside class="card">
+        <h3>Statistiques</h3>
+        <div class="stats">
+          <div class="stat"><div class="value" id="statTotal">0</div><div class="muted">Fiches</div></div>
+          <div class="stat"><div class="value" id="statVisible">0</div><div class="muted">Résultats</div></div>
+          <div class="stat"><div class="value" id="statBrands">0</div><div class="muted">Marques</div></div>
+        </div>
+        <div class="footer-note">
+          Conseil : commence avec les données démo, puis ajoute tes propres références au fur et à mesure.
+        </div>
+      </aside>
+    </div>
+
+    <section class="card" style="margin-top:18px;">
+      <div class="card-head">
+        <h2>Ajouter / modifier une fiche</h2>
+        <small>Une fiche ajoutée ici est enregistrée sur cet appareil.</small>
+      </div>
+      <div class="row">
+        <div class="field third">
+          <label for="refInput">Référence principale</label>
+          <input id="refInput" type="text" placeholder="Ex: TOY43" />
+        </div>
+        <div class="field third">
+          <label for="brandInput">Marque</label>
+          <select id="brandInput">
+            <option value="Silca">Silca</option>
+            <option value="JMA">JMA</option>
+            <option value="Keyline">Keyline</option>
+            <option value="Errebi">Errebi</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+        <div class="field third">
+          <label for="kindInput">Type</label>
+          <select id="kindInput">
+            <option value="Mécanique">Mécanique</option>
+            <option value="Télécommande">Télécommande</option>
+            <option value="Lame laser">Lame laser</option>
+          </select>
+        </div>
+        <div class="field small">
+          <label for="equivInput">Équivalences</label>
+          <input id="equivInput" type="text" placeholder="Ex: JMA:TOY-15D, Keyline:TR47" />
+        </div>
+        <div class="field small">
+          <label for="vehicleInput">Véhicules</label>
+          <input id="vehicleInput" type="text" placeholder="Ex: Toyota Yaris 1999-2005, Corolla" />
+        </div>
+        <div class="field">
+          <label for="notesInput">Notes</label>
+          <textarea id="notesInput" placeholder="Infos utiles, compatibilités, télécommande, puce, remarque atelier..."></textarea>
+        </div>
+      </div>
+      <div class="btns">
+        <button id="addBtn">Ajouter la fiche</button>
+        <button id="seedBtn" class="secondary">Réinitialiser la base démo</button>
+        <button id="clearCustomBtn" class="danger">Vider mes ajouts</button>
+        <button id="importBtn" class="secondary">Importer JSON</button>
+        <input id="importFile" type="file" accept="application/json" hidden />
+      </div>
+    </section>
+
+    <section class="results" id="results"></section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const demoData = [
+      {ref:'TOY43',brand:'Silca',kind:'Mécanique',equiv:['JMA:TOY-43','Keyline:TR47'],vehicles:['Toyota Yaris 1999-2005','Toyota Corolla','Toyota Aygo'],notes:'Ébauche mécanique courante Toyota.'},
+      {ref:'VA2',brand:'Silca',kind:'Lame laser',equiv:['JMA:VA2','Keyline:VAC2'],vehicles:['Peugeot 207','Citroën C4','Peugeot 308'],notes:'Lame laser PSA très fréquente.'},
+      {ref:'NE72',brand:'Silca',kind:'Mécanique',equiv:['JMA:NIS-23D','Keyline:N24'],vehicles:['Nissan Micra','Nissan Qashqai'],notes:'Profil Nissan mécanique.'},
+      {ref:'HU83',brand:'Silca',kind:'Lame laser',equiv:['JMA:HU83','Keyline:HU83'],vehicles:['Peugeot 307','Citroën Berlingo','Citroën C3'],notes:'Très utilisée sur anciens modèles PSA.'},
+      {ref:'TOY47',brand:'Keyline',kind:'Télécommande',equiv:['Silca:TOY47R'],vehicles:['Toyota Yaris','Toyota Auris'],notes:'Version télécommande avec lame intégrée selon boîtier.'},
+      {ref:'SIP22',brand:'Silca',kind:'Mécanique',equiv:['JMA:FIAT-5D','Keyline:SIP22'],vehicles:['Fiat 500','Fiat Punto','Alfa Romeo MiTo'],notes:'Clé mécanique groupe Fiat.'},
+      {ref:'HU100',brand:'Keyline',kind:'Lame laser',equiv:['JMA:HU100','Silca:HU100'],vehicles:['Opel Corsa','Chevrolet Aveo'],notes:'Profil Opel/Chevrolet.'},
+      {ref:'FO21',brand:'JMA',kind:'Mécanique',equiv:['Silca:FO21'],vehicles:['Ford Fiesta','Ford Focus'],notes:'Ébauche Ford simple taille.'}
+    ];
+
+    const STORAGE_KEY = 'keymaster_auto_records_v2';
+    const CUSTOM_KEY = 'keymaster_auto_custom_v2';
+    const dom = {
+      searchInput: document.getElementById('searchInput'),
+      brandFilter: document.getElementById('brandFilter'),
+      typeFilter: document.getElementById('typeFilter'),
+      searchBtn: document.getElementById('searchBtn'),
+      resetBtn: document.getElementById('resetBtn'),
+      exportBtn: document.getElementById('exportBtn'),
+      addBtn: document.getElementById('addBtn'),
+      seedBtn: document.getElementById('seedBtn'),
+      clearCustomBtn: document.getElementById('clearCustomBtn'),
+      importBtn: document.getElementById('importBtn'),
+      importFile: document.getElementById('importFile'),
+      refInput: document.getElementById('refInput'),
+      brandInput: document.getElementById('brandInput'),
+      kindInput: document.getElementById('kindInput'),
+      equivInput: document.getElementById('equivInput'),
+      vehicleInput: document.getElementById('vehicleInput'),
+      notesInput: document.getElementById('notesInput'),
+      statTotal: document.getElementById('statTotal'),
+      statVisible: document.getElementById('statVisible'),
+      statBrands: document.getElementById('statBrands'),
+      results: document.getElementById('results'),
+      toast: document.getElementById('toast'),
+      quickFilters: document.getElementById('quickFilters')
+    };
+
+    let records = [];
+    let activeQuickFilter = '';
+
+    function showToast(message){
+      dom.toast.textContent = message;
+      dom.toast.classList.add('show');
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(()=>dom.toast.classList.remove('show'), 2200);
+    }
+
+    function saveAllData(){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      const custom = records.filter(r => r.isCustom);
+      localStorage.setItem(CUSTOM_KEY, JSON.stringify(custom));
+    }
+
+    function seedData(){
+      const existingCustom = JSON.parse(localStorage.getItem(CUSTOM_KEY) || '[]');
+      records = [...demoData.map(r => ({...r, id: crypto.randomUUID(), isCustom:false})), ...existingCustom.map(r => ({...r, id:r.id || crypto.randomUUID(), isCustom:true}))];
+      saveAllData();
+      refreshUI();
+      showToast('Base démo réinitialisée.');
+    }
+
+    function loadData(){
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if(saved){
+        try { records = JSON.parse(saved); }
+        catch { records = []; }
+      }
+      if(!Array.isArray(records) || records.length === 0) seedData();
+      else refreshUI();
+    }
+
+    function normalize(text){ return (text || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+
+    function currentFilteredRecords(){
+      const query = normalize(dom.searchInput.value.trim());
+      const brand = dom.brandFilter.value;
+      const kind = dom.typeFilter.value;
+      return records.filter(item => {
+        const haystack = normalize([
+          item.ref, item.brand, item.kind,
+          ...(item.equiv || []), ...(item.vehicles || []), item.notes
+        ].join(' | '));
+        const matchesQuery = !query || haystack.includes(query);
+        const matchesBrand = !brand || item.brand === brand;
+        const matchesKind = !kind || item.kind === kind;
+        const matchesQuick = !activeQuickFilter || haystack.includes(normalize(activeQuickFilter));
+        return matchesQuery && matchesBrand && matchesKind && matchesQuick;
+      }).sort((a,b) => a.ref.localeCompare(b.ref));
+    }
+
+    function renderQuickFilters(){
+      const labels = ['Toyota','Peugeot','Renault','Télécommande','Lame laser','Silca','JMA','Keyline'];
+      dom.quickFilters.innerHTML = '';
+      labels.forEach(label => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip' + (activeQuickFilter === label ? ' active' : '');
+        btn.textContent = label;
+        btn.addEventListener('click', () => {
+          activeQuickFilter = activeQuickFilter === label ? '' : label;
+          renderQuickFilters();
+          renderResults();
+        });
+        dom.quickFilters.appendChild(btn);
+      });
+    }
+
+    function renderResults(){
+      const list = currentFilteredRecords();
+      dom.results.innerHTML = '';
+      dom.statVisible.textContent = list.length;
+      if(list.length === 0){
+        dom.results.innerHTML = '<div class="empty"><strong>Aucun résultat.</strong><div class="muted" style="margin-top:8px;">Essaie une autre référence ou réinitialise les filtres.</div></div>';
+        return;
+      }
+      list.forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'result-card';
+        card.innerHTML = `
+          <div class="result-head">
+            <div>
+              <div class="code">${escapeHtml(item.ref)}</div>
+              <div class="tags">
+                <span class="badge">${escapeHtml(item.brand)}</span>
+                <span class="tag">${escapeHtml(item.kind)}</span>
+                ${item.isCustom ? '<span class="tag">Ajout perso</span>' : ''}
+              </div>
+            </div>
+            ${item.isCustom ? `<button class="danger delete-btn" data-id="${item.id}">Supprimer</button>` : ''}
+          </div>
+          <div class="meta">
+            <div>
+              <strong>Équivalences</strong>
+              <span>${item.equiv?.length ? escapeHtml(item.equiv.join(' • ')) : '—'}</span>
+            </div>
+            <div>
+              <strong>Véhicules</strong>
+              <span>${item.vehicles?.length ? escapeHtml(item.vehicles.join(' • ')) : '—'}</span>
+            </div>
+          </div>
+          <table>
+            <tr><th>Notes</th></tr>
+            <tr><td>${escapeHtml(item.notes || '—')}</td></tr>
+          </table>`;
+        dom.results.appendChild(card);
+      });
+      dom.results.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => deleteRecord(btn.dataset.id));
+      });
+    }
+
+    function deleteRecord(id){
+      records = records.filter(r => r.id !== id);
+      saveAllData();
+      refreshUI();
+      showToast('Fiche supprimée.');
+    }
+
+    function updateStats(){
+      dom.statTotal.textContent = records.length;
+      dom.statBrands.textContent = new Set(records.map(r => r.brand)).size;
+    }
+
+    function refreshUI(){
+      updateStats();
+      renderQuickFilters();
+      renderResults();
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#39;');
+    }
+
+    function parseCsvLike(value){
+      return value.split(',').map(v => v.trim()).filter(Boolean);
+    }
+
+    function addRecord(){
+      const ref = dom.refInput.value.trim().toUpperCase();
+      if(!ref){ showToast('Ajoute une référence.'); return; }
+      const item = {
+        id: crypto.randomUUID(),
+        isCustom: true,
+        ref,
+        brand: dom.brandInput.value || 'Autre',
+        kind: dom.kindInput.value || 'Mécanique',
+        equiv: parseCsvLike(dom.equivInput.value),
+        vehicles: parseCsvLike(dom.vehicleInput.value),
+        notes: dom.notesInput.value.trim()
+      };
+      records.unshift(item);
+      saveAllData();
+      dom.refInput.value = '';
+      dom.equivInput.value = '';
+      dom.vehicleInput.value = '';
+      dom.notesInput.value = '';
+      refreshUI();
+      showToast('Fiche ajoutée.');
+    }
+
+    function exportJson(){
+      const blob = new Blob([JSON.stringify(records, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'keymaster-auto-database.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('Export JSON téléchargé.');
+    }
+
+    function clearCustom(){
+      records = records.filter(r => !r.isCustom);
+      saveAllData();
+      refreshUI();
+      showToast('Ajouts personnels supprimés.');
+    }
+
+    function resetFilters(){
+      dom.searchInput.value = '';
+      dom.brandFilter.value = '';
+      dom.typeFilter.value = '';
+      activeQuickFilter = '';
+      refreshUI();
+    }
+
+    function importJson(file){
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if(!Array.isArray(parsed)) throw new Error('Format invalide');
+          records = parsed.map(r => ({
+            id: r.id || crypto.randomUUID(),
+            isCustom: Boolean(r.isCustom),
+            ref: r.ref || '',
+            brand: r.brand || 'Autre',
+            kind: r.kind || 'Mécanique',
+            equiv: Array.isArray(r.equiv) ? r.equiv : [],
+            vehicles: Array.isArray(r.vehicles) ? r.vehicles : [],
+            notes: r.notes || ''
+          }));
+          saveAllData();
+          refreshUI();
+          showToast('Import réussi.');
+        } catch {
+          showToast('Le fichier JSON est invalide.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    dom.searchBtn.addEventListener('click', renderResults);
+    dom.resetBtn.addEventListener('click', resetFilters);
+    dom.exportBtn.addEventListener('click', exportJson);
+    dom.addBtn.addEventListener('click', addRecord);
+    dom.seedBtn.addEventListener('click', seedData);
+    dom.clearCustomBtn.addEventListener('click', clearCustom);
+    dom.importBtn.addEventListener('click', () => dom.importFile.click());
+    dom.importFile.addEventListener('change', e => {
+      const file = e.target.files?.[0];
+      if(file) importJson(file);
+      e.target.value = '';
+    });
+    dom.searchInput.addEventListener('keydown', e => { if(e.key === 'Enter') renderResults(); });
+    dom.brandFilter.addEventListener('change', renderResults);
+    dom.typeFilter.addEventListener('change', renderResults);
+
+    loadData();
+  </script>
+</body>
+</html>
