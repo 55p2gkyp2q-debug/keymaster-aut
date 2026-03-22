@@ -26,6 +26,12 @@
     .meta-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);margin:14px 0}.meta{padding:15px;border-radius:18px;border:1px solid var(--line);background:#fff;min-height:78px}.meta strong{display:block;color:var(--muted);font-size:.82rem;margin-bottom:8px}
     .toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}.list{display:grid;gap:10px;max-height:520px;overflow:auto}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare-card{min-height:180px;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.notice{padding:13px 14px;border-radius:16px;background:#f5f7ff;border:1px solid #d9e1ff;color:#33417a}.empty{text-align:center;padding:28px;border:1px dashed #d7dbe2;border-radius:18px;color:var(--muted)}
     .footer{margin-top:16px;color:var(--muted);font-size:.92rem;line-height:1.55}
+
+    .result-flex{display:flex;gap:16px;align-items:flex-start}
+    .result-img{width:96px;height:96px;object-fit:contain;border-radius:18px;background:#f3f4f7;padding:8px;border:1px solid var(--line);flex:0 0 96px}
+    .recent-searches{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .recent-tag{display:inline-flex;align-items:center;justify-content:center;padding:9px 12px;background:#eef0f3;border:1px solid var(--line);border-radius:999px;cursor:pointer;font-size:.88rem;font-weight:700}
+    .recent-tag:hover{background:#dfe3e8}
     @media (max-width:1100px){.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr 1fr}}
     @media (max-width:720px){.hero-grid,.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr}.hero img{width:100px;height:100px}.ref{font-size:1.2rem}}
   </style>
@@ -72,6 +78,11 @@
         <button class="secondary" id="exportBtn">Exporter JSON</button>
       </div>
       <div class="footer">La recherche couvre : Silca / JMA / Keyline / Errebi, famille, modèles exemples, Lishi, Xhorse, type de lame, transpondeur et notes atelier.</div>
+      <div id="recentBox" class="card" style="margin-top:12px;padding:14px 16px;box-shadow:none">
+        <h3>Dernières recherches</h3>
+        <div class="sub">Touchez une recherche pour la relancer instantanément.</div>
+        <div id="recentSearches" class="recent-searches"></div>
+      </div>
     </div>
 
     <div class="card">
@@ -126,6 +137,7 @@
 const STORAGE_KEY = 'keymaster_auto_expert_v1';
 const FAVORITES_KEY = 'keymaster_auto_expert_favs_v1';
 const COMPARE_KEY = 'keymaster_auto_expert_compare_v1';
+const RECENT_KEY = 'keymaster_auto_expert_recent_v1';
 
 // ==========================
 // 🔴 BASE DE DONNÉES AUTO
@@ -287,8 +299,63 @@ function loadJson(key, fallback){ try { const raw = localStorage.getItem(key); r
 function saveJson(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
 function normalize(v){ return (v||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
 function escapeHtml(v){ return (v||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+function safeJsString(v){ return (v||'').toString().replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function imageCandidates(r){
+  const base = [r.silca, r.jma, r.keyline, r.errebi, r.lishi, r.xhorse]
+    .filter(Boolean)
+    .map(v => v.toString().replace(/[^A-Za-z0-9_-]/g,'').toUpperCase());
+  return [...new Set(base.flatMap(code => [`images/${code}.jpg`,`images/${code}.png`,`images/${code}.webp`]))];
+}
+function resultImageHtml(r){
+  const candidates = imageCandidates(r);
+  const first = candidates[0] || '';
+  const fallback = `https://via.placeholder.com/96?text=${encodeURIComponent((r.silca || r.jma || 'KEY').toString())}`;
+  const dataAttr = escapeHtml(JSON.stringify(candidates));
+  return `<img src="${escapeHtml(first)}" data-images='${dataAttr}' data-fallback="${escapeHtml(fallback)}" onerror="rotateResultImage(this)" class="result-img" alt="Ébauche ${escapeHtml(r.silca || r.jma || r.id || 'clé')}">`;
+}
+function rotateResultImage(img){
+  try {
+    const list = JSON.parse(img.dataset.images || '[]');
+    const current = img.getAttribute('src');
+    const idx = list.indexOf(current);
+    if (idx >= 0 && idx < list.length - 1) { img.src = list[idx + 1]; return; }
+  } catch(e) {}
+  if (img.dataset.fallback && img.getAttribute('src') !== img.dataset.fallback) {
+    img.src = img.dataset.fallback;
+    return;
+  }
+  img.onerror = null;
+}
 function uniqueFamilies(){ return [...new Set(records.map(r => r.family || r.marque).filter(Boolean))].sort((a,b)=>a.localeCompare(b)); }
 function saveRecords(){ saveJson(STORAGE_KEY, records); }
+
+function saveRecentSearch(query){
+  const clean = (query || '').trim();
+  if (!clean) return;
+  let list = loadJson(RECENT_KEY, []);
+  list = Array.isArray(list) ? list : [];
+  list = list.filter(item => normalize(item) !== normalize(clean));
+  list.unshift(clean);
+  if (list.length > 8) list = list.slice(0, 8);
+  saveJson(RECENT_KEY, list);
+  renderRecentSearches();
+}
+
+function renderRecentSearches(){
+  const box = document.getElementById('recentSearches');
+  if (!box) return;
+  const list = loadJson(RECENT_KEY, []);
+  if (!Array.isArray(list) || !list.length) {
+    box.innerHTML = '<div class="sub">Aucune recherche récente.</div>';
+    return;
+  }
+  box.innerHTML = list.map(q => `<button type="button" class="recent-tag" onclick="repeatSearch('${safeJsString(q)}')">${escapeHtml(q)}</button>`).join('');
+}
+
+function repeatSearch(query){
+  document.getElementById('searchInput').value = query;
+  runSearch();
+}
 
 function refreshStats(resultCount = 0){
   document.getElementById('statRecords').textContent = records.length;
@@ -355,6 +422,7 @@ function runSearch(source = records){
     return;
   }
   const filtered = applyFilters(source, filters);
+  if (filters.q) saveRecentSearch(document.getElementById('searchInput').value.trim());
   hasSearched = true;
   lastResults = filtered;
   renderResults(filtered);
@@ -371,30 +439,35 @@ function renderResults(list){
     const inCompare = compareIds.includes(r.id);
     return `
       <div class="result">
-        <div class="head">
-          <div>
-            <div class="ref">${escapeHtml(r.silca || '-')}</div>
-            <div class="sub"><strong>${escapeHtml(r.family || r.marque || '-')}</strong> · ${escapeHtml(r.models || 'Sans modèles renseignés')}</div>
+        <div class="result-flex">
+          ${resultImageHtml(r)}
+          <div style="flex:1;min-width:0">
+            <div class="head">
+              <div>
+                <div class="ref">${escapeHtml(r.silca || '-')}</div>
+                <div class="sub"><strong>${escapeHtml(r.family || r.marque || '-')}</strong> · ${escapeHtml(r.models || 'Sans modèles renseignés')}</div>
+              </div>
+              <div class="badges">
+                <span class="badge red">${escapeHtml(r.type || r.bladeType || '-')}</span>
+                <span class="badge">${escapeHtml(r.transponder || '-')}</span>
+                <span class="badge dark">${escapeHtml(r.lishi || '-')}</span>
+                <span class="badge green">${escapeHtml(r.xhorse || '-')}</span>
+              </div>
+            </div>
+            <div class="meta-grid">
+              <div class="meta"><strong>JMA</strong>${escapeHtml(r.jma || '-')}</div>
+              <div class="meta"><strong>Keyline</strong>${escapeHtml(r.keyline || '-')}</div>
+              <div class="meta"><strong>Errebi</strong>${escapeHtml(r.errebi || '-')}</div>
+              <div class="meta"><strong>Années</strong>${escapeHtml(r.years || '-')}</div>
+            </div>
+            <div class="sub"><strong>Note atelier :</strong> ${escapeHtml(r.note || r.notes || '-')}</div>
+            <div class="sub" style="margin-top:8px"><strong>Code fiche :</strong> ${id}</div>
+            <div class="btns">
+              <button class="secondary" data-action="fav" data-id="${id}">${isFav ? 'Retirer favori' : 'Ajouter favori'}</button>
+              <button class="secondary" data-action="compare" data-id="${id}">${inCompare ? 'Retirer comparaison' : 'Comparer'}</button>
+              <button class="secondary" data-action="copy" data-id="${id}">Copier réf.</button>
+            </div>
           </div>
-          <div class="badges">
-            <span class="badge red">${escapeHtml(r.type || r.bladeType || '-')}</span>
-            <span class="badge">${escapeHtml(r.transponder || '-')}</span>
-            <span class="badge dark">${escapeHtml(r.lishi || '-')}</span>
-            <span class="badge green">${escapeHtml(r.xhorse || '-')}</span>
-          </div>
-        </div>
-        <div class="meta-grid">
-          <div class="meta"><strong>JMA</strong>${escapeHtml(r.jma || '-')}</div>
-          <div class="meta"><strong>Keyline</strong>${escapeHtml(r.keyline || '-')}</div>
-          <div class="meta"><strong>Errebi</strong>${escapeHtml(r.errebi || '-')}</div>
-          <div class="meta"><strong>Années</strong>${escapeHtml(r.years || '-')}</div>
-        </div>
-        <div class="sub"><strong>Note atelier :</strong> ${escapeHtml(r.note || r.notes || '-')}</div>
-        <div class="sub" style="margin-top:8px"><strong>Code fiche :</strong> ${id}</div>
-        <div class="btns">
-          <button class="secondary" data-action="fav" data-id="${id}">${isFav ? 'Retirer favori' : 'Ajouter favori'}</button>
-          <button class="secondary" data-action="compare" data-id="${id}">${inCompare ? 'Retirer comparaison' : 'Comparer'}</button>
-          <button class="secondary" data-action="copy" data-id="${id}">Copier réf.</button>
         </div>
       </div>`;
   }).join('');
@@ -511,7 +584,7 @@ function attachDelegates(){
 }
 
 function init(){
-  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); clearResultsState(); attachDelegates();
+  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); renderRecentSearches(); clearResultsState(); attachDelegates();
   document.getElementById('searchBtn').addEventListener('click', runSearch);
   document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; clearResultsState(); });
   document.getElementById('showFavsBtn').addEventListener('click', () => { const favs = records.filter(r => favorites.includes(r.id)); hasSearched = true; lastResults = favs; renderResults(favs); document.getElementById('searchSummary').textContent = `${favs.length} favori(s)`; refreshStats(favs.length); });
