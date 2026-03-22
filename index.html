@@ -162,6 +162,8 @@ let records = loadJson(STORAGE_KEY, autoKeysDatabase);
 if (!Array.isArray(records) || !records.length) records = structuredClone(autoKeysDatabase);
 let favorites = loadJson(FAVORITES_KEY, []);
 let compareIds = loadJson(COMPARE_KEY, []);
+let currentResults = [];
+
 
 function loadJson(key, fallback){ try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : structuredClone(fallback);} catch(e){ return structuredClone(fallback);} }
 function saveJson(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
@@ -207,6 +209,7 @@ function runSearch(source = records){
 }
 
 function renderResults(list){
+  currentResults = Array.isArray(list) ? [...list] : [];
   const box = document.getElementById('results');
   if (!list.length) { box.innerHTML = '<div class="empty">Aucun résultat</div>'; return; }
   box.innerHTML = list.map(r => {
@@ -270,14 +273,14 @@ function renderDatasetList(){
 
 function toggleFavorite(id){
   favorites = favorites.includes(id) ? favorites.filter(x => x !== id) : [...favorites, id];
-  saveJson(FAVORITES_KEY, favorites); renderFavorites(); renderResults(getCurrentResults()); refreshStats(getCurrentResults().length);
+  saveJson(FAVORITES_KEY, favorites); renderFavorites(); renderResults(currentResults); refreshStats(currentResults.length);
 }
 
 function toggleCompare(id){
   if (compareIds.includes(id)) compareIds = compareIds.filter(x => x !== id);
   else if (compareIds.length < 3) compareIds.push(id);
   else { alert('Maximum 3 fiches dans le comparateur'); return; }
-  saveJson(COMPARE_KEY, compareIds); renderCompare(); renderResults(getCurrentResults());
+  saveJson(COMPARE_KEY, compareIds); renderCompare(); renderResults(currentResults);
 }
 
 function deleteRecord(id){
@@ -294,6 +297,13 @@ function getCurrentResults(){
   const blade = document.getElementById('bladeFilter').value;
   const transponder = normalize(document.getElementById('transponderFilter').value);
   return records.filter(r => (!q || searchableText(r).includes(q)) && (!family || (r.family || r.marque) === family) && (!blade || (r.bladeType || '').toLowerCase() === blade) && (!transponder || normalize(r.transponder).includes(transponder)));
+}
+
+function renderSearchWaiting(){
+  currentResults = [];
+  document.getElementById('results').innerHTML = '<div class="empty">Aucun résultat affiché. Renseigne tes filtres puis appuie sur <strong>Rechercher</strong>.</div>';
+  document.getElementById('searchSummary').textContent = 'En attente de recherche';
+  refreshStats(0);
 }
 
 function addKey(){
@@ -315,11 +325,11 @@ function addKey(){
     type: document.getElementById('newBladeType').options[document.getElementById('newBladeType').selectedIndex].text,
     note: document.getElementById('newNotes').value.trim()
   };
-  records.unshift(record); saveRecords(); clearForm(); refreshFamilyFilter(); renderDatasetList(); runSearch(); alert('Fiche ajoutée');
+  records.unshift(record); saveRecords(); clearForm(); refreshFamilyFilter(); renderDatasetList(); renderSearchWaiting(); alert('Fiche ajoutée');
 }
 
 function clearForm(){ ['newFamily','newSilca','newJma','newKeyline','newErrebi','newLishi','newXhorse','newTransponder','newYears','newModels','newRefCode','newNotes'].forEach(id=>document.getElementById(id).value=''); document.getElementById('newBladeType').value='laser'; }
-function resetDatabase(){ records = structuredClone(autoKeysDatabase); favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); runSearch(); }
+function resetDatabase(){ records = structuredClone(autoKeysDatabase); favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); renderSearchWaiting(); }
 function exportData(){ const blob = new Blob([JSON.stringify(records, null, 2)], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'keymaster-auto-expert.json'; a.click(); URL.revokeObjectURL(url); }
 
 function importData(file){
@@ -328,7 +338,7 @@ function importData(file){
     try {
       const parsed = JSON.parse(reader.result);
       if (!Array.isArray(parsed)) throw new Error();
-      records = parsed; saveRecords(); refreshFamilyFilter(); renderDatasetList(); runSearch(); alert('Import terminé');
+      records = parsed; saveRecords(); refreshFamilyFilter(); renderDatasetList(); renderSearchWaiting(); alert('Import terminé');
     } catch(e){ alert('JSON invalide'); }
   };
   reader.readAsText(file);
@@ -358,22 +368,22 @@ function attachDelegates(){
 }
 
 function init(){
-  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); runSearch(); attachDelegates();
+  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); renderSearchWaiting(); attachDelegates();
   document.getElementById('searchBtn').addEventListener('click', runSearch);
-  document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; runSearch(); });
-  document.getElementById('showFavsBtn').addEventListener('click', () => renderResults(records.filter(r => favorites.includes(r.id))));
+  document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; renderSearchWaiting(); });
+  document.getElementById('showFavsBtn').addEventListener('click', () => { const favs = records.filter(r => favorites.includes(r.id)); renderResults(favs); document.getElementById('searchSummary').textContent = `${favs.length} favori(s)`; refreshStats(favs.length); });
   document.getElementById('seedBtn').addEventListener('click', resetDatabase);
   document.getElementById('exportBtn').addEventListener('click', exportData);
   document.getElementById('addBtn').addEventListener('click', addKey);
   document.getElementById('clearFormBtn').addEventListener('click', clearForm);
-  document.getElementById('clearCustomBtn').addEventListener('click', () => { if (!confirm('Vider toute la base locale ?')) return; records = []; favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); runSearch(); });
-  document.getElementById('clearCompareBtn').addEventListener('click', () => { compareIds=[]; saveJson(COMPARE_KEY, compareIds); renderCompare(); runSearch(); });
-  document.getElementById('clearFavsBtn').addEventListener('click', () => { favorites=[]; saveJson(FAVORITES_KEY, favorites); renderFavorites(); runSearch(); refreshStats(getCurrentResults().length); });
+  document.getElementById('clearCustomBtn').addEventListener('click', () => { if (!confirm('Vider toute la base locale ?')) return; records = []; favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); renderSearchWaiting(); });
+  document.getElementById('clearCompareBtn').addEventListener('click', () => { compareIds=[]; saveJson(COMPARE_KEY, compareIds); renderCompare(); renderResults(currentResults); });
+  document.getElementById('clearFavsBtn').addEventListener('click', () => { favorites=[]; saveJson(FAVORITES_KEY, favorites); renderFavorites(); renderResults(currentResults); refreshStats(currentResults.length); });
   document.getElementById('plateBtn').addEventListener('click', searchPlate);
   document.getElementById('plateExamplesBtn').addEventListener('click', () => { document.getElementById('plateInput').value='AA-123-AA'; searchPlate(); });
   document.getElementById('importFile').addEventListener('change', (e) => { if (e.target.files[0]) importData(e.target.files[0]); e.target.value=''; });
   document.getElementById('searchInput').addEventListener('keydown', (e)=>{ if (e.key === 'Enter') runSearch(); });
-  ['brandFilter','bladeFilter','transponderFilter'].forEach(id => document.getElementById(id).addEventListener('change', runSearch));
+  ['brandFilter','bladeFilter','transponderFilter'].forEach(id => document.getElementById(id).addEventListener('change', () => { document.getElementById('searchSummary').textContent = 'Filtres modifiés, appuie sur Rechercher'; }));
 }
 
 document.addEventListener('DOMContentLoaded', init);
