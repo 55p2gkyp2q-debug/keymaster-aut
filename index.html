@@ -3,1021 +3,380 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KeyMaster Auto Pro</title>
-  <meta name="theme-color" content="#c71218" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="KeyMaster Auto" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="icon-192.png" />
+  <title>KeyMaster Auto Expert</title>
   <style>
-    :root{
-      --red:#c71218;
-      --red-2:#e3242b;
-      --red-3:#8f0e13;
-      --black:#101114;
-      --soft-black:#17181d;
-      --white:#ffffff;
-      --paper:#f7f7f8;
-      --line:#e7e7ea;
-      --muted:#6c707b;
-      --green:#0b9d61;
-      --amber:#f5b301;
-      --shadow:0 16px 40px rgba(14,18,25,.12);
-      --radius:24px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color:var(--black);
-      background:
-        radial-gradient(circle at top right, rgba(227,36,43,.12), transparent 26%),
-        linear-gradient(180deg, #fff, #f5f5f7 100%);
-    }
-    .app{max-width:1380px;margin:0 auto;padding:18px 16px 80px}
-    .hero{
-      background:linear-gradient(135deg, #16171b 0%, #1f2026 48%, #a61017 100%);
-      color:#fff;border-radius:32px;padding:18px;box-shadow:var(--shadow);
-      position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.1);
-    }
-    .hero:before,.hero:after{
-      content:"";position:absolute;border-radius:999px;filter:blur(10px);opacity:.25;pointer-events:none;
-      background:linear-gradient(90deg, rgba(255,255,255,.18), rgba(255,255,255,0));
-    }
-    .hero:before{width:240px;height:240px;right:-40px;top:-60px}
-    .hero:after{width:200px;height:200px;left:-50px;bottom:-50px}
-    .hero-grid{display:grid;grid-template-columns:140px 1fr;gap:18px;align-items:center}
-    .hero-logo{
-      width:140px;height:140px;border-radius:28px;object-fit:cover;background:#fff;
-      box-shadow:0 12px 30px rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.18)
-    }
-    .hero h1{margin:0 0 8px;font-size:clamp(1.8rem,3vw,3rem);line-height:1.03}
-    .hero p{margin:0;color:rgba(255,255,255,.86);line-height:1.5;max-width:860px}
-    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .chip{
-      padding:10px 12px;border-radius:999px;background:rgba(255,255,255,.09);
-      border:1px solid rgba(255,255,255,.15);font-size:.92rem
-    }
-
-    .section{margin-top:18px}
-    .grid{display:grid;gap:18px}
-    .dashboard{grid-template-columns:2fr 1fr}
-    .cards4{grid-template-columns:repeat(4,1fr)}
-    .search-grid{grid-template-columns:2fr 1fr 1fr 1fr}
-    .tools-grid{grid-template-columns:1.5fr 1fr}
-    .card{
-      background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-      box-shadow:var(--shadow);padding:18px;
-    }
-    .card h2,.card h3{margin:0 0 14px}
-    .sub{color:var(--muted);font-size:.94rem;line-height:1.5}
-    .stat{
-      background:linear-gradient(180deg,#fff,#fbfbfc);border:1px solid var(--line);border-radius:22px;padding:16px
-    }
-    .stat .big{font-size:2rem;font-weight:800;line-height:1}
-    .stat .label{color:var(--muted);margin-top:8px;font-size:.95rem}
-    label{display:block;margin-bottom:8px;font-weight:700;font-size:.92rem}
-    input,select,textarea{
-      width:100%;padding:14px 14px;border-radius:16px;border:1px solid #d9dbe1;background:#fff;
-      font:inherit;outline:none;transition:.18s border,.18s box-shadow,.18s transform;
-    }
-    textarea{min-height:110px;resize:vertical}
-    input:focus,select:focus,textarea:focus{
-      border-color:#d81b22;box-shadow:0 0 0 4px rgba(227,36,43,.12)
-    }
-    .row{display:grid;gap:14px}
-    .btns{display:flex;gap:10px;flex-wrap:wrap}
-    button,.button{
-      appearance:none;border:none;background:var(--red);color:#fff;padding:13px 16px;border-radius:16px;
-      font:inherit;font-weight:800;cursor:pointer;box-shadow:0 10px 24px rgba(199,18,24,.18);
-      transition:transform .12s ease, filter .15s ease, opacity .15s ease;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    }
-    button:hover,.button:hover{filter:brightness(1.03)}
-    button:active,.button:active{transform:translateY(1px)}
-    .secondary{background:#fff;color:var(--black);border:1px solid var(--line);box-shadow:none}
-    .dark{background:var(--black);color:#fff;box-shadow:none}
-    .ghost{background:#fff0f1;color:var(--red);box-shadow:none}
-    .danger{background:#7f1014}
-    .good{background:var(--green)}
-    .tiny{padding:9px 12px;border-radius:12px;font-size:.88rem;font-weight:700}
-    .stack{display:flex;flex-direction:column;gap:14px}
-    .notice{
-      padding:13px 14px;border-radius:16px;background:#fff8e6;border:1px solid #f1df9d;color:#6f5610;font-size:.92rem
-    }
-    .notice.info{background:#f5f7ff;border-color:#d9e1ff;color:#33417a}
-    .results{display:grid;gap:14px}
-    .result{
-      border:1px solid var(--line);border-radius:24px;padding:18px;background:linear-gradient(180deg,#fff,#fcfcfd)
-    }
-    .head{
-      display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px
-    }
-    .ref{font-size:1.6rem;font-weight:900;letter-spacing:-.02em}
-    .mini{color:var(--muted);font-size:.92rem}
-    .badges{display:flex;gap:8px;flex-wrap:wrap}
-    .badge{padding:8px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.84rem;font-weight:800}
-    .badge.red{background:#fff0f1;border-color:#ffd3d6;color:#b20f16}
-    .badge.dark{background:#16171c;color:#fff;border-color:#16171c}
-    .badge.green{background:#eefcf6;border-color:#ccefdc;color:#08784b}
-    .meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0}
-    .meta{
-      border:1px solid var(--line);padding:12px;border-radius:16px;background:#fff
-    }
-    .meta strong{display:block;font-size:.8rem;color:var(--muted);margin-bottom:6px}
-    table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
-    th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:.93rem}
-    th{background:#fafafb;color:#535866}
-    tr:last-child td{border-bottom:none}
-    .empty{
-      text-align:center;padding:28px;border:1px dashed #d6d8df;border-radius:22px;color:var(--muted);background:#fff
-    }
-    .toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-    .list{display:grid;gap:10px;max-height:520px;overflow:auto;padding-right:4px}
-    .list-item{
-      display:flex;justify-content:space-between;gap:10px;align-items:center;
-      padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff
-    }
-    .compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .compare-card{
-      border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff;min-height:180px
-    }
-    .footer{margin-top:18px;color:var(--muted);font-size:.9rem;line-height:1.55}
-    .inline{display:flex;gap:10px;flex-wrap:wrap}
-    .tagline{font-weight:800;color:#fff;background:rgba(255,255,255,.08);padding:6px 10px;border-radius:999px}
-    .muted{color:var(--muted)}
-    .pill{padding:8px 12px;border-radius:999px;background:#f4f4f6;border:1px solid #e4e5e9;font-size:.88rem}
-    .search-modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .small{font-size:.88rem}
-    .linklike{color:var(--red);font-weight:700;text-decoration:none}
-    @media (max-width:1080px){
-      .dashboard,.tools-grid,.cards4,.search-grid,.meta-grid,.compare,.search-modes{grid-template-columns:1fr 1fr}
-    }
-    @media (max-width:720px){
-      .app{padding:14px 12px 64px}
-      .hero-grid,.dashboard,.tools-grid,.cards4,.search-grid,.meta-grid,.compare,.search-modes{grid-template-columns:1fr}
-      .hero-logo{width:120px;height:120px}
-      .head{flex-direction:column}
-      .ref{font-size:1.35rem}
-    }
+    :root{--red:#c71218;--red2:#e52a2f;--black:#121317;--white:#fff;--bg:#f5f6f8;--line:#e5e7eb;--muted:#69707d;--green:#0f9f64;--amber:#f0a500;--radius:22px;--shadow:0 14px 34px rgba(15,23,42,.08)}
+    *{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;background:linear-gradient(180deg,#fff,#f3f4f7);color:var(--black)}
+    .app{max-width:1320px;margin:0 auto;padding:16px}
+    .hero{background:linear-gradient(135deg,#191a1f 0%,#24252d 50%,#b40f15 100%);color:#fff;padding:18px;border-radius:30px;box-shadow:var(--shadow)}
+    .hero-grid{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center}.hero img{width:120px;height:120px;border-radius:24px;object-fit:cover;background:#fff;border:1px solid rgba(255,255,255,.15)}
+    h1,h2,h3{margin:0 0 10px}.hero p{margin:0;color:rgba(255,255,255,.9);line-height:1.5}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);font-size:.9rem}
+    .grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr);margin-top:16px}.main{grid-template-columns:1.5fr 1fr;margin-top:16px}.two{grid-template-columns:1fr 1fr;margin-top:16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.sub{color:var(--muted);line-height:1.45;font-size:.95rem}
+    .stat .big{font-size:2rem;font-weight:800}.label{color:var(--muted);margin-top:6px}
+    label{display:block;font-weight:700;margin-bottom:8px;font-size:.93rem} input,select,textarea{width:100%;padding:14px;border:1px solid #d8dce3;border-radius:16px;font:inherit;outline:none} textarea{min-height:100px;resize:vertical}
+    input:focus,select:focus,textarea:focus{border-color:var(--red2);box-shadow:0 0 0 4px rgba(199,18,24,.12)}
+    .search-grid,.form-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)} .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    button,.button{border:none;background:var(--red);color:#fff;padding:13px 16px;border-radius:16px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.secondary{background:#fff;color:var(--black);border:1px solid var(--line)}.dark{background:var(--black)}.danger{background:#7f1014}
+    .results{display:grid;gap:14px}.result{border:1px solid var(--line);border-radius:22px;padding:16px;background:linear-gradient(180deg,#fff,#fcfcfd)} .head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}.ref{font-weight:900;font-size:1.45rem}.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{padding:7px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.83rem;font-weight:800}.badge.red{background:#fff0f1;border-color:#ffd5d8;color:#b70f16}.badge.green{background:#eefcf6;border-color:#ccefdc;color:#08784b}.badge.dark{background:#16171b;color:#fff;border-color:#16171b}
+    .meta-grid{display:grid;gap:10px;grid-template-columns:repeat(4,1fr);margin:12px 0}.meta{padding:12px;border-radius:16px;border:1px solid var(--line);background:#fff}.meta strong{display:block;color:var(--muted);font-size:.8rem;margin-bottom:6px}
+    .toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}.list{display:grid;gap:10px;max-height:520px;overflow:auto}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare-card{min-height:180px;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.notice{padding:13px 14px;border-radius:16px;background:#f5f7ff;border:1px solid #d9e1ff;color:#33417a}.empty{text-align:center;padding:28px;border:1px dashed #d7dbe2;border-radius:18px;color:var(--muted)}
+    .footer{margin-top:16px;color:var(--muted);font-size:.92rem;line-height:1.55}
+    @media (max-width:1100px){.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr 1fr}}
+    @media (max-width:720px){.hero-grid,.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr}.hero img{width:100px;height:100px}.ref{font-size:1.2rem}}
   </style>
 </head>
 <body>
-  <div class="app">
-    <section class="hero">
-      <div class="hero-grid">
-        <img src="logo-keymaster.jpg" alt="Logo KeyMaster Auto" class="hero-logo" />
-        <div>
-          <div class="tagline">KeyMaster Auto Pro</div>
-          <h1>Comparateur serrurier auto pro</h1>
-          <p>Recherche par référence, véhicule, type de lame, Lishi, Xhorse et transpondeur. Gestion de base locale, comparaison de profils, favoris, import/export JSON et mode web-app iPhone.</p>
-          <div class="chips">
-            <span class="chip">Recherche multi-marques</span>
-            <span class="chip">Plaque démo locale</span>
-            <span class="chip">Lishi + Xhorse</span>
-            <span class="chip">Import / export JSON</span>
-          </div>
+<div class="app">
+  <section class="hero">
+    <div class="hero-grid">
+      <img src="logo-keymaster.jpg" alt="Logo KeyMaster Auto">
+      <div>
+        <h1>KeyMaster Auto Expert</h1>
+        <p>Comparateur serrurier auto niveau atelier : profils Silca / JMA / Keyline / Errebi, Lishi, Xhorse, transpondeur, familles véhicules, ajout de fiches, favoris, comparaison, export JSON et recherche plaque en démo locale.</p>
+        <div class="chips">
+          <span class="chip">Expert serrurier auto</span>
+          <span class="chip">Lishi + Xhorse</span>
+          <span class="chip">Transpondeur</span>
+          <span class="chip">Import / export JSON</span>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section grid cards4">
-      <div class="stat"><div class="big" id="statRecords">0</div><div class="label">Profils chargés</div></div>
-      <div class="stat"><div class="big" id="statBrands">0</div><div class="label">Familles constructeur</div></div>
-      <div class="stat"><div class="big" id="statResults">0</div><div class="label">Résultats affichés</div></div>
-      <div class="stat"><div class="big" id="statFavs">0</div><div class="label">Favoris</div></div>
-    </section>
+  <section class="grid stats">
+    <div class="card stat"><div class="big" id="statRecords">0</div><div class="label">Fiches chargées</div></div>
+    <div class="card stat"><div class="big" id="statBrands">0</div><div class="label">Familles</div></div>
+    <div class="card stat"><div class="big" id="statResults">0</div><div class="label">Résultats</div></div>
+    <div class="card stat"><div class="big" id="statFavs">0</div><div class="label">Favoris</div></div>
+  </section>
 
-    <section class="section grid dashboard">
-      <div class="card">
-        <div class="toolbar">
-          <div>
-            <h2>Recherche principale</h2>
-            <div class="sub">Tape une référence type <strong>HU66</strong>, un véhicule, un Lishi, un type de transpondeur ou une marque.</div>
-          </div>
-          <span class="pill" id="searchSummary">Base prête</span>
-        </div>
-
-        <div class="grid search-grid">
-          <div>
-            <label for="searchInput">Recherche globale</label>
-            <input id="searchInput" placeholder="Ex : HU66, Clio 3, HU92, ID46, Toyota, HU101..." />
-          </div>
-          <div>
-            <label for="brandFilter">Famille véhicule</label>
-            <select id="brandFilter"><option value="">Toutes</option></select>
-          </div>
-          <div>
-            <label for="bladeFilter">Type lame</label>
-            <select id="bladeFilter">
-              <option value="">Tous</option>
-              <option value="laser">Laser / taillage interne</option>
-              <option value="standard">Standard</option>
-              <option value="smart">Smart key</option>
-              <option value="flip">Flip / plip</option>
-            </select>
-          </div>
-          <div>
-            <label for="transponderFilter">Transpondeur</label>
-            <select id="transponderFilter">
-              <option value="">Tous</option>
-              <option>ID46</option>
-              <option>ID48</option>
-              <option>ID4D</option>
-              <option>ID4C</option>
-              <option>PCF7941</option>
-              <option>PCF7946</option>
-              <option>PCF7947</option>
-              <option>Texas 80</option>
-              <option>Hitag AES</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="btns" style="margin-top:14px">
-          <button id="searchBtn">Rechercher</button>
-          <button class="secondary" id="resetBtn">Réinitialiser</button>
-          <button class="secondary" id="showFavsBtn">Voir favoris</button>
-          <button class="secondary" id="seedBtn">Réinitialiser la base pro</button>
-          <button class="secondary" id="exportBtn">Exporter JSON</button>
-        </div>
-
-        <div class="footer">
-          La recherche couvre : références Silca / JMA / Keyline / Errebi, familles véhicules, exemples de modèles, Lishi, type de lame, Xhorse et notes atelier.
-        </div>
+  <section class="grid main">
+    <div class="card">
+      <div class="toolbar"><div><h2>Recherche principale</h2><div class="sub">Recherche par référence, famille, modèle, Lishi, Xhorse, transpondeur ou note atelier.</div></div><div id="searchSummary" class="sub">Base prête</div></div>
+      <div class="search-grid">
+        <div><label for="searchInput">Recherche globale</label><input id="searchInput" placeholder="Ex : HU66, Yaris, ID48, HU92, Clio, XKHU83..."></div>
+        <div><label for="brandFilter">Famille</label><select id="brandFilter"><option value="">Toutes</option></select></div>
+        <div><label for="bladeFilter">Type lame</label><select id="bladeFilter"><option value="">Tous</option><option value="laser">Laser / interne</option><option value="standard">Standard</option><option value="flip">Flip / plip</option><option value="smart">Smart key</option></select></div>
+        <div><label for="transponderFilter">Transpondeur</label><select id="transponderFilter"><option value="">Tous</option><option>ID46</option><option>ID48</option><option>ID4D</option><option>ID4C</option><option>PCF7941</option><option>PCF7946</option><option>PCF7947</option><option>Texas 80</option><option>8A</option><option>AES</option></select></div>
       </div>
-
-      <div class="card stack">
-        <div>
-          <h3>Recherche plaque</h3>
-          <div class="sub">Mode démo local. Pour une vraie recherche plaque France en direct, il faudra brancher une API externe.</div>
-        </div>
-        <div>
-          <label for="plateInput">Plaque</label>
-          <input id="plateInput" placeholder="Ex : AA-123-AA" />
-        </div>
-        <div class="btns">
-          <button id="plateBtn">Chercher la plaque</button>
-          <button class="secondary" id="plateExamplesBtn">Exemples</button>
-        </div>
-        <div id="plateOutput" class="notice info">Aucune plaque recherchée.</div>
+      <div class="btns">
+        <button id="searchBtn">Rechercher</button>
+        <button class="secondary" id="resetBtn">Réinitialiser</button>
+        <button class="secondary" id="showFavsBtn">Voir favoris</button>
+        <button class="secondary" id="seedBtn">Réinitialiser la base pro</button>
+        <button class="secondary" id="exportBtn">Exporter JSON</button>
       </div>
-    </section>
+      <div class="footer">La recherche couvre : Silca / JMA / Keyline / Errebi, famille, modèles exemples, Lishi, Xhorse, type de lame, transpondeur et notes atelier.</div>
+    </div>
 
-    <section class="section grid tools-grid">
-      <div class="card">
-        <div class="toolbar">
-          <div>
-            <h2>Résultats</h2>
-            <div class="sub">Ajoute des favoris, compare jusqu’à 3 profils et copie les références.</div>
-          </div>
-        </div>
-        <div id="results" class="results"></div>
+    <div class="card">
+      <h2>Recherche plaque</h2>
+      <div class="sub">Mode démo locale. Pour du vrai temps réel, il faudra une API véhicule.</div>
+      <div style="margin-top:12px"><label for="plateInput">Plaque</label><input id="plateInput" placeholder="Ex : AA-123-AA"></div>
+      <div class="btns"><button id="plateBtn">Chercher la plaque</button><button class="secondary" id="plateExamplesBtn">Exemples</button></div>
+      <div id="plateOutput" class="notice">Aucune plaque recherchée.</div>
+    </div>
+  </section>
+
+  <section class="grid main">
+    <div class="card">
+      <h2>Résultats</h2>
+      <div id="results" class="results"></div>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="toolbar"><h3>Comparateur rapide</h3><button class="secondary" id="clearCompareBtn">Vider</button></div><div id="compareBox" class="compare"></div></div>
+      <div class="card"><div class="toolbar"><h3>Favoris</h3><button class="secondary" id="clearFavsBtn">Vider</button></div><div id="favoritesList" class="list"></div></div>
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>Ajouter une fiche</h2>
+      <div class="form-grid">
+        <div><label for="newFamily">Famille</label><input id="newFamily" placeholder="Toyota"></div>
+        <div><label for="newSilca">Silca</label><input id="newSilca" placeholder="TOY43"></div>
+        <div><label for="newJma">JMA</label><input id="newJma" placeholder="TOY-43"></div>
+        <div><label for="newKeyline">Keyline</label><input id="newKeyline" placeholder="TOY43"></div>
+        <div><label for="newErrebi">Errebi</label><input id="newErrebi" placeholder="TY30"></div>
+        <div><label for="newLishi">Lishi</label><input id="newLishi" placeholder="TOY43"></div>
+        <div><label for="newXhorse">Xhorse</label><input id="newXhorse" placeholder="XKTOY43"></div>
+        <div><label for="newBladeType">Type lame</label><select id="newBladeType"><option value="laser">Laser / interne</option><option value="standard">Standard</option><option value="flip">Flip / plip</option><option value="smart">Smart key</option></select></div>
+        <div><label for="newTransponder">Transpondeur</label><input id="newTransponder" placeholder="4C / ID48 / PCF7946"></div>
+        <div><label for="newYears">Années</label><input id="newYears" placeholder="2002-2008"></div>
+        <div><label for="newModels">Modèles</label><input id="newModels" placeholder="Yaris 1, Corolla..."></div>
+        <div><label for="newRefCode">Code interne</label><input id="newRefCode" placeholder="KM-TOY43-99"></div>
       </div>
+      <div style="margin-top:12px"><label for="newNotes">Notes atelier</label><textarea id="newNotes" placeholder="Notes utiles atelier..."></textarea></div>
+      <div class="btns"><button id="addBtn">Ajouter la fiche</button><button class="secondary" id="clearFormBtn">Vider</button><label class="button secondary">Importer JSON<input id="importFile" type="file" accept="application/json" style="display:none"></label></div>
+    </div>
 
-      <div class="stack">
-        <div class="card">
-          <h3>Comparateur rapide</h3>
-          <div class="sub">Sélectionne jusqu’à 3 fiches depuis les résultats pour les comparer ici.</div>
-          <div id="compareBox" class="compare" style="margin-top:14px">
-            <div class="compare-card"><div class="muted">Aucune fiche sélectionnée.</div></div>
-            <div class="compare-card"><div class="muted">Aucune fiche sélectionnée.</div></div>
-            <div class="compare-card"><div class="muted">Aucune fiche sélectionnée.</div></div>
-          </div>
-          <div class="btns" style="margin-top:12px">
-            <button class="secondary tiny" id="clearCompareBtn">Vider la comparaison</button>
-          </div>
-        </div>
+    <div class="card">
+      <div class="toolbar"><div><h2>Base locale</h2><div class="sub">Tu peux supprimer les fiches ajoutées ou repartir de la base pro.</div></div><button class="danger" id="clearCustomBtn">Tout vider</button></div>
+      <div id="datasetList" class="list"></div>
+    </div>
+  </section>
+</div>
 
-        <div class="card">
-          <div class="toolbar">
-            <h3 style="margin:0">Favoris</h3>
-            <button class="secondary tiny" id="clearFavsBtn">Vider</button>
-          </div>
-          <div id="favoritesList" class="list"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section grid tools-grid">
-      <div class="card">
-        <h2>Ajouter / modifier une fiche</h2>
-        <div class="grid search-grid">
-          <div><label for="newFamily">Famille véhicule</label><input id="newFamily" placeholder="Volkswagen / Audi / Seat / Skoda" /></div>
-          <div><label for="newSilca">Silca</label><input id="newSilca" placeholder="HU66" /></div>
-          <div><label for="newJma">JMA</label><input id="newJma" placeholder="HU-HAA" /></div>
-          <div><label for="newKeyline">Keyline</label><input id="newKeyline" placeholder="HU66" /></div>
-          <div><label for="newErrebi">Errebi</label><input id="newErrebi" placeholder="HF66" /></div>
-          <div><label for="newLishi">Lishi</label><input id="newLishi" placeholder="HU66 2-in-1" /></div>
-          <div><label for="newXhorse">Lame Xhorse</label><input id="newXhorse" placeholder="XKHU66EN" /></div>
-          <div><label for="newBladeType">Type lame</label>
-            <select id="newBladeType">
-              <option value="laser">Laser / taillage interne</option>
-              <option value="standard">Standard</option>
-              <option value="flip">Flip / plip</option>
-              <option value="smart">Smart key</option>
-            </select>
-          </div>
-          <div><label for="newTransponder">Transpondeur</label><input id="newTransponder" placeholder="ID48 / PCF7946 / Texas 80..." /></div>
-          <div><label for="newYears">Années approx.</label><input id="newYears" placeholder="2004-2014" /></div>
-          <div><label for="newModels">Exemples modèles</label><input id="newModels" placeholder="Golf V, A3 8P, Leon 2..." /></div>
-          <div><label for="newRefCode">Code interne</label><input id="newRefCode" placeholder="KM-HU66-01" /></div>
-        </div>
-        <div class="row" style="margin-top:14px">
-          <div>
-            <label for="newNotes">Notes atelier</label>
-            <textarea id="newNotes" placeholder="Infos utiles : variante, génération, point d'attention, fréquence, smart key..."></textarea>
-          </div>
-        </div>
-        <div class="btns" style="margin-top:14px">
-          <button id="addBtn">Ajouter la fiche</button>
-          <button class="secondary" id="clearFormBtn">Vider le formulaire</button>
-          <label class="button secondary" style="cursor:pointer">
-            Importer JSON
-            <input id="importFile" type="file" accept="application/json" style="display:none" />
-          </label>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="toolbar">
-          <div>
-            <h2>Base locale</h2>
-            <div class="sub">Tu peux supprimer les fiches que tu ajoutes ou repartir de la base pro.</div>
-          </div>
-          <button class="danger tiny" id="clearCustomBtn">Tout vider</button>
-        </div>
-        <div id="datasetList" class="list"></div>
-      </div>
-    </section>
-
-    <section class="section card">
-      <h2>Mode d’emploi rapide</h2>
-      <div class="search-modes">
-        <div class="notice">1. Recherche globale : tape HU66, HU92, Yaris, Clio, ID48, HU101, etc.</div>
-        <div class="notice">2. Plaque : utilise les exemples ou branche plus tard une API véhicule.</div>
-        <div class="notice">3. Résultats : ajoute aux favoris, compare, puis exporte ta base quand elle te plaît.</div>
-        <div class="notice">4. Ajout : crée tes fiches atelier avec tes notes terrain, profils et Xhorse.</div>
-      </div>
-      <div class="footer">La base fournie ici est une <strong>base de démarrage pro</strong> avec des profils auto courants. Elle n’est pas une base constructeur exhaustive et doit être validée visuellement avant taille ou programmation.</div>
-    </section>
-  </div>
-
-  <script>
+<script>
+const STORAGE_KEY = 'keymaster_auto_expert_v1';
+const FAVORITES_KEY = 'keymaster_auto_expert_favs_v1';
+const COMPARE_KEY = 'keymaster_auto_expert_compare_v1';
 
 // ==========================
 // 🔴 BASE DE DONNÉES AUTO
 // ==========================
 const autoKeysDatabase = [
-  { marque: "Volkswagen / Audi / Seat / Skoda", silca: "HU66", jma: "HU66", keyline: "HU66", errebi: "HU66", type: "Lame plip / transpondeur", note: "Très courant VAG, attention ID48" },
-  { marque: "Peugeot / Citroën", silca: "VA2", jma: "VA2", keyline: "VA2", errebi: "VA2", type: "Lame plip", note: "Anciennes PSA" },
-  { marque: "Peugeot / Citroën", silca: "HU83", jma: "HU83", keyline: "HU83", errebi: "HU83", type: "Transpondeur", note: "Très courant PSA" },
-  { marque: "Renault", silca: "VA2T", jma: "VA2T", keyline: "VA2T", errebi: "VA2T", type: "Plip", note: "Clio, Megane anciennes" },
-  { marque: "Renault", silca: "NE72", jma: "NE72", keyline: "NE72", errebi: "NE72", type: "Carte / transpondeur", note: "Clé carte Renault" },
-  { marque: "Ford", silca: "HU101", jma: "HU101", keyline: "HU101", errebi: "HU101", type: "Plip", note: "Focus, Fiesta modernes" },
-  { marque: "Ford", silca: "FO21", jma: "FO21", keyline: "FO21", errebi: "FO21", type: "Ancien", note: "Ford anciennes" },
-  { marque: "BMW", silca: "HU92", jma: "HU92", keyline: "HU92", errebi: "HU92", type: "Plip", note: "Très courant BMW" },
-  { marque: "Mercedes", silca: "HU64", jma: "HU64", keyline: "HU64", errebi: "HU64", type: "Plip", note: "Classe A/B/C" },
-  { marque: "Toyota", silca: "TOY43", jma: "TOY43", keyline: "TOY43", errebi: "TOY43", type: "Transpondeur", note: "Très courant Toyota" },
-  { marque: "Toyota", silca: "TOY47", jma: "TOY47", keyline: "TOY47", errebi: "TOY47", type: "Transpondeur", note: "Plus récent" },
-  { marque: "Nissan", silca: "NSN14", jma: "NSN14", keyline: "NSN14", errebi: "NSN14", type: "Plip", note: "Qashqai, Micra" },
-  { marque: "Honda", silca: "HON66", jma: "HON66", keyline: "HON66", errebi: "HON66", type: "Transpondeur", note: "Civic, CR-V" },
-  { marque: "Opel", silca: "HU100", jma: "HU100", keyline: "HU100", errebi: "HU100", type: "Plip", note: "Corsa, Astra" },
-  { marque: "Hyundai / Kia", silca: "HYN20", jma: "HYN20", keyline: "HYN20", errebi: "HYN20", type: "Plip", note: "Très courant" }
+  { id:'KM-HU66-01', family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Lame plip / transpondeur", note:"Très courant VAG, attention ID48", lishi:"HU66 2-in-1", xhorse:"XKHU66EN", bladeType:"laser", transponder:"ID48", years:"2004-2014", models:"Golf V, Golf VI, A3 8P, Leon 2, Octavia 2" },
+  { id:'KM-VA2-01', family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"VA2", jma:"VA2", keyline:"VA2", errebi:"VA2", type:"Lame plip", note:"Anciennes PSA", lishi:"VA2 2-in-1", xhorse:"XKVA2", bladeType:"laser", transponder:"ID46", years:"1998-2009", models:"206, 307, Berlingo, C3" },
+  { id:'KM-HU83-01', family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"HU83", jma:"HU83", keyline:"HU83", errebi:"HU83", type:"Transpondeur", note:"Très courant PSA", lishi:"HU83 2-in-1", xhorse:"XKHU83", bladeType:"laser", transponder:"PCF7941 / PCF7946", years:"2004-2018", models:"207, 208, 308, C4, DS3" },
+  { id:'KM-VA2T-01', family:"Renault", marque:"Renault", silca:"VA2T", jma:"VA2T", keyline:"VA2T", errebi:"VA2T", type:"Plip", note:"Clio, Megane anciennes", lishi:"VA2T", xhorse:"XKVA2T", bladeType:"laser", transponder:"ID46", years:"2001-2010", models:"Clio 2/3, Megane 2, Scenic 2" },
+  { id:'KM-NE72-01', family:"Renault", marque:"Renault", silca:"NE72", jma:"NE72", keyline:"NE72", errebi:"NE72", type:"Carte / transpondeur", note:"Clé carte Renault", lishi:"NE72", xhorse:"XKNE72", bladeType:"laser", transponder:"PCF7947", years:"2003-2016", models:"Megane 2/3, Scenic 2/3, Laguna 3" },
+  { id:'KM-HU101-01', family:"Ford", marque:"Ford", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Plip", note:"Focus, Fiesta modernes", lishi:"HU101 2-in-1", xhorse:"XKHU101", bladeType:"laser", transponder:"ID63 / 80bit", years:"2011-2019", models:"Focus, Fiesta, C-Max, Transit Connect" },
+  { id:'KM-FO21-01', family:"Ford", marque:"Ford", silca:"FO21", jma:"FO21", keyline:"FO21", errebi:"FO21", type:"Ancien", note:"Ford anciennes", lishi:"FO21", xhorse:"XKFO21", bladeType:"standard", transponder:"ID4D", years:"1998-2008", models:"Focus 1, Fiesta, Mondeo" },
+  { id:'KM-HU92-01', family:"BMW", marque:"BMW", silca:"HU92", jma:"HU92", keyline:"HU92", errebi:"HU92", type:"Plip", note:"Très courant BMW", lishi:"HU92 2-in-1", xhorse:"XKHU92EN", bladeType:"laser", transponder:"ID46", years:"2002-2014", models:"E87, E90, E60, X3 E83" },
+  { id:'KM-HU64-01', family:"Mercedes", marque:"Mercedes", silca:"HU64", jma:"HU64", keyline:"HU64", errebi:"HU64", type:"Plip", note:"Classe A/B/C", lishi:"HU64 2-in-1", xhorse:"XKHU64", bladeType:"laser", transponder:"ID46", years:"2004-2014", models:"W169, W204, W212" },
+  { id:'KM-TOY43-01', family:"Toyota", marque:"Toyota", silca:"TOY43", jma:"TOY43", keyline:"TOY43", errebi:"TOY43", type:"Transpondeur", note:"Très courant Toyota", lishi:"TOY43", xhorse:"XKTOY43", bladeType:"laser", transponder:"4C / 4D", years:"2000-2008", models:"Yaris 1, Corolla, Avensis" },
+  { id:'KM-TOY47-01', family:"Toyota", marque:"Toyota", silca:"TOY47", jma:"TOY47", keyline:"TOY47", errebi:"TOY47", type:"Transpondeur", note:"Plus récent", lishi:"TOY47", xhorse:"XKTOY47", bladeType:"laser", transponder:"G chip / 8A selon version", years:"2008-2018", models:"Yaris 2/3, Auris, Prius" },
+  { id:'KM-NSN14-01', family:"Nissan", marque:"Nissan", silca:"NSN14", jma:"NSN14", keyline:"NSN14", errebi:"NSN14", type:"Plip", note:"Qashqai, Micra", lishi:"NSN14", xhorse:"XKNSN14", bladeType:"laser", transponder:"ID46", years:"2005-2018", models:"Qashqai, Micra, Note" },
+  { id:'KM-HON66-01', family:"Honda", marque:"Honda", silca:"HON66", jma:"HON66", keyline:"HON66", errebi:"HON66", type:"Transpondeur", note:"Civic, CR-V", lishi:"HON66", xhorse:"XKHON66", bladeType:"laser", transponder:"ID46", years:"2003-2016", models:"Civic, CR-V, Jazz" },
+  { id:'KM-HU100-01', family:"Opel", marque:"Opel", silca:"HU100", jma:"HU100", keyline:"HU100", errebi:"HU100", type:"Plip", note:"Corsa, Astra", lishi:"HU100", xhorse:"XKHU100", bladeType:"laser", transponder:"ID46", years:"2006-2016", models:"Corsa D/E, Astra J, Meriva" },
+  { id:'KM-HYN20-01', family:"Hyundai / Kia", marque:"Hyundai / Kia", silca:"HYN20", jma:"HYN20", keyline:"HYN20", errebi:"HYN20", type:"Plip", note:"Très courant", lishi:"HYN20", xhorse:"XKHYN20", bladeType:"laser", transponder:"ID46", years:"2010-2020", models:"i20, i30, Ceed, Rio" },
+  { id:'KM-SIP22-01', family:"Fiat / Alfa / Lancia", marque:"Fiat / Alfa / Lancia", silca:"SIP22", jma:"SIP22", keyline:"SIP22", errebi:"SIP22", type:"Laser", note:"Groupe Fiat courant", lishi:"SIP22", xhorse:"XKSIP22", bladeType:"laser", transponder:"ID46", years:"2006-2018", models:"500, Punto, Bravo, Giulietta" },
+  { id:'KM-DW04-01', family:"Dacia / Renault", marque:"Dacia / Renault", silca:"DA34", jma:"DA34", keyline:"DA34", errebi:"DA34", type:"Standard", note:"Profil Dacia courant", lishi:"DA34", xhorse:"XKDA34", bladeType:"standard", transponder:"ID46", years:"2005-2018", models:"Logan, Sandero, Duster" },
+  { id:'KM-HY18-01', family:"Hyundai / Kia", marque:"Hyundai / Kia", silca:"HY18", jma:"HY18", keyline:"HY18", errebi:"HY18", type:"Standard", note:"Ancien Hyundai / Kia", lishi:"HY18", xhorse:"XKHY18", bladeType:"standard", transponder:"ID46", years:"2000-2010", models:"Getz, Accent, Picanto" },
+  { id:'KM-HU162T-01', family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"VAG récent AES", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", years:"2015+", models:"Golf 7, A3 8V, Leon 3" },
+  { id:'KM-TOY50-01', family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY50", jma:"TOY50", keyline:"TOY50", errebi:"TOY50", type:"Smart key", note:"Toyota / Lexus récent", lishi:"TOY50", xhorse:"XKTOY50", bladeType:"smart", transponder:"8A", years:"2018+", models:"Corolla 2019+, Camry, Lexus" }
 ];
 
-// ==========================
-// 🟢 BASE PRINCIPALE
-// ==========================
-let database = [...autoKeysDatabase];
+const plateDatabase = {
+  'AA123AA': {plate:'AA-123-AA', make:'Peugeot', model:'207', year:'2011', profile:'HU83', note:'Exemple démo locale'},
+  'AB456CD': {plate:'AB-456-CD', make:'Renault', model:'Clio III', year:'2008', profile:'VA2T', note:'Exemple démo locale'},
+  'EF789GH': {plate:'EF-789-GH', make:'Volkswagen', model:'Golf VI', year:'2010', profile:'HU66', note:'Exemple démo locale'},
+  'JK321LM': {plate:'JK-321-LM', make:'Ford', model:'Focus', year:'2015', profile:'HU101', note:'Exemple démo locale'},
+  'NO654PQ': {plate:'NO-654-PQ', make:'Toyota', model:'Yaris', year:'2005', profile:'TOY43', note:'Exemple démo locale'}
+};
 
-// ==========================
-// 🔍 RECHERCHE
-// ==========================
-function searchData() {
-  const query = document.getElementById("searchInput").value.toLowerCase();
-  const results = database.filter(item =>
-    item.marque.toLowerCase().includes(query) ||
-    item.silca.toLowerCase().includes(query) ||
-    item.jma.toLowerCase().includes(query) ||
-    item.keyline.toLowerCase().includes(query) ||
-    item.errebi.toLowerCase().includes(query)
-  );
-  displayResults(results);
+let records = loadJson(STORAGE_KEY, autoKeysDatabase);
+if (!Array.isArray(records) || !records.length) records = structuredClone(autoKeysDatabase);
+let favorites = loadJson(FAVORITES_KEY, []);
+let compareIds = loadJson(COMPARE_KEY, []);
+
+function loadJson(key, fallback){ try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : structuredClone(fallback);} catch(e){ return structuredClone(fallback);} }
+function saveJson(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
+function normalize(v){ return (v||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
+function escapeHtml(v){ return (v||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+function uniqueFamilies(){ return [...new Set(records.map(r => r.family || r.marque).filter(Boolean))].sort((a,b)=>a.localeCompare(b)); }
+function saveRecords(){ saveJson(STORAGE_KEY, records); }
+
+function refreshStats(resultCount = 0){
+  document.getElementById('statRecords').textContent = records.length;
+  document.getElementById('statBrands').textContent = uniqueFamilies().length;
+  document.getElementById('statResults').textContent = resultCount;
+  document.getElementById('statFavs').textContent = favorites.length;
 }
 
-// ==========================
-// 📋 AFFICHAGE
-// ==========================
-function displayResults(results) {
-  const container = document.getElementById("results");
-  container.innerHTML = "";
+function refreshFamilyFilter(){
+  const select = document.getElementById('brandFilter');
+  const current = select.value;
+  select.innerHTML = '<option value="">Toutes</option>';
+  uniqueFamilies().forEach(f => { const o = document.createElement('option'); o.value = f; o.textContent = f; select.appendChild(o); });
+  if ([...select.options].some(o => o.value === current)) select.value = current;
+}
 
-  if (results.length === 0) {
-    container.innerHTML = "<p>Aucun résultat</p>";
-    return;
+function searchableText(r){
+  return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models].join(' | '));
+}
+
+function runSearch(source = records){
+  const q = normalize(document.getElementById('searchInput').value);
+  const family = document.getElementById('brandFilter').value;
+  const blade = document.getElementById('bladeFilter').value;
+  const transponder = normalize(document.getElementById('transponderFilter').value);
+  const filtered = source.filter(r => {
+    const qOk = !q || searchableText(r).includes(q);
+    const familyOk = !family || (r.family || r.marque) === family;
+    const bladeOk = !blade || (r.bladeType || '').toLowerCase() === blade;
+    const transOk = !transponder || normalize(r.transponder).includes(transponder);
+    return qOk && familyOk && bladeOk && transOk;
+  });
+  renderResults(filtered);
+  document.getElementById('searchSummary').textContent = `${filtered.length} résultat(s)`;
+  refreshStats(filtered.length);
+}
+
+function renderResults(list){
+  const box = document.getElementById('results');
+  if (!list.length) { box.innerHTML = '<div class="empty">Aucun résultat</div>'; return; }
+  box.innerHTML = list.map(r => {
+    const id = escapeHtml(r.id || '');
+    const isFav = favorites.includes(r.id);
+    const inCompare = compareIds.includes(r.id);
+    return `
+      <div class="result">
+        <div class="head">
+          <div>
+            <div class="ref">${escapeHtml(r.silca || '-')}</div>
+            <div class="sub"><strong>${escapeHtml(r.family || r.marque || '-')}</strong> · ${escapeHtml(r.models || 'Sans modèles renseignés')}</div>
+          </div>
+          <div class="badges">
+            <span class="badge red">${escapeHtml(r.type || r.bladeType || '-')}</span>
+            <span class="badge">${escapeHtml(r.transponder || '-')}</span>
+            <span class="badge dark">${escapeHtml(r.lishi || '-')}</span>
+            <span class="badge green">${escapeHtml(r.xhorse || '-')}</span>
+          </div>
+        </div>
+        <div class="meta-grid">
+          <div class="meta"><strong>JMA</strong>${escapeHtml(r.jma || '-')}</div>
+          <div class="meta"><strong>Keyline</strong>${escapeHtml(r.keyline || '-')}</div>
+          <div class="meta"><strong>Errebi</strong>${escapeHtml(r.errebi || '-')}</div>
+          <div class="meta"><strong>Années</strong>${escapeHtml(r.years || '-')}</div>
+        </div>
+        <div class="sub"><strong>Note atelier :</strong> ${escapeHtml(r.note || r.notes || '-')}</div>
+        <div class="sub" style="margin-top:8px"><strong>Code fiche :</strong> ${id}</div>
+        <div class="btns">
+          <button class="secondary" data-action="fav" data-id="${id}">${isFav ? 'Retirer favori' : 'Ajouter favori'}</button>
+          <button class="secondary" data-action="compare" data-id="${id}">${inCompare ? 'Retirer comparaison' : 'Comparer'}</button>
+          <button class="secondary" data-action="copy" data-id="${id}">Copier réf.</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderFavorites(){
+  const box = document.getElementById('favoritesList');
+  const favRecords = records.filter(r => favorites.includes(r.id));
+  if (!favRecords.length) { box.innerHTML = '<div class="empty">Aucun favori.</div>'; return; }
+  box.innerHTML = favRecords.map(r => `<div class="item"><div><strong>${escapeHtml(r.silca)}</strong><div class="sub">${escapeHtml(r.family || r.marque)}</div></div><button class="secondary" data-action="fav" data-id="${escapeHtml(r.id)}">Retirer</button></div>`).join('');
+}
+
+function renderCompare(){
+  const box = document.getElementById('compareBox');
+  const selected = compareIds.map(id => records.find(r => r.id === id)).filter(Boolean).slice(0,3);
+  const cards = [];
+  for (let i = 0; i < 3; i++) {
+    const r = selected[i];
+    cards.push(r ? `<div class="compare-card"><h3>${escapeHtml(r.silca)}</h3><div class="sub"><strong>${escapeHtml(r.family || r.marque)}</strong></div><div class="sub">JMA: ${escapeHtml(r.jma || '-')}</div><div class="sub">Keyline: ${escapeHtml(r.keyline || '-')}</div><div class="sub">Errebi: ${escapeHtml(r.errebi || '-')}</div><div class="sub">Lishi: ${escapeHtml(r.lishi || '-')}</div><div class="sub">Xhorse: ${escapeHtml(r.xhorse || '-')}</div><div class="sub">Transpondeur: ${escapeHtml(r.transponder || '-')}</div></div>` : '<div class="compare-card"><div class="empty">Aucune fiche sélectionnée.</div></div>');
   }
+  box.innerHTML = cards.join('');
+}
 
-  results.forEach(item => {
-    container.innerHTML += `
-      <div class="card">
-        <h3>${item.marque}</h3>
-        <p><b>Silca:</b> ${item.silca}</p>
-        <p><b>JMA:</b> ${item.jma}</p>
-        <p><b>Keyline:</b> ${item.keyline}</p>
-        <p><b>Errebi:</b> ${item.errebi}</p>
-        <p><b>Type:</b> ${item.type}</p>
-        <p><b>Note:</b> ${item.note}</p>
-      </div>
-    `;
+function renderDatasetList(){
+  const box = document.getElementById('datasetList');
+  if (!records.length) { box.innerHTML = '<div class="empty">Base vide.</div>'; return; }
+  box.innerHTML = records.map(r => `<div class="item"><div><strong>${escapeHtml(r.silca || '-')}</strong><div class="sub">${escapeHtml(r.family || r.marque || '-')} · ${escapeHtml(r.id || '')}</div></div><button class="secondary" data-action="delete" data-id="${escapeHtml(r.id)}">Supprimer</button></div>`).join('');
+}
+
+function toggleFavorite(id){
+  favorites = favorites.includes(id) ? favorites.filter(x => x !== id) : [...favorites, id];
+  saveJson(FAVORITES_KEY, favorites); renderFavorites(); renderResults(getCurrentResults()); refreshStats(getCurrentResults().length);
+}
+
+function toggleCompare(id){
+  if (compareIds.includes(id)) compareIds = compareIds.filter(x => x !== id);
+  else if (compareIds.length < 3) compareIds.push(id);
+  else { alert('Maximum 3 fiches dans le comparateur'); return; }
+  saveJson(COMPARE_KEY, compareIds); renderCompare(); renderResults(getCurrentResults());
+}
+
+function deleteRecord(id){
+  records = records.filter(r => r.id !== id);
+  favorites = favorites.filter(x => x !== id);
+  compareIds = compareIds.filter(x => x !== id);
+  saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds);
+  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); runSearch();
+}
+
+function getCurrentResults(){
+  const q = normalize(document.getElementById('searchInput').value);
+  const family = document.getElementById('brandFilter').value;
+  const blade = document.getElementById('bladeFilter').value;
+  const transponder = normalize(document.getElementById('transponderFilter').value);
+  return records.filter(r => (!q || searchableText(r).includes(q)) && (!family || (r.family || r.marque) === family) && (!blade || (r.bladeType || '').toLowerCase() === blade) && (!transponder || normalize(r.transponder).includes(transponder)));
+}
+
+function addKey(){
+  const family = document.getElementById('newFamily').value.trim();
+  const silca = document.getElementById('newSilca').value.trim();
+  if (!family || !silca) { alert('Renseigne au minimum Famille et Silca'); return; }
+  const record = {
+    id: document.getElementById('newRefCode').value.trim() || `KM-${silca.replace(/[^A-Za-z0-9]/g,'').toUpperCase()}-${Date.now().toString().slice(-4)}`,
+    family, marque: family, silca,
+    jma: document.getElementById('newJma').value.trim(),
+    keyline: document.getElementById('newKeyline').value.trim(),
+    errebi: document.getElementById('newErrebi').value.trim(),
+    lishi: document.getElementById('newLishi').value.trim(),
+    xhorse: document.getElementById('newXhorse').value.trim(),
+    bladeType: document.getElementById('newBladeType').value,
+    transponder: document.getElementById('newTransponder').value.trim(),
+    years: document.getElementById('newYears').value.trim(),
+    models: document.getElementById('newModels').value.trim(),
+    type: document.getElementById('newBladeType').options[document.getElementById('newBladeType').selectedIndex].text,
+    note: document.getElementById('newNotes').value.trim()
+  };
+  records.unshift(record); saveRecords(); clearForm(); refreshFamilyFilter(); renderDatasetList(); runSearch(); alert('Fiche ajoutée');
+}
+
+function clearForm(){ ['newFamily','newSilca','newJma','newKeyline','newErrebi','newLishi','newXhorse','newTransponder','newYears','newModels','newRefCode','newNotes'].forEach(id=>document.getElementById(id).value=''); document.getElementById('newBladeType').value='laser'; }
+function resetDatabase(){ records = structuredClone(autoKeysDatabase); favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); runSearch(); }
+function exportData(){ const blob = new Blob([JSON.stringify(records, null, 2)], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'keymaster-auto-expert.json'; a.click(); URL.revokeObjectURL(url); }
+
+function importData(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+      if (!Array.isArray(parsed)) throw new Error();
+      records = parsed; saveRecords(); refreshFamilyFilter(); renderDatasetList(); runSearch(); alert('Import terminé');
+    } catch(e){ alert('JSON invalide'); }
+  };
+  reader.readAsText(file);
+}
+
+function searchPlate(){
+  const clean = (document.getElementById('plateInput').value || '').replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+  const out = document.getElementById('plateOutput');
+  if (!clean) { out.textContent = 'Entre une plaque.'; return; }
+  const found = plateDatabase[clean];
+  if (!found) { out.textContent = 'Plaque non trouvée dans la démo locale.'; return; }
+  out.innerHTML = `<strong>${found.plate}</strong> · ${found.make} ${found.model} ${found.year}<br>Profil probable : <strong>${found.profile}</strong><br>${found.note}`;
+  document.getElementById('searchInput').value = found.profile;
+  runSearch();
+}
+
+function attachDelegates(){
+  document.body.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const action = btn.dataset.action; const id = btn.dataset.id;
+    if (action === 'fav') toggleFavorite(id);
+    if (action === 'compare') toggleCompare(id);
+    if (action === 'delete') deleteRecord(id);
+    if (action === 'copy') navigator.clipboard.writeText(id).then(()=>alert('Référence copiée')).catch(()=>alert('Copie impossible'));
   });
 }
 
-// ==========================
-// ➕ AJOUT
-// ==========================
-function addKey() {
-  const marque = document.getElementById("marque").value;
-  const silca = document.getElementById("silca").value;
-
-  if (!marque || !silca) return alert("Remplis les champs");
-
-  database.push({
-    marque,
-    silca,
-    jma: "",
-    keyline: "",
-    errebi: "",
-    type: "",
-    note: ""
-  });
-
-  alert("Ajouté !");
+function init(){
+  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); runSearch(); attachDelegates();
+  document.getElementById('searchBtn').addEventListener('click', runSearch);
+  document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; runSearch(); });
+  document.getElementById('showFavsBtn').addEventListener('click', () => renderResults(records.filter(r => favorites.includes(r.id))));
+  document.getElementById('seedBtn').addEventListener('click', resetDatabase);
+  document.getElementById('exportBtn').addEventListener('click', exportData);
+  document.getElementById('addBtn').addEventListener('click', addKey);
+  document.getElementById('clearFormBtn').addEventListener('click', clearForm);
+  document.getElementById('clearCustomBtn').addEventListener('click', () => { if (!confirm('Vider toute la base locale ?')) return; records = []; favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); runSearch(); });
+  document.getElementById('clearCompareBtn').addEventListener('click', () => { compareIds=[]; saveJson(COMPARE_KEY, compareIds); renderCompare(); runSearch(); });
+  document.getElementById('clearFavsBtn').addEventListener('click', () => { favorites=[]; saveJson(FAVORITES_KEY, favorites); renderFavorites(); runSearch(); refreshStats(getCurrentResults().length); });
+  document.getElementById('plateBtn').addEventListener('click', searchPlate);
+  document.getElementById('plateExamplesBtn').addEventListener('click', () => { document.getElementById('plateInput').value='AA-123-AA'; searchPlate(); });
+  document.getElementById('importFile').addEventListener('change', (e) => { if (e.target.files[0]) importData(e.target.files[0]); e.target.value=''; });
+  document.getElementById('searchInput').addEventListener('keydown', (e)=>{ if (e.key === 'Enter') runSearch(); });
+  ['brandFilter','bladeFilter','transponderFilter'].forEach(id => document.getElementById(id).addEventListener('change', runSearch));
 }
 
-// ==========================
-// 🔄 RESET
-// ==========================
-function resetDatabase() {
-  database = [...autoKeysDatabase];
-  alert("Base réinitialisée");
-}
-
-// ==========================
-// 💾 EXPORT
-// ==========================
-function exportData() {
-  const dataStr = JSON.stringify(database, null, 2);
-  const blob = new Blob([dataStr], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "keys.json";
-  a.click();
-}
-
-// ==========================
-// 🔘 EVENTS
-// ==========================
-document.getElementById("searchBtn").addEventListener("click", searchData);
-document.getElementById("resetBtn").addEventListener("click", () => {
-  document.getElementById("searchInput").value = "";
-  displayResults(database);
-});
-document.getElementById("addBtn").addEventListener("click", addKey);
-document.getElementById("exportBtn").addEventListener("click", exportData);
-document.getElementById("seedBtn").addEventListener("click", resetDatabase);
-
-// ==========================
-// 🚀 INIT
-// ==========================
-displayResults(database);
-
+document.addEventListener('DOMContentLoaded', init);
 </script>
-    const STORAGE_KEY = 'keymaster_auto_pro_v2';
-    const FAVORITES_KEY = 'keymaster_auto_favorites_v2';
-    const COMPARE_KEY = 'keymaster_auto_compare_v2';
-
-    const seedData = [
-      {id:'KM-HU66-01', family:'Volkswagen / Audi / Seat / Skoda', silca:'HU66', jma:'HU-HAA', keyline:'HU66', errebi:'HF66', lishi:'HU66 2-in-1', xhorse:'XKHU66EN', bladeType:'laser', transponder:'ID48', years:'2004-2014', models:'Golf V, Golf VI, A3 8P, Leon 2, Octavia 2', notes:'Profil VAG très courant. Vérifier génération et présence télécommande / smart.', tags:['vag','vw','audi']},
-      {id:'KM-HU162T-01', family:'Volkswagen / Audi / Seat / Skoda', silca:'HU162T', jma:'HU162T', keyline:'HU162T', errebi:'HU162T', lishi:'HU162T 2-in-1', xhorse:'XKHU162', bladeType:'laser', transponder:'Hitag AES', years:'2015+', models:'Golf 7, A3 8V, Leon 3, Octavia 3', notes:'Profil plus récent VAG. Souvent smart key / prox.', tags:['vag','aes']},
-      {id:'KM-HU92-01', family:'BMW', silca:'HU92', jma:'BM-5', keyline:'BM5', errebi:'BM3', lishi:'HU92 2-in-1', xhorse:'XKHU92EN', bladeType:'laser', transponder:'ID46', years:'2002-2014', models:'Série 1 E87, Série 3 E46/E90, Série 5 E60, X3 E83', notes:'Très courant BMW. Contrôler si clé simple ou télécommande.', tags:['bmw']},
-      {id:'KM-HU58-01', family:'BMW', silca:'HU58', jma:'BM-2', keyline:'BM2', errebi:'BM1', lishi:'HU58 2-in-1', xhorse:'XKHU58', bladeType:'laser', transponder:'ID44', years:'1995-2003', models:'Série 3 E36, Série 5 E39, Z3', notes:'Ancien profil BMW.', tags:['bmw','ancien']},
-      {id:'KM-HU64-01', family:'Mercedes', silca:'HU64', jma:'HU64', keyline:'HU64', errebi:'HU64', lishi:'HU64 2-in-1', xhorse:'XKHU64', bladeType:'laser', transponder:'ID46', years:'2004-2014', models:'Classe C W204, Classe E W212, Classe A W169', notes:'Profil Mercedes fréquent. Vérifier si vraie smart key ou insert d’urgence.', tags:['mercedes']},
-      {id:'KM-VA2-01', family:'Peugeot / Citroën', silca:'VA2', jma:'P-8', keyline:'VAC2', errebi:'CY24', lishi:'VA2 2-in-1', xhorse:'XKVA2', bladeType:'laser', transponder:'ID46', years:'1998-2009', models:'206, 307, Partner, Berlingo, Xsara, C3', notes:'Ancien PSA. Très répandu.', tags:['psa']},
-      {id:'KM-HU83-01', family:'Peugeot / Citroën / DS', silca:'HU83', jma:'HU83', keyline:'HU83', errebi:'HU83', lishi:'HU83 2-in-1', xhorse:'XKHU83', bladeType:'laser', transponder:'PCF7941 / PCF7946', years:'2004-2018', models:'207, 208, 308, 3008, C4, C5, DS3', notes:'PSA très courant. Vérifier si flip ou smart.', tags:['psa','pcf']},
-      {id:'KM-HU83R-01', family:'Peugeot / Citroën / DS', silca:'HU83R', jma:'HU83R', keyline:'HU83R', errebi:'HU83R', lishi:'HU83R', xhorse:'XKHU83R', bladeType:'laser', transponder:'PCF7946', years:'2016+', models:'508 II, 3008 II, C4 Picasso récents', notes:'Version réversible / plus récente selon support.', tags:['psa','recent']},
-      {id:'KM-VA6-01', family:'Peugeot / Citroën', silca:'VA6', jma:'P-6', keyline:'VAC6', errebi:'CY22', lishi:'VA6', xhorse:'XKVA6', bladeType:'standard', transponder:'ID33 / aucun', years:'1990-2001', models:'106, Saxo, ZX, 405', notes:'Ancien profil standard PSA.', tags:['psa','ancien']},
-      {id:'KM-VA2T-01', family:'Renault / Dacia', silca:'VA2T', jma:'REN-9', keyline:'REN9T', errebi:'RA6T', lishi:'VA2T 2-in-1', xhorse:'XKVA2T', bladeType:'laser', transponder:'PCF7946 / PCF7947', years:'2001-2014', models:'Clio 2, Clio 3, Megane 2, Scenic 2, Kangoo 2', notes:'Très utilisé Renault. Peut être carte ou plip selon véhicule.', tags:['renault','pcf']},
-      {id:'KM-NE72-01', family:'Renault / Dacia', silca:'NE72', jma:'REN-6D', keyline:'REN6', errebi:'RA4', lishi:'NE72', xhorse:'XKNE72', bladeType:'laser', transponder:'ID46', years:'1998-2008', models:'Clio 2, Kangoo 1, Master 2, Trafic 2', notes:'Ancien profil Renault / Dacia. Ne pas confondre avec VA2T.', tags:['renault']},
-      {id:'KM-SIP22-01', family:'Fiat / Alfa Romeo / Lancia / Iveco', silca:'SIP22', jma:'SIP22', keyline:'SIP22', errebi:'SIP22', lishi:'SIP22 2-in-1', xhorse:'XKSIP22', bladeType:'laser', transponder:'ID48 / PCF7946', years:'2003-2018', models:'Punto, 500, Doblo, Ducato, Giulietta', notes:'Très courant groupe Fiat. Vérifier format télécommande.', tags:['fiat']},
-      {id:'KM-SIP21-01', family:'Fiat / Alfa Romeo / Lancia', silca:'SIP21', jma:'SIP21', keyline:'SIP21', errebi:'SIP21', lishi:'SIP21', xhorse:'XKSIP21', bladeType:'laser', transponder:'ID48', years:'1998-2008', models:'Punto 2, Stilo, Idea', notes:'Profil Fiat plus ancien.', tags:['fiat','ancien']},
-      {id:'KM-HU101-01', family:'Ford', silca:'HU101', jma:'FO-21T', keyline:'FO21T', errebi:'FD86', lishi:'HU101 2-in-1', xhorse:'XKHU101', bladeType:'laser', transponder:'ID63 / 80bit', years:'2010+', models:'Focus 3, Fiesta 7, Mondeo 4, C-Max', notes:'Très courant Ford moderne.', tags:['ford']},
-      {id:'KM-FO21-01', family:'Ford', silca:'FO21', jma:'FO-21D', keyline:'FO21', errebi:'FD16', lishi:'FO21', xhorse:'XKFO21', bladeType:'standard', transponder:'ID4D / ID63', years:'1998-2010', models:'Focus 1, Focus 2, Fiesta 5, Transit', notes:'Ford ancien / transition.', tags:['ford','ancien']},
-      {id:'KM-HU100-01', family:'Opel / Chevrolet', silca:'HU100', jma:'OP-16', keyline:'OP16', errebi:'OP12', lishi:'HU100 2-in-1', xhorse:'XKHU100', bladeType:'laser', transponder:'ID46', years:'2004-2018', models:'Corsa D/E, Astra H/J, Insignia', notes:'Très courant Opel.', tags:['opel']},
-      {id:'KM-TOY43-01', family:'Toyota', silca:'TOY43', jma:'TOY43AT', keyline:'TOY43', errebi:'TY43', lishi:'TOY43AT 2-in-1', xhorse:'XKTOY43', bladeType:'laser', transponder:'4D / 4C', years:'1999-2008', models:'Yaris 1, Corolla E12, Avensis T25, Rav4 2', notes:'Très courant Toyota ancien. Bon point de départ Yaris 1.', tags:['toyota','4d']},
-      {id:'KM-TOY47-01', family:'Toyota / Lexus', silca:'TOY47', jma:'TOY47', keyline:'TOY47', errebi:'TOY47', lishi:'TOY47 2-in-1', xhorse:'XKTOY47', bladeType:'laser', transponder:'4D / 80bit', years:'2006-2018', models:'Yaris 2/3, Corolla, Auris, Prius', notes:'Toyota plus récent.', tags:['toyota']},
-      {id:'KM-TOY48-01', family:'Toyota / Lexus', silca:'TOY48', jma:'TOY48', keyline:'TOY48', errebi:'TOY48', lishi:'TOY48', xhorse:'XKTOY48', bladeType:'laser', transponder:'8A / smart', years:'2015+', models:'C-HR, Corolla récentes, RAV4 récents', notes:'Entrée récente Toyota / Lexus selon support.', tags:['toyota','smart']},
-      {id:'KM-HON66-01', family:'Honda', silca:'HON66', jma:'HON-66', keyline:'HON66', errebi:'HO03', lishi:'HON66 2-in-1', xhorse:'XKHON66', bladeType:'laser', transponder:'ID46', years:'2003-2018', models:'Civic 8/9, CR-V, Jazz, Accord', notes:'Profil Honda courant.', tags:['honda']},
-      {id:'KM-NSN14-01', family:'Nissan', silca:'NSN14', jma:'DAT17', keyline:'NSN14', errebi:'NSN14', lishi:'NSN14 2-in-1', xhorse:'XKNSN14', bladeType:'laser', transponder:'ID46', years:'2003-2018', models:'Qashqai, Micra, Note, Juke, Navara', notes:'Nissan courant. Vérifier support Dat17/NSN14 selon fournisseur.', tags:['nissan']},
-      {id:'KM-DAT17-01', family:'Nissan / Renault', silca:'DAT17', jma:'DAT-17', keyline:'DAT17', errebi:'DAT17', lishi:'DAT17', xhorse:'XKDAT17', bladeType:'laser', transponder:'ID46', years:'2004-2016', models:'Navara, Pathfinder, certains Renault dérivés', notes:'Selon catalogue fournisseur, peut recouper NSN14.', tags:['nissan']},
-      {id:'KM-HYN14-01', family:'Hyundai / Kia', silca:'HYN14', jma:'HY-14', keyline:'HYN14', errebi:'HY17', lishi:'HYN14 2-in-1', xhorse:'XKHYN14', bladeType:'laser', transponder:'ID46', years:'2006-2016', models:'i20, i30, Ceed, Rio, Sportage', notes:'Profil courant Hyundai/Kia.', tags:['hyundai','kia']},
-      {id:'KM-HYN17-01', family:'Hyundai / Kia', silca:'HYN17', jma:'HY-17', keyline:'HYN17', errebi:'HY20', lishi:'HYN17', xhorse:'XKHYN17', bladeType:'laser', transponder:'ID46 / smart', years:'2015+', models:'Tucson, Kona, i30 récents, Niro', notes:'Plus récent / smart selon version.', tags:['hyundai','kia','recent']},
-      {id:'KM-HU46-01', family:'Volvo / Land Rover', silca:'HU46', jma:'HU-46', keyline:'HU46', errebi:'HU46', lishi:'HU46', xhorse:'XKHU46', bladeType:'laser', transponder:'ID46', years:'2003-2014', models:'Volvo S40/V50, Freelander 2, C30', notes:'Recoupements fréquents Volvo / Land Rover.', tags:['volvo','landrover']},
-      {id:'KM-HU39-01', family:'Mercedes / Porsche / VAG ancien', silca:'HU39', jma:'HU-39', keyline:'HU39', errebi:'HU39', lishi:'HU39', xhorse:'XKHU39', bladeType:'standard', transponder:'ID13 / ancien', years:'1990-2002', models:'W202, anciens VAG, Porsche Boxster 986', notes:'Ancien standard.', tags:['ancien']},
-      {id:'KM-HU49-01', family:'Volkswagen / Audi / Porsche ancien', silca:'HU49', jma:'HU-49', keyline:'HU49', errebi:'HU49', lishi:'HU49', xhorse:'XKHU49', bladeType:'standard', transponder:'ID48', years:'1995-2004', models:'Golf 4, A4 B5, Passat B5, TT 8N', notes:'Ancien VAG standard.', tags:['vag','ancien']},
-      {id:'KM-MAZ24-01', family:'Mazda', silca:'MAZ24R', jma:'MZ-24', keyline:'MAZ24', errebi:'MZ24', lishi:'MAZ24', xhorse:'XKMAZ24', bladeType:'laser', transponder:'ID46', years:'2004-2018', models:'Mazda 2, Mazda 3, Mazda 6, CX-5', notes:'Mazda courant.', tags:['mazda']},
-      {id:'KM-SUZ20-01', family:'Suzuki', silca:'SZ14R', jma:'SZ-14', keyline:'SUZ20', errebi:'SZ14', lishi:'SZ14', xhorse:'XKSZ14', bladeType:'laser', transponder:'ID46', years:'2005-2018', models:'Swift, SX4, Vitara', notes:'Profil Suzuki courant suivant fournisseur.', tags:['suzuki']},
-      {id:'KM-MIT8-01', family:'Mitsubishi', silca:'MIT8', jma:'MIT-8', keyline:'MIT8', errebi:'MIT8', lishi:'MIT8', xhorse:'XKMIT8', bladeType:'laser', transponder:'ID46', years:'2005-2018', models:'L200, Outlander, ASX', notes:'Mitsubishi moderne courant.', tags:['mitsubishi']},
-      {id:'KM-HU56-01', family:'Land Rover / Jaguar ancien', silca:'HU56', jma:'HU-56', keyline:'HU56', errebi:'HU56', lishi:'HU56', xhorse:'XKHU56', bladeType:'laser', transponder:'ID4D / ID46', years:'1998-2008', models:'Freelander 1, Discovery 2, Jaguar X-Type', notes:'Ancien JLR.', tags:['jlr']},
-      {id:'KM-HU101T-01', family:'Jaguar / Land Rover', silca:'HU101', jma:'FO-21T', keyline:'FO21T', errebi:'FD86', lishi:'HU101 2-in-1', xhorse:'XKHU101', bladeType:'laser', transponder:'ID49 / smart', years:'2012+', models:'Evoque, Discovery Sport, Jaguar XE', notes:'JLR récent partage famille HU101 selon support.', tags:['jlr','smart']},
-      {id:'KM-HON58-01', family:'Honda ancien', silca:'HON58R', jma:'HON-58', keyline:'HON58', errebi:'HO01', lishi:'HON58', xhorse:'XKHON58', bladeType:'standard', transponder:'ID13 / ancien', years:'1995-2004', models:'Civic 6/7, Accord, CR-V ancien', notes:'Honda ancien.', tags:['honda','ancien']},
-      {id:'KM-TOY41-01', family:'Toyota ancien', silca:'TOY41', jma:'TOY-41', keyline:'TOY41', errebi:'TY18', lishi:'TOY41', xhorse:'XKTOY41', bladeType:'standard', transponder:'4C', years:'1995-2002', models:'Corolla ancien, Starlet, Yaris début', notes:'Toyota ancien standard.', tags:['toyota','ancien']},
-      {id:'KM-HU87-01', family:'Citroën / Peugeot ancien', silca:'HU87', jma:'HU87', keyline:'HU87', errebi:'HU87', lishi:'HU87', xhorse:'XKHU87', bladeType:'standard', transponder:'ID33 / ancien', years:'1994-2001', models:'Xantia, Saxo, 306, 406', notes:'PSA ancien standard.', tags:['psa','ancien']},
-      {id:'KM-GM37-01', family:'Opel ancien', silca:'OPEL7', jma:'OP-7', keyline:'GM37', errebi:'OP1', lishi:'GM37', xhorse:'XKOP7', bladeType:'standard', transponder:'ID40 / ancien', years:'1994-2004', models:'Corsa B/C, Astra G, Vectra B', notes:'Opel ancien standard.', tags:['opel','ancien']},
-      {id:'KM-SIP28-01', family:'Fiat / Jeep', silca:'SIP28', jma:'SIP28', keyline:'SIP28', errebi:'SIP28', lishi:'SIP28', xhorse:'XKSIP28', bladeType:'laser', transponder:'ID46 / smart', years:'2015+', models:'500X, Renegade, Tipo', notes:'Groupe FCA plus récent.', tags:['fiat','jeep','recent']},
-      {id:'KM-NSN11-01', family:'Nissan ancien', silca:'NSN11', jma:'DAT-15', keyline:'NSN11', errebi:'NSN11', lishi:'NSN11', xhorse:'XKNSN11', bladeType:'standard', transponder:'ID4D', years:'1998-2006', models:'Micra K12, Almera, Primera', notes:'Nissan ancien standard.', tags:['nissan','ancien']},
-      {id:'KM-HY18-01', family:'Hyundai / Kia ancien', silca:'HY18', jma:'HY-18', keyline:'HY18', errebi:'HY18', lishi:'HY18', xhorse:'XKHY18', bladeType:'standard', transponder:'ID46', years:'2000-2010', models:'Getz, Accent, Picanto ancien', notes:'Ancien Hyundai/Kia.', tags:['hyundai','kia','ancien']},
-      {id:'KM-HU100R-01', family:'Opel / Chevrolet', silca:'HU100R', jma:'HU100R', keyline:'HU100R', errebi:'HU100R', lishi:'HU100R', xhorse:'XKHU100R', bladeType:'laser', transponder:'ID46 / smart', years:'2016+', models:'Astra K, Mokka X, Crossland', notes:'Version plus récente suivant support.', tags:['opel','recent']},
-      {id:'KM-TOY50-01', family:'Toyota / Lexus', silca:'TOY50', jma:'TOY50', keyline:'TOY50', errebi:'TOY50', lishi:'TOY50', xhorse:'XKTOY50', bladeType:'laser', transponder:'8A / smart', years:'2018+', models:'Corolla 2019+, Camry, Lexus', notes:'Support récent, à valider selon véhicule.', tags:['toyota','recent','smart']},
-      {id:'KM-HU198-01', family:'Volkswagen / Audi / Porsche récent', silca:'HU198', jma:'HU198', keyline:'HU198', errebi:'HU198', lishi:'HU198', xhorse:'XKHU198', bladeType:'laser', transponder:'AES / smart', years:'2018+', models:'Touareg récents, Porsche récents selon support', notes:'Très récent, usage à confirmer sur véhicule précis.', tags:['vag','recent','smart']}
-    ];
-
-    const plateDatabase = {
-      'AA123AA': {plate:'AA-123-AA', make:'Peugeot', model:'207', year:'2011', profile:'HU83', note:'Exemple démo locale'},
-      'AB456CD': {plate:'AB-456-CD', make:'Renault', model:'Clio III', year:'2008', profile:'VA2T', note:'Exemple démo locale'},
-      'EF789GH': {plate:'EF-789-GH', make:'Volkswagen', model:'Golf VI', year:'2010', profile:'HU66', note:'Exemple démo locale'},
-      'JK321LM': {plate:'JK-321-LM', make:'Ford', model:'Focus', year:'2015', profile:'HU101', note:'Exemple démo locale'},
-      'NO654PQ': {plate:'NO-654-PQ', make:'Toyota', model:'Yaris', year:'2005', profile:'TOY43', note:'Exemple démo locale'},
-      'RS987TU': {plate:'RS-987-TU', make:'BMW', model:'Série 3', year:'2007', profile:'HU92', note:'Exemple démo locale'}
-    };
-
-    let records = loadRecords();
-    let favorites = loadJson(FAVORITES_KEY, []);
-    let compareIds = loadJson(COMPARE_KEY, []);
-
-    function loadJson(key, fallback){
-      try {
-        const raw = localStorage.getItem(key);
-        if(!raw) return structuredClone(fallback);
-        const parsed = JSON.parse(raw);
-        return parsed ?? structuredClone(fallback);
-      } catch { return structuredClone(fallback); }
-    }
-
-    function saveJson(key, value){
-      localStorage.setItem(key, JSON.stringify(value));
-    }
-
-    function loadRecords(){
-      const stored = loadJson(STORAGE_KEY, null);
-      return Array.isArray(stored) && stored.length ? stored : structuredClone(seedData);
-    }
-
-    function saveRecords(){
-      saveJson(STORAGE_KEY, records);
-    }
-
-    function normalize(v){
-      return (v || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-    }
-
-    function escapeHtml(v){
-      return (v || '').toString()
-        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
-    }
-
-    function uniqueFamilies(){
-      return [...new Set(records.map(r => r.family).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
-    }
-
-    function refreshStats(resultCount = 0){
-      document.getElementById('statRecords').textContent = records.length;
-      document.getElementById('statBrands').textContent = uniqueFamilies().length;
-      document.getElementById('statResults').textContent = resultCount;
-      document.getElementById('statFavs').textContent = favorites.length;
-    }
-
-    function refreshFamilyFilter(){
-      const select = document.getElementById('brandFilter');
-      const value = select.value;
-      select.innerHTML = '<option value="">Toutes</option>';
-      uniqueFamilies().forEach(f => {
-        const o = document.createElement('option');
-        o.value = f;
-        o.textContent = f;
-        select.appendChild(o);
-      });
-      if([...select.options].some(o => o.value === value)) select.value = value;
-    }
-
-    function allSearchableText(record){
-      return normalize([
-        record.id, record.family, record.silca, record.jma, record.keyline, record.errebi,
-        record.lishi, record.xhorse, record.bladeType, record.transponder, record.years,
-        record.models, record.notes, ...(record.tags || [])
-      ].join(' | '));
-    }
-
-    function runSearch(sourceList = records){
-      const q = normalize(document.getElementById('searchInput').value);
-      const family = document.getElementById('brandFilter').value;
-      const blade = document.getElementById('bladeFilter').value;
-      const transponder = normalize(document.getElementById('transponderFilter').value);
-
-      const filtered = sourceList.filter(r => {
-        const qOk = !q || allSearchableText(r).includes(q);
-        const familyOk = !family || r.family === family;
-        const bladeOk = !blade || r.bladeType === blade;
-        const trOk = !transponder || normalize(r.transponder).includes(transponder);
-        return qOk && familyOk && bladeOk && trOk;
-      });
-
-      renderResults(filtered, {q, family, blade, transponder});
-      refreshStats(filtered.length);
-    }
-
-    function renderResults(list, filters = {}){
-      const summary = document.getElementById('searchSummary');
-      const chunks = [];
-      if(filters.q) chunks.push(`recherche: ${filters.q}`);
-      if(filters.family) chunks.push(`famille: ${filters.family}`);
-      if(filters.blade) chunks.push(`lame: ${filters.blade}`);
-      if(filters.transponder) chunks.push(`transpondeur: ${filters.transponder}`);
-      summary.textContent = `${list.length} résultat(s)${chunks.length ? ' · ' + chunks.join(' · ') : ''}`;
-
-      const box = document.getElementById('results');
-      if(!list.length){
-        box.innerHTML = '<div class="empty">Aucun résultat trouvé. Essaie une autre référence ou ajoute une fiche.</div>';
-        return;
-      }
-
-      box.innerHTML = list.map(r => {
-        const fav = favorites.includes(r.id);
-        const compared = compareIds.includes(r.id);
-        return `
-          <article class="result">
-            <div class="head">
-              <div>
-                <div class="ref">${escapeHtml(r.silca || r.id)}</div>
-                <div class="mini">${escapeHtml(r.family)} · ${escapeHtml(r.models || 'Modèles non précisés')}</div>
-              </div>
-              <div class="badges">
-                <span class="badge red">${escapeHtml(readableBladeType(r.bladeType))}</span>
-                <span class="badge">${escapeHtml(r.transponder || 'À préciser')}</span>
-                <span class="badge dark">${escapeHtml(r.id)}</span>
-              </div>
-            </div>
-
-            <div class="meta-grid">
-              <div class="meta"><strong>Silca</strong>${escapeHtml(r.silca || '—')}</div>
-              <div class="meta"><strong>JMA</strong>${escapeHtml(r.jma || '—')}</div>
-              <div class="meta"><strong>Keyline</strong>${escapeHtml(r.keyline || '—')}</div>
-              <div class="meta"><strong>Errebi</strong>${escapeHtml(r.errebi || '—')}</div>
-              <div class="meta"><strong>Lishi</strong>${escapeHtml(r.lishi || '—')}</div>
-              <div class="meta"><strong>Xhorse</strong>${escapeHtml(r.xhorse || '—')}</div>
-              <div class="meta"><strong>Années approx.</strong>${escapeHtml(r.years || '—')}</div>
-              <div class="meta"><strong>Tags</strong>${escapeHtml((r.tags || []).join(', ') || '—')}</div>
-            </div>
-
-            <table>
-              <thead>
-                <tr>
-                  <th>Famille</th>
-                  <th>Exemples modèles</th>
-                  <th>Notes atelier</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>${escapeHtml(r.family)}</td>
-                  <td>${escapeHtml(r.models || '—')}</td>
-                  <td>${escapeHtml(r.notes || '—')}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="btns" style="margin-top:14px">
-              <button class="secondary tiny" onclick="copyRecord('${escapeJs(r.silca || r.id)}')">Copier réf</button>
-              <button class="${fav ? 'ghost' : 'secondary'} tiny" onclick="toggleFavorite('${escapeJs(r.id)}')">${fav ? 'Retirer favori' : 'Ajouter favori'}</button>
-              <button class="${compared ? 'ghost' : 'secondary'} tiny" onclick="toggleCompare('${escapeJs(r.id)}')">${compared ? 'Retirer comparaison' : 'Comparer'}</button>
-              <button class="secondary tiny" onclick="prefillForm('${escapeJs(r.id)}')">Dupliquer dans formulaire</button>
-              <button class="danger tiny" onclick="deleteRecord('${escapeJs(r.id)}')">Supprimer</button>
-            </div>
-          </article>
-        `;
-      }).join('');
-    }
-
-    function readableBladeType(value){
-      return ({
-        laser:'Laser / interne',
-        standard:'Standard',
-        smart:'Smart key',
-        flip:'Flip / plip'
-      })[value] || value || '—';
-    }
-
-    function escapeJs(v){
-      return String(v || '').replaceAll("\\","\\\\").replaceAll("'","\\'");
-    }
-
-    function renderDataset(){
-      const box = document.getElementById('datasetList');
-      if(!records.length){
-        box.innerHTML = '<div class="empty">Aucune fiche.</div>';
-        return;
-      }
-      const sorted = records.slice().sort((a,b)=>`${a.family} ${a.silca}`.localeCompare(`${b.family} ${b.silca}`));
-      box.innerHTML = sorted.map(r => `
-        <div class="list-item">
-          <div>
-            <div><strong>${escapeHtml(r.silca || '—')}</strong> · ${escapeHtml(r.family)}</div>
-            <div class="mini">${escapeHtml(r.lishi || 'Sans Lishi')} · ${escapeHtml(r.transponder || 'Sans transpondeur')}</div>
-          </div>
-          <div class="inline">
-            <button class="secondary tiny" onclick="prefillForm('${escapeJs(r.id)}')">Éditer</button>
-            <button class="danger tiny" onclick="deleteRecord('${escapeJs(r.id)}')">Suppr.</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function renderFavorites(){
-      const box = document.getElementById('favoritesList');
-      if(!favorites.length){
-        box.innerHTML = '<div class="empty">Aucun favori.</div>';
-        return;
-      }
-      box.innerHTML = favorites.map(id => records.find(r => r.id === id)).filter(Boolean).map(r => `
-        <div class="list-item">
-          <div>
-            <div><strong>${escapeHtml(r.silca || r.id)}</strong> · ${escapeHtml(r.family)}</div>
-            <div class="mini">${escapeHtml(r.models || '')}</div>
-          </div>
-          <div class="inline">
-            <button class="secondary tiny" onclick="jumpToRecord('${escapeJs(r.id)}')">Voir</button>
-            <button class="danger tiny" onclick="toggleFavorite('${escapeJs(r.id)}')">Retirer</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function renderCompare(){
-      const box = document.getElementById('compareBox');
-      const items = compareIds.map(id => records.find(r => r.id === id)).filter(Boolean).slice(0,3);
-      const placeholders = 3 - items.length;
-      box.innerHTML = items.map(r => `
-        <div class="compare-card">
-          <div class="ref" style="font-size:1.2rem">${escapeHtml(r.silca || r.id)}</div>
-          <div class="mini">${escapeHtml(r.family)}</div>
-          <div class="mini" style="margin-top:8px"><strong>JMA :</strong> ${escapeHtml(r.jma || '—')}</div>
-          <div class="mini"><strong>Keyline :</strong> ${escapeHtml(r.keyline || '—')}</div>
-          <div class="mini"><strong>Errebi :</strong> ${escapeHtml(r.errebi || '—')}</div>
-          <div class="mini"><strong>Lishi :</strong> ${escapeHtml(r.lishi || '—')}</div>
-          <div class="mini"><strong>Xhorse :</strong> ${escapeHtml(r.xhorse || '—')}</div>
-          <div class="mini"><strong>Transpondeur :</strong> ${escapeHtml(r.transponder || '—')}</div>
-        </div>
-      `).join('') + Array.from({length:placeholders}).map(() => '<div class="compare-card"><div class="muted">Aucune fiche sélectionnée.</div></div>').join('');
-    }
-
-    function addOrUpdateRecord(){
-      const form = {
-        family: valueOf('newFamily'),
-        silca: valueOf('newSilca'),
-        jma: valueOf('newJma'),
-        keyline: valueOf('newKeyline'),
-        errebi: valueOf('newErrebi'),
-        lishi: valueOf('newLishi'),
-        xhorse: valueOf('newXhorse'),
-        bladeType: document.getElementById('newBladeType').value,
-        transponder: valueOf('newTransponder'),
-        years: valueOf('newYears'),
-        models: valueOf('newModels'),
-        id: valueOf('newRefCode') || `KM-${Date.now()}`,
-        notes: valueOf('newNotes'),
-        tags: normalize(valueOf('newFamily')).split('/').map(v=>v.trim()).filter(Boolean)
-      };
-
-      if(!form.family || !form.silca){
-        alert('Renseigne au minimum la famille véhicule et la référence Silca.');
-        return;
-      }
-
-      const index = records.findIndex(r => r.id === form.id);
-      if(index >= 0){
-        records[index] = form;
-      } else {
-        records.unshift(form);
-      }
-      saveRecords();
-      clearForm();
-      refreshAll();
-      document.getElementById('searchInput').value = form.silca;
-      runSearch();
-    }
-
-    function valueOf(id){ return document.getElementById(id).value.trim(); }
-
-    function clearForm(){
-      ['newFamily','newSilca','newJma','newKeyline','newErrebi','newLishi','newXhorse','newTransponder','newYears','newModels','newRefCode','newNotes']
-        .forEach(id => document.getElementById(id).value = '');
-      document.getElementById('newBladeType').value = 'laser';
-    }
-
-    function exportJson(){
-      const blob = new Blob([JSON.stringify(records, null, 2)], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'keymaster-auto-pro.json';
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function importJson(file){
-      const reader = new FileReader();
-      reader.onload = () => {
-        try{
-          const parsed = JSON.parse(reader.result);
-          if(!Array.isArray(parsed)) throw new Error('Format invalide');
-          records = parsed;
-          saveRecords();
-          refreshAll();
-          runSearch();
-        }catch{
-          alert('Le fichier JSON est invalide.');
-        }
-      };
-      reader.readAsText(file, 'utf-8');
-    }
-
-    function resetSeed(){
-      if(!confirm('Remettre la base pro de départ ?')) return;
-      records = structuredClone(seedData);
-      saveRecords();
-      refreshAll();
-      runSearch();
-    }
-
-    function clearAll(){
-      if(!confirm('Supprimer toute la base locale ?')) return;
-      records = [];
-      saveRecords();
-      refreshAll();
-      runSearch();
-    }
-
-    window.deleteRecord = function(id){
-      if(!confirm('Supprimer cette fiche ?')) return;
-      records = records.filter(r => r.id !== id);
-      favorites = favorites.filter(v => v !== id);
-      compareIds = compareIds.filter(v => v !== id);
-      saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds);
-      refreshAll();
-      runSearch();
-    }
-
-    window.toggleFavorite = function(id){
-      favorites = favorites.includes(id) ? favorites.filter(v => v !== id) : [id, ...favorites.filter(v => v !== id)];
-      saveJson(FAVORITES_KEY, favorites);
-      renderFavorites();
-      runSearch();
-      refreshStats(document.querySelectorAll('#results .result').length);
-    }
-
-    window.toggleCompare = function(id){
-      if(compareIds.includes(id)){
-        compareIds = compareIds.filter(v => v !== id);
-      } else {
-        compareIds = [id, ...compareIds.filter(v => v !== id)].slice(0,3);
-      }
-      saveJson(COMPARE_KEY, compareIds);
-      renderCompare();
-      runSearch();
-    }
-
-    window.copyRecord = async function(text){
-      try{
-        await navigator.clipboard.writeText(text);
-        alert(`Référence copiée : ${text}`);
-      }catch{
-        alert('Copie impossible sur ce navigateur.');
-      }
-    }
-
-    window.prefillForm = function(id){
-      const r = records.find(v => v.id === id);
-      if(!r) return;
-      document.getElementById('newFamily').value = r.family || '';
-      document.getElementById('newSilca').value = r.silca || '';
-      document.getElementById('newJma').value = r.jma || '';
-      document.getElementById('newKeyline').value = r.keyline || '';
-      document.getElementById('newErrebi').value = r.errebi || '';
-      document.getElementById('newLishi').value = r.lishi || '';
-      document.getElementById('newXhorse').value = r.xhorse || '';
-      document.getElementById('newBladeType').value = r.bladeType || 'laser';
-      document.getElementById('newTransponder').value = r.transponder || '';
-      document.getElementById('newYears').value = r.years || '';
-      document.getElementById('newModels').value = r.models || '';
-      document.getElementById('newRefCode').value = r.id || '';
-      document.getElementById('newNotes').value = r.notes || '';
-      window.scrollTo({top: document.body.scrollHeight * .55, behavior:'smooth'});
-    }
-
-    window.jumpToRecord = function(id){
-      const r = records.find(v => v.id === id);
-      if(!r) return;
-      document.getElementById('searchInput').value = r.silca || r.id || '';
-      runSearch();
-      window.scrollTo({top: document.querySelector('#results')?.offsetTop - 20 || 0, behavior:'smooth'});
-    }
-
-    function showOnlyFavorites(){
-      const favRecords = favorites.map(id => records.find(r => r.id === id)).filter(Boolean);
-      renderResults(favRecords, {q:'favoris'});
-      refreshStats(favRecords.length);
-    }
-
-    function lookupPlate(){
-      const raw = normalize(document.getElementById('plateInput').value).replace(/[^a-z0-9]/g,'').toUpperCase();
-      const out = document.getElementById('plateOutput');
-      if(!raw){
-        out.textContent = 'Entre une plaque pour lancer la recherche.';
-        out.className = 'notice info';
-        return;
-      }
-      const found = plateDatabase[raw];
-      if(!found){
-        out.textContent = 'Plaque non trouvée dans la démo locale. Utilise AA-123-AA, AB-456-CD, EF-789-GH, JK-321-LM, NO-654-PQ ou RS-987-TU.';
-        out.className = 'notice';
-        return;
-      }
-      document.getElementById('searchInput').value = found.profile;
-      out.innerHTML = `<strong>${escapeHtml(found.plate)}</strong> · ${escapeHtml(found.make)} ${escapeHtml(found.model)} ${escapeHtml(found.year)} · profil suggéré : <strong>${escapeHtml(found.profile)}</strong>`;
-      out.className = 'notice info';
-      runSearch();
-    }
-
-    function showPlateExamples(){
-      document.getElementById('plateOutput').innerHTML = Object.values(plateDatabase).map(v =>
-        `<div><strong>${escapeHtml(v.plate)}</strong> → ${escapeHtml(v.make)} ${escapeHtml(v.model)} · ${escapeHtml(v.profile)}</div>`
-      ).join('');
-      document.getElementById('plateOutput').className = 'notice info';
-    }
-
-    function refreshAll(){
-      refreshFamilyFilter();
-      renderDataset();
-      renderFavorites();
-      renderCompare();
-      refreshStats(document.querySelectorAll('#results .result').length);
-    }
-
-    document.getElementById('searchBtn').addEventListener('click', () => runSearch());
-    document.getElementById('resetBtn').addEventListener('click', () => {
-      document.getElementById('searchInput').value = '';
-      document.getElementById('brandFilter').value = '';
-      document.getElementById('bladeFilter').value = '';
-      document.getElementById('transponderFilter').value = '';
-      runSearch();
-    });
-    document.getElementById('showFavsBtn').addEventListener('click', showOnlyFavorites);
-    document.getElementById('seedBtn').addEventListener('click', resetSeed);
-    document.getElementById('exportBtn').addEventListener('click', exportJson);
-    document.getElementById('addBtn').addEventListener('click', addOrUpdateRecord);
-    document.getElementById('clearFormBtn').addEventListener('click', clearForm);
-    document.getElementById('clearCustomBtn').addEventListener('click', clearAll);
-    document.getElementById('clearFavsBtn').addEventListener('click', () => {
-      favorites = [];
-      saveJson(FAVORITES_KEY, favorites);
-      renderFavorites();
-      runSearch();
-    });
-    document.getElementById('clearCompareBtn').addEventListener('click', () => {
-      compareIds = [];
-      saveJson(COMPARE_KEY, compareIds);
-      renderCompare();
-      runSearch();
-    });
-    document.getElementById('plateBtn').addEventListener('click', lookupPlate);
-    document.getElementById('plateExamplesBtn').addEventListener('click', showPlateExamples);
-    document.getElementById('plateInput').addEventListener('keydown', e => { if(e.key === 'Enter') lookupPlate(); });
-    document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key === 'Enter') runSearch(); });
-    document.getElementById('importFile').addEventListener('change', e => {
-      const file = e.target.files?.[0];
-      if(file) importJson(file);
-      e.target.value = '';
-    });
-
-    refreshAll();
-    runSearch();
-
-    if('serviceWorker' in navigator){
-      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-    }
-  </script>
 </body>
 </html>
