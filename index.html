@@ -189,55 +189,56 @@ function searchableText(r){
   return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models].join(' | '));
 }
 
-function exactReferenceMatch(r, q){
-  const refFields = [r.id, r.silca, r.jma, r.keyline, r.errebi, r.lishi, r.xhorse]
-    .map(v => normalize(v || ''));
-  return refFields.some(v => v && v === q);
-}
-
-function hasActiveSearchCriteria(){
+function hasActiveSearch(){
   const q = normalize(document.getElementById('searchInput').value);
   const family = document.getElementById('brandFilter').value;
   const blade = document.getElementById('bladeFilter').value;
   const transponder = normalize(document.getElementById('transponderFilter').value);
-  return Boolean(q || family || blade || transponder);
+  return !!(q || family || blade || transponder);
 }
 
-function showWaitingState(){
-  document.getElementById('results').innerHTML = '<div class="empty">Entre une référence ou choisis un filtre, puis appuie sur Rechercher.</div>';
+function setIdleResults(){
+  const box = document.getElementById('results');
+  box.innerHTML = '<div class="empty">Lance une recherche pour afficher les fiches.</div>';
   document.getElementById('searchSummary').textContent = 'En attente de recherche';
   refreshStats(0);
 }
 
-function runSearch(source = records){
+function exactFieldMatch(r, q){
+  const exactFields = [r.id, r.silca, r.jma, r.keyline, r.errebi, r.lishi, r.xhorse];
+  return exactFields.some(v => normalize(v) === q);
+}
+
+function getFilteredResults(source = records){
   const q = normalize(document.getElementById('searchInput').value);
   const family = document.getElementById('brandFilter').value;
   const blade = document.getElementById('bladeFilter').value;
   const transponder = normalize(document.getElementById('transponderFilter').value);
 
-  if (!hasActiveSearchCriteria()) {
-    showWaitingState();
-    return;
-  }
+  if (!q && !family && !blade && !transponder) return [];
 
-  const baseFiltered = source.filter(r => {
+  let pool = source.filter(r => {
     const familyOk = !family || (r.family || r.marque) === family;
     const bladeOk = !blade || (r.bladeType || '').toLowerCase() === blade;
     const transOk = !transponder || normalize(r.transponder).includes(transponder);
     return familyOk && bladeOk && transOk;
   });
 
-  let filtered = baseFiltered;
-
   if (q) {
-    const exactMatches = baseFiltered.filter(r => exactReferenceMatch(r, q));
-    if (exactMatches.length) {
-      filtered = exactMatches;
-    } else {
-      filtered = baseFiltered.filter(r => searchableText(r).includes(q));
-    }
+    const exactMatches = pool.filter(r => exactFieldMatch(r, q));
+    if (exactMatches.length) return exactMatches;
+    pool = pool.filter(r => searchableText(r).includes(q));
   }
 
+  return pool;
+}
+
+function runSearch(source = records){
+  const filtered = getFilteredResults(source);
+  if (!hasActiveSearch()) {
+    setIdleResults();
+    return;
+  }
   renderResults(filtered);
   document.getElementById('searchSummary').textContent = `${filtered.length} résultat(s)`;
   refreshStats(filtered.length);
@@ -326,11 +327,7 @@ function deleteRecord(id){
 }
 
 function getCurrentResults(){
-  const q = normalize(document.getElementById('searchInput').value);
-  const family = document.getElementById('brandFilter').value;
-  const blade = document.getElementById('bladeFilter').value;
-  const transponder = normalize(document.getElementById('transponderFilter').value);
-  return records.filter(r => (!q || searchableText(r).includes(q)) && (!family || (r.family || r.marque) === family) && (!blade || (r.bladeType || '').toLowerCase() === blade) && (!transponder || normalize(r.transponder).includes(transponder)));
+  return getFilteredResults(records);
 }
 
 function addKey(){
@@ -395,9 +392,9 @@ function attachDelegates(){
 }
 
 function init(){
-  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); showWaitingState(); attachDelegates();
+  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); setIdleResults(); attachDelegates();
   document.getElementById('searchBtn').addEventListener('click', runSearch);
-  document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; showWaitingState(); });
+  document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; setIdleResults(); });
   document.getElementById('showFavsBtn').addEventListener('click', () => renderResults(records.filter(r => favorites.includes(r.id))));
   document.getElementById('seedBtn').addEventListener('click', resetDatabase);
   document.getElementById('exportBtn').addEventListener('click', exportData);
@@ -410,7 +407,7 @@ function init(){
   document.getElementById('plateExamplesBtn').addEventListener('click', () => { document.getElementById('plateInput').value='AA-123-AA'; searchPlate(); });
   document.getElementById('importFile').addEventListener('change', (e) => { if (e.target.files[0]) importData(e.target.files[0]); e.target.value=''; });
   document.getElementById('searchInput').addEventListener('keydown', (e)=>{ if (e.key === 'Enter') runSearch(); });
-  ['brandFilter','bladeFilter','transponderFilter'].forEach(id => document.getElementById(id).addEventListener('change', () => {}));
+  ['brandFilter','bladeFilter','transponderFilter'].forEach(id => document.getElementById(id).addEventListener('change', runSearch));
 }
 
 document.addEventListener('DOMContentLoaded', init);
