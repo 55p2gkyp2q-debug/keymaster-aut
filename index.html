@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="apple-touch-icon" href="logo-keymaster.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>KeyMaster Auto Expert</title>
   <style>
     :root{--red:#c71218;--red2:#e52a2f;--black:#121317;--white:#fff;--bg:#f5f6f8;--line:#e5e7eb;--muted:#69707d;--green:#0f9f64;--amber:#f0a500;--radius:22px;--shadow:0 14px 34px rgba(15,23,42,.08)}
@@ -19,8 +22,8 @@
     input:focus,select:focus,textarea:focus{border-color:var(--red2);box-shadow:0 0 0 4px rgba(199,18,24,.12)}
     .search-grid,.form-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)} .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
     button,.button{border:none;background:var(--red);color:#fff;padding:13px 16px;border-radius:16px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.secondary{background:#fff;color:var(--black);border:1px solid var(--line)}.dark{background:var(--black)}.danger{background:#7f1014}
-    .results{display:grid;gap:14px}.result{border:1px solid var(--line);border-radius:22px;padding:16px;background:linear-gradient(180deg,#fff,#fcfcfd)} .head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}.ref{font-weight:900;font-size:1.45rem}.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{padding:7px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.83rem;font-weight:800}.badge.red{background:#fff0f1;border-color:#ffd5d8;color:#b70f16}.badge.green{background:#eefcf6;border-color:#ccefdc;color:#08784b}.badge.dark{background:#16171b;color:#fff;border-color:#16171b}
-    .meta-grid{display:grid;gap:10px;grid-template-columns:repeat(4,1fr);margin:12px 0}.meta{padding:12px;border-radius:16px;border:1px solid var(--line);background:#fff}.meta strong{display:block;color:var(--muted);font-size:.8rem;margin-bottom:6px}
+    .results{display:grid;gap:18px}.result{border:1px solid var(--line);border-radius:26px;padding:24px;background:linear-gradient(180deg,#fff,#fcfcfd);box-shadow:0 16px 40px rgba(15,23,42,.08)} .head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}.ref{font-weight:900;font-size:1.8rem}.badges{display:flex;gap:10px;flex-wrap:wrap}.badge{padding:9px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.9rem;font-weight:800}.badge.red{background:#fff0f1;border-color:#ffd5d8;color:#b70f16}.badge.green{background:#eefcf6;border-color:#ccefdc;color:#08784b}.badge.dark{background:#16171b;color:#fff;border-color:#16171b}
+    .meta-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);margin:14px 0}.meta{padding:15px;border-radius:18px;border:1px solid var(--line);background:#fff;min-height:78px}.meta strong{display:block;color:var(--muted);font-size:.82rem;margin-bottom:8px}
     .toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}.list{display:grid;gap:10px;max-height:520px;overflow:auto}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare-card{min-height:180px;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.notice{padding:13px 14px;border-radius:16px;background:#f5f7ff;border:1px solid #d9e1ff;color:#33417a}.empty{text-align:center;padding:28px;border:1px dashed #d7dbe2;border-radius:18px;color:var(--muted)}
     .footer{margin-top:16px;color:var(--muted);font-size:.92rem;line-height:1.55}
     @media (max-width:1100px){.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr 1fr}}
@@ -54,7 +57,7 @@
 
   <section class="grid main">
     <div class="card">
-      <div class="toolbar"><div><h2>Recherche principale</h2><div class="sub">Recherche par référence, famille, modèle, Lishi, Xhorse, transpondeur ou note atelier.</div></div><div id="searchSummary" class="sub">Base prête</div></div>
+      <div class="toolbar"><div><h2>Recherche principale</h2><div class="sub">Recherche par référence, famille, modèle, Lishi, Xhorse, transpondeur ou note atelier.</div></div><div id="searchSummary" class="sub">En attente de recherche</div></div>
       <div class="search-grid">
         <div><label for="searchInput">Recherche globale</label><input id="searchInput" placeholder="Ex : HU66, Yaris, ID48, HU92, Clio, XKHU83..."></div>
         <div><label for="brandFilter">Famille</label><select id="brandFilter"><option value="">Toutes</option></select></div>
@@ -127,28 +130,143 @@ const COMPARE_KEY = 'keymaster_auto_expert_compare_v1';
 // ==========================
 // 🔴 BASE DE DONNÉES AUTO
 // ==========================
-const autoKeysDatabase = [
-  { id:'KM-HU66-01', family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Lame plip / transpondeur", note:"Très courant VAG, attention ID48", lishi:"HU66 2-in-1", xhorse:"XKHU66EN", bladeType:"laser", transponder:"ID48", years:"2004-2014", models:"Golf V, Golf VI, A3 8P, Leon 2, Octavia 2" },
-  { id:'KM-VA2-01', family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"VA2", jma:"VA2", keyline:"VA2", errebi:"VA2", type:"Lame plip", note:"Anciennes PSA", lishi:"VA2 2-in-1", xhorse:"XKVA2", bladeType:"laser", transponder:"ID46", years:"1998-2009", models:"206, 307, Berlingo, C3" },
-  { id:'KM-HU83-01', family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"HU83", jma:"HU83", keyline:"HU83", errebi:"HU83", type:"Transpondeur", note:"Très courant PSA", lishi:"HU83 2-in-1", xhorse:"XKHU83", bladeType:"laser", transponder:"PCF7941 / PCF7946", years:"2004-2018", models:"207, 208, 308, C4, DS3" },
-  { id:'KM-VA2T-01', family:"Renault", marque:"Renault", silca:"VA2T", jma:"VA2T", keyline:"VA2T", errebi:"VA2T", type:"Plip", note:"Clio, Megane anciennes", lishi:"VA2T", xhorse:"XKVA2T", bladeType:"laser", transponder:"ID46", years:"2001-2010", models:"Clio 2/3, Megane 2, Scenic 2" },
-  { id:'KM-NE72-01', family:"Renault", marque:"Renault", silca:"NE72", jma:"NE72", keyline:"NE72", errebi:"NE72", type:"Carte / transpondeur", note:"Clé carte Renault", lishi:"NE72", xhorse:"XKNE72", bladeType:"laser", transponder:"PCF7947", years:"2003-2016", models:"Megane 2/3, Scenic 2/3, Laguna 3" },
-  { id:'KM-HU101-01', family:"Ford", marque:"Ford", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Plip", note:"Focus, Fiesta modernes", lishi:"HU101 2-in-1", xhorse:"XKHU101", bladeType:"laser", transponder:"ID63 / 80bit", years:"2011-2019", models:"Focus, Fiesta, C-Max, Transit Connect" },
-  { id:'KM-FO21-01', family:"Ford", marque:"Ford", silca:"FO21", jma:"FO21", keyline:"FO21", errebi:"FO21", type:"Ancien", note:"Ford anciennes", lishi:"FO21", xhorse:"XKFO21", bladeType:"standard", transponder:"ID4D", years:"1998-2008", models:"Focus 1, Fiesta, Mondeo" },
-  { id:'KM-HU92-01', family:"BMW", marque:"BMW", silca:"HU92", jma:"HU92", keyline:"HU92", errebi:"HU92", type:"Plip", note:"Très courant BMW", lishi:"HU92 2-in-1", xhorse:"XKHU92EN", bladeType:"laser", transponder:"ID46", years:"2002-2014", models:"E87, E90, E60, X3 E83" },
-  { id:'KM-HU64-01', family:"Mercedes", marque:"Mercedes", silca:"HU64", jma:"HU64", keyline:"HU64", errebi:"HU64", type:"Plip", note:"Classe A/B/C", lishi:"HU64 2-in-1", xhorse:"XKHU64", bladeType:"laser", transponder:"ID46", years:"2004-2014", models:"W169, W204, W212" },
-  { id:'KM-TOY43-01', family:"Toyota", marque:"Toyota", silca:"TOY43", jma:"TOY43", keyline:"TOY43", errebi:"TOY43", type:"Transpondeur", note:"Très courant Toyota", lishi:"TOY43", xhorse:"XKTOY43", bladeType:"laser", transponder:"4C / 4D", years:"2000-2008", models:"Yaris 1, Corolla, Avensis" },
-  { id:'KM-TOY47-01', family:"Toyota", marque:"Toyota", silca:"TOY47", jma:"TOY47", keyline:"TOY47", errebi:"TOY47", type:"Transpondeur", note:"Plus récent", lishi:"TOY47", xhorse:"XKTOY47", bladeType:"laser", transponder:"G chip / 8A selon version", years:"2008-2018", models:"Yaris 2/3, Auris, Prius" },
-  { id:'KM-NSN14-01', family:"Nissan", marque:"Nissan", silca:"NSN14", jma:"NSN14", keyline:"NSN14", errebi:"NSN14", type:"Plip", note:"Qashqai, Micra", lishi:"NSN14", xhorse:"XKNSN14", bladeType:"laser", transponder:"ID46", years:"2005-2018", models:"Qashqai, Micra, Note" },
-  { id:'KM-HON66-01', family:"Honda", marque:"Honda", silca:"HON66", jma:"HON66", keyline:"HON66", errebi:"HON66", type:"Transpondeur", note:"Civic, CR-V", lishi:"HON66", xhorse:"XKHON66", bladeType:"laser", transponder:"ID46", years:"2003-2016", models:"Civic, CR-V, Jazz" },
-  { id:'KM-HU100-01', family:"Opel", marque:"Opel", silca:"HU100", jma:"HU100", keyline:"HU100", errebi:"HU100", type:"Plip", note:"Corsa, Astra", lishi:"HU100", xhorse:"XKHU100", bladeType:"laser", transponder:"ID46", years:"2006-2016", models:"Corsa D/E, Astra J, Meriva" },
-  { id:'KM-HYN20-01', family:"Hyundai / Kia", marque:"Hyundai / Kia", silca:"HYN20", jma:"HYN20", keyline:"HYN20", errebi:"HYN20", type:"Plip", note:"Très courant", lishi:"HYN20", xhorse:"XKHYN20", bladeType:"laser", transponder:"ID46", years:"2010-2020", models:"i20, i30, Ceed, Rio" },
-  { id:'KM-SIP22-01', family:"Fiat / Alfa / Lancia", marque:"Fiat / Alfa / Lancia", silca:"SIP22", jma:"SIP22", keyline:"SIP22", errebi:"SIP22", type:"Laser", note:"Groupe Fiat courant", lishi:"SIP22", xhorse:"XKSIP22", bladeType:"laser", transponder:"ID46", years:"2006-2018", models:"500, Punto, Bravo, Giulietta" },
-  { id:'KM-DW04-01', family:"Dacia / Renault", marque:"Dacia / Renault", silca:"DA34", jma:"DA34", keyline:"DA34", errebi:"DA34", type:"Standard", note:"Profil Dacia courant", lishi:"DA34", xhorse:"XKDA34", bladeType:"standard", transponder:"ID46", years:"2005-2018", models:"Logan, Sandero, Duster" },
-  { id:'KM-HY18-01', family:"Hyundai / Kia", marque:"Hyundai / Kia", silca:"HY18", jma:"HY18", keyline:"HY18", errebi:"HY18", type:"Standard", note:"Ancien Hyundai / Kia", lishi:"HY18", xhorse:"XKHY18", bladeType:"standard", transponder:"ID46", years:"2000-2010", models:"Getz, Accent, Picanto" },
-  { id:'KM-HU162T-01', family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"VAG récent AES", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", years:"2015+", models:"Golf 7, A3 8V, Leon 3" },
-  { id:'KM-TOY50-01', family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY50", jma:"TOY50", keyline:"TOY50", errebi:"TOY50", type:"Smart key", note:"Toyota / Lexus récent", lishi:"TOY50", xhorse:"XKTOY50", bladeType:"smart", transponder:"8A", years:"2018+", models:"Corolla 2019+, Camry, Lexus" }
+
+const autoKeySeed = [
+  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Lame plip / transpondeur", note:"Très courant VAG, attention ID48", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[
+    ["Golf V","2003-2009"],["Golf VI","2008-2012"],["Passat B6","2005-2010"],["Polo 9N","2001-2009"],["Touran","2003-2010"],["A3 8P","2003-2012"],["A4 B7","2004-2008"],["Leon II","2005-2012"],["Octavia II","2004-2013"],["Fabia II","2007-2014"]
+  ]},
+  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"VAG récent AES", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", variants:[
+    ["Golf VII","2013-2020"],["Golf VIII","2020+"],["A3 8V","2013-2020"],["A4 B9","2015+"],["Leon III","2012-2020"],["Octavia III","2013-2020"],["Kodiaq","2016+"],["Tiguan II","2016+"]
+  ]},
+  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162", jma:"HU162", keyline:"HU162", errebi:"HU162", type:"Flip / plip", note:"VAG transition", lishi:"HU162", xhorse:"XKHU162", bladeType:"flip", transponder:"ID48 / MQB selon version", variants:[
+    ["Polo 6R","2009-2017"],["Golf Plus","2009-2014"],["Jetta VI","2010-2018"],["A1","2010-2018"],["Fabia III","2014-2021"],["Rapid","2012-2019"]
+  ]},
+  { family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"HU83", jma:"HU83", keyline:"HU83", errebi:"HU83", type:"Transpondeur", note:"Très courant PSA", lishi:"HU83", xhorse:"XKHU83", bladeType:"laser", transponder:"ID46 / PCF7941 / PCF7946", variants:[
+    ["206+","2009-2013"],["207","2006-2014"],["208","2012-2019"],["307","2001-2008"],["308 I","2007-2013"],["3008 I","2009-2016"],["Partner II","2008-2018"],["C3","2002-2016"],["C4","2004-2018"],["Berlingo II","2008-2018"]
+  ]},
+  { family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"VA2", jma:"VA2", keyline:"VA2", errebi:"VA2", type:"Lame plip", note:"Anciennes PSA", lishi:"VA2", xhorse:"XKVA2", bladeType:"flip", transponder:"ID46 / PCF7941", variants:[
+    ["106","1998-2003"],["206","1998-2009"],["306","1997-2002"],["406","1999-2004"],["Saxo","1998-2003"],["Xsara","1998-2005"],["Xsara Picasso","2000-2010"],["Berlingo I","1999-2008"]
+  ]},
+  { family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"SX9", jma:"SX9", keyline:"SX9", errebi:"SX9", type:"Laser", note:"PSA récent", lishi:"SX9", xhorse:"XKSX9", bladeType:"laser", transponder:"ID46 / ID49", variants:[
+    ["208 II","2019+"],["2008 II","2020+"],["308 II","2013-2021"],["308 III","2021+"],["3008 II","2016+"],["508 II","2018+"],["C3 III","2016+"],["C4 III","2020+"],["Berlingo III","2018+"],["Jumpy III","2016+"]
+  ]},
+  { family:"Renault / Dacia", marque:"Renault / Dacia", silca:"VA2T", jma:"VA2T", keyline:"VA2T", errebi:"VA2T", type:"Plip", note:"Clio, Megane anciennes", lishi:"VA2T", xhorse:"XKVA2T", bladeType:"flip", transponder:"ID46 / PCF7946", variants:[
+    ["Clio II","2001-2006"],["Clio III","2005-2012"],["Megane II","2002-2009"],["Scenic II","2003-2009"],["Kangoo I","2003-2008"],["Modus","2004-2012"],["Laguna II","2001-2007"],["Master II","2003-2010"]
+  ]},
+  { family:"Renault / Dacia", marque:"Renault / Dacia", silca:"NE72", jma:"NE72", keyline:"NE72", errebi:"NE72", type:"Carte / transpondeur", note:"Clé carte Renault", lishi:"NE72", xhorse:"XKNE72", bladeType:"smart", transponder:"PCF7947 / HITAG AES selon version", variants:[
+    ["Megane III","2008-2016"],["Scenic III","2009-2016"],["Clio IV","2012-2019"],["Captur I","2013-2019"],["Laguna III","2007-2015"],["Talisman","2015+"],["Espace V","2015+"],["Kadjar","2015+"],["Master III","2010+"]
+  ]},
+  { family:"Renault / Dacia", marque:"Renault / Dacia", silca:"DA34", jma:"DA34", keyline:"DA34", errebi:"DA34", type:"Standard", note:"Profil Dacia courant", lishi:"DA34", xhorse:"XKDA34", bladeType:"standard", transponder:"ID46", variants:[
+    ["Logan I","2004-2012"],["Sandero I","2008-2012"],["Duster I","2010-2017"],["Dokker","2012-2021"],["Lodgy","2012-2022"],["Logan II","2012-2020"],["Sandero II","2012-2020"],["Duster II","2018+"]
+  ]},
+  { family:"Ford", marque:"Ford", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Plip", note:"Ford modernes", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID63 / 80bit", variants:[
+    ["Fiesta VI","2008-2017"],["Focus III","2011-2018"],["Mondeo IV","2007-2014"],["Kuga I","2008-2013"],["C-Max","2010-2019"],["B-Max","2012-2017"],["Transit Custom","2012-2023"],["EcoSport","2014+"]
+  ]},
+  { family:"Ford", marque:"Ford", silca:"FO21", jma:"FO21", keyline:"FO21", errebi:"FO21", type:"Ancien", note:"Ford anciennes", lishi:"FO21", xhorse:"XKFO21", bladeType:"standard", transponder:"4D60 / 4D63", variants:[
+    ["Focus I","1998-2005"],["Mondeo III","2000-2007"],["Fiesta V","2002-2008"],["Fusion","2002-2012"],["Transit","2000-2006"],["Connect I","2002-2013"]
+  ]},
+  { family:"Ford", marque:"Ford", silca:"HU198", jma:"HU198", keyline:"HU198", errebi:"HU198", type:"Smart key", note:"Ford récent", lishi:"HU198", xhorse:"XKHU198", bladeType:"smart", transponder:"AES / 128bit", variants:[
+    ["Focus IV","2018+"],["Fiesta VII","2017+"],["Puma","2020+"],["Kuga II","2013-2019"],["Kuga III","2020+"],["Mondeo V","2014+"]
+  ]},
+  { family:"BMW / Mini", marque:"BMW / Mini", silca:"HU92", jma:"HU92", keyline:"HU92", errebi:"HU92", type:"Plip", note:"Très courant BMW", lishi:"HU92", xhorse:"XKHU92", bladeType:"laser", transponder:"ID46 / PCF7945", variants:[
+    ["Serie 1 E87","2004-2011"],["Serie 3 E46","1998-2005"],["Serie 3 E90","2005-2012"],["Serie 5 E60","2003-2010"],["X3 E83","2003-2010"],["X5 E53","2000-2006"],["Mini R50","2001-2006"],["Mini R56","2006-2014"]
+  ]},
+  { family:"BMW / Mini", marque:"BMW / Mini", silca:"HU100R", jma:"HU100R", keyline:"HU100R", errebi:"HU100R", type:"Smart key", note:"BMW F series", lishi:"HU100R", xhorse:"XKHU100R", bladeType:"smart", transponder:"FEM / CAS4", variants:[
+    ["Serie 1 F20","2011-2019"],["Serie 3 F30","2012-2019"],["Serie 5 F10","2010-2017"],["X1 F48","2015+"],["X3 F25","2010-2017"],["Mini F56","2014+"]
+  ]},
+  { family:"Mercedes", marque:"Mercedes", silca:"HU64", jma:"HU64", keyline:"HU64", errebi:"HU64", type:"Plip", note:"Classe A/B/C", lishi:"HU64", xhorse:"XKHU64", bladeType:"laser", transponder:"IR / NEC / BGA selon génération", variants:[
+    ["Classe A W169","2004-2012"],["Classe B W245","2005-2011"],["Classe C W203","2000-2007"],["Classe C W204","2007-2014"],["Classe E W211","2002-2009"],["Sprinter","2006-2018"],["Vito","2004-2014"],["CLS W219","2004-2010"]
+  ]},
+  { family:"Mercedes", marque:"Mercedes", silca:"HU39", jma:"HU39", keyline:"HU39", errebi:"HU39", type:"Ancien", note:"Anciennes Mercedes", lishi:"HU39", xhorse:"XKHU39", bladeType:"standard", transponder:"IR ancien", variants:[
+    ["Classe C W202","1993-2000"],["Classe E W210","1995-2002"],["SLK R170","1996-2004"],["ML W163","1997-2005"]
+  ]},
+  { family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY43", jma:"TOY43", keyline:"TOY43", errebi:"TOY43", type:"Transpondeur", note:"Très courant Toyota", lishi:"TOY43", xhorse:"XKTOY43", bladeType:"laser", transponder:"4C / 4D", variants:[
+    ["Yaris I","1999-2005"],["Corolla E12","2001-2007"],["Avensis T25","2003-2008"],["RAV4 II","2000-2005"],["Land Cruiser 120","2002-2009"],["Hilux VII","2005-2015"],["Prius II","2003-2009"],["Lexus IS200","1999-2005"]
+  ]},
+  { family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY47", jma:"TOY47", keyline:"TOY47", errebi:"TOY47", type:"Transpondeur", note:"Toyota plus récent", lishi:"TOY47", xhorse:"XKTOY47", bladeType:"laser", transponder:"G chip / 8A selon version", variants:[
+    ["Yaris II","2005-2011"],["Yaris III","2011-2020"],["Auris I","2007-2012"],["Auris II","2012-2018"],["Prius III","2009-2015"],["Corolla E17","2013-2019"],["Aygo II","2014-2021"],["Lexus CT200h","2011-2020"]
+  ]},
+  { family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY50", jma:"TOY50", keyline:"TOY50", errebi:"TOY50", type:"Smart key", note:"Toyota / Lexus récent", lishi:"TOY50", xhorse:"XKTOY50", bladeType:"smart", transponder:"8A / H", variants:[
+    ["Corolla XII","2019+"],["C-HR","2016+"],["RAV4 V","2018+"],["Camry VIII","2018+"],["Yaris Cross","2021+"],["Lexus UX","2018+"],["Lexus ES","2018+"]
+  ]},
+  { family:"Nissan / Infiniti", marque:"Nissan / Infiniti", silca:"NSN14", jma:"NSN14", keyline:"NSN14", errebi:"NSN14", type:"Plip", note:"Qashqai, Micra", lishi:"NSN14", xhorse:"XKNSN14", bladeType:"laser", transponder:"ID46 / PCF7936", variants:[
+    ["Qashqai J10","2007-2013"],["Qashqai J11","2014-2021"],["Micra K12","2003-2010"],["Micra K13","2010-2017"],["Note E11","2006-2013"],["Juke F15","2010-2019"],["X-Trail T31","2007-2014"],["Navara D40","2005-2015"]
+  ]},
+  { family:"Nissan / Infiniti", marque:"Nissan / Infiniti", silca:"NSN11", jma:"NSN11", keyline:"NSN11", errebi:"NSN11", type:"Standard", note:"Nissan ancien", lishi:"NSN11", xhorse:"XKNSN11", bladeType:"standard", transponder:"4D60", variants:[
+    ["Almera N16","2000-2006"],["Primera P12","2002-2008"],["Terrano II","1998-2006"],["Patrol Y61","1998-2010"]
+  ]},
+  { family:"Honda", marque:"Honda", silca:"HON66", jma:"HON66", keyline:"HON66", errebi:"HON66", type:"Transpondeur", note:"Civic, CR-V", lishi:"HON66", xhorse:"XKHON66", bladeType:"laser", transponder:"ID46", variants:[
+    ["Civic VIII","2006-2011"],["Civic IX","2012-2017"],["CR-V III","2006-2012"],["CR-V IV","2012-2018"],["Jazz II","2008-2015"],["Accord VIII","2008-2015"],["HR-V II","2015+"]
+  ]},
+  { family:"Opel / Vauxhall", marque:"Opel / Vauxhall", silca:"HU100", jma:"HU100", keyline:"HU100", errebi:"HU100", type:"Plip", note:"Corsa, Astra", lishi:"HU100", xhorse:"XKHU100", bladeType:"laser", transponder:"ID46", variants:[
+    ["Corsa D","2006-2014"],["Corsa E","2014-2019"],["Astra J","2009-2015"],["Meriva B","2010-2017"],["Insignia A","2008-2017"],["Zafira Tourer","2011-2019"],["Mokka","2012-2019"]
+  ]},
+  { family:"Opel / Vauxhall", marque:"Opel / Vauxhall", silca:"HU46", jma:"HU46", keyline:"HU46", errebi:"HU46", type:"Standard", note:"Opel ancien", lishi:"HU46", xhorse:"XKHU46", bladeType:"standard", transponder:"ID40 / ID46", variants:[
+    ["Corsa C","2000-2006"],["Astra G","1998-2004"],["Vectra C","2002-2008"],["Zafira A","1999-2005"]
+  ]},
+  { family:"Hyundai / Kia", marque:"Hyundai / Kia", silca:"HYN20", jma:"HYN20", keyline:"HYN20", errebi:"HYN20", type:"Plip", note:"Très courant", lishi:"HYN20", xhorse:"XKHYN20", bladeType:"laser", transponder:"ID46", variants:[
+    ["i20","2008-2020"],["i30","2007-2020"],["Tucson","2015+"],["ix35","2010-2015"],["Ceed","2006-2021"],["Sportage","2010+"],["Rio","2011-2020"],["Picanto","2011+"]
+  ]},
+  { family:"Hyundai / Kia", marque:"Hyundai / Kia", silca:"HY18", jma:"HY18", keyline:"HY18", errebi:"HY18", type:"Standard", note:"Ancien Hyundai / Kia", lishi:"HY18", xhorse:"XKHY18", bladeType:"standard", transponder:"ID46", variants:[
+    ["Getz","2002-2011"],["Accent","2000-2010"],["Matrix","2001-2010"],["Atos","1999-2008"],["Cerato","2004-2009"],["Picanto I","2004-2011"]
+  ]},
+  { family:"Fiat / Alfa / Lancia", marque:"Fiat / Alfa / Lancia", silca:"SIP22", jma:"SIP22", keyline:"SIP22", errebi:"SIP22", type:"Laser", note:"Groupe Fiat courant", lishi:"SIP22", xhorse:"XKSIP22", bladeType:"laser", transponder:"ID46", variants:[
+    ["500","2007+"],["Punto Evo","2009-2018"],["Bravo II","2007-2014"],["Doblo II","2010-2021"],["Ducato X250","2006+"],["Giulietta","2010+"],["Mito","2008-2018"],["Ypsilon","2011+"]
+  ]},
+  { family:"Fiat / Alfa / Lancia", marque:"Fiat / Alfa / Lancia", silca:"SIP16", jma:"SIP16", keyline:"SIP16", errebi:"SIP16", type:"Standard", note:"Fiat ancien", lishi:"SIP16", xhorse:"XKSIP16", bladeType:"standard", transponder:"ID48 / ID46", variants:[
+    ["Punto II","1999-2010"],["Panda II","2003-2012"],["Stilo","2001-2010"],["Idea","2003-2012"],["Multipla","1999-2010"],["Doblo I","2000-2010"]
+  ]},
+  { family:"Mazda", marque:"Mazda", silca:"MAZ24", jma:"MAZ24", keyline:"MAZ24", errebi:"MAZ24", type:"Laser", note:"Mazda récent", lishi:"MAZ24", xhorse:"XKMAZ24", bladeType:"laser", transponder:"ID46 / 80bit", variants:[
+    ["Mazda 2","2007+"],["Mazda 3","2003+"],["Mazda 6","2002+"],["CX-3","2015+"],["CX-5","2012+"],["MX-5 NC","2005-2015"]
+  ]},
+  { family:"Mazda", marque:"Mazda", silca:"MAZ20", jma:"MAZ20", keyline:"MAZ20", errebi:"MAZ20", type:"Standard", note:"Mazda ancien", lishi:"MAZ20", xhorse:"XKMAZ20", bladeType:"standard", transponder:"4C / 4D63", variants:[
+    ["Mazda 323","1998-2004"],["Mazda Premacy","1999-2005"],["Mazda Tribute","2001-2007"],["Mazda 626","1998-2002"]
+  ]},
+  { family:"Mitsubishi", marque:"Mitsubishi", silca:"MIT11", jma:"MIT11", keyline:"MIT11", errebi:"MIT11", type:"Laser", note:"Mitsubishi courant", lishi:"MIT11", xhorse:"XKMIT11", bladeType:"laser", transponder:"ID46", variants:[
+    ["Outlander II","2006-2012"],["ASX","2010+"],["Lancer X","2007-2017"],["Colt VI","2004-2012"],["Pajero IV","2006+"],["L200","2006+"]
+  ]},
+  { family:"Mitsubishi", marque:"Mitsubishi", silca:"MIT8", jma:"MIT8", keyline:"MIT8", errebi:"MIT8", type:"Standard", note:"Mitsubishi ancien", lishi:"MIT8", xhorse:"XKMIT8", bladeType:"standard", transponder:"4D61", variants:[
+    ["Carisma","1999-2004"],["Space Star","1998-2005"],["Pajero III","1999-2006"],["Galant","1997-2004"]
+  ]},
+  { family:"Volvo", marque:"Volvo", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Laser", note:"Volvo plateforme Ford", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID46 / 80bit", variants:[
+    ["C30","2006-2013"],["S40 II","2004-2012"],["V50","2004-2012"],["C70 II","2005-2013"],["V40","2012+"]
+  ]},
+  { family:"Jaguar / Land Rover", marque:"Jaguar / Land Rover", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Laser", note:"JLR plateforme Ford", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID46 / 80bit", variants:[
+    ["Freelander 2","2006-2014"],["Evoque","2011+"],["Discovery Sport","2014+"],["XF","2008+"],["XJ X351","2009+"],["XE","2015+"]
+  ]},
+  { family:"Subaru", marque:"Subaru", silca:"DAT17", jma:"DAT17", keyline:"DAT17", errebi:"DAT17", type:"Laser", note:"Subaru / Nissan dérivé", lishi:"DAT17", xhorse:"XKDAT17", bladeType:"laser", transponder:"ID46", variants:[
+    ["Forester SJ","2012-2018"],["Outback","2010+"],["Legacy","2010+"],["XV","2011+"],["Impreza","2012+"]
+  ]},
+  { family:"Suzuki", marque:"Suzuki", silca:"SZ14R", jma:"SZ14R", keyline:"SZ14R", errebi:"SZ14R", type:"Laser", note:"Suzuki récent", lishi:"SZ14R", xhorse:"XKSZ14R", bladeType:"laser", transponder:"ID46", variants:[
+    ["Swift III","2010-2017"],["Vitara","2015+"],["S-Cross","2013+"],["Baleno","2015+"],["Ignis","2016+"]
+  ]},
+  { family:"Chevrolet / Daewoo", marque:"Chevrolet / Daewoo", silca:"DW04R", jma:"DW04R", keyline:"DW04R", errebi:"DW04R", type:"Laser", note:"Chevrolet Europe", lishi:"DW04R", xhorse:"XKDW04R", bladeType:"laser", transponder:"ID46", variants:[
+    ["Aveo","2011-2020"],["Cruze","2009-2016"],["Orlando","2011-2018"],["Trax","2013-2020"],["Spark","2010-2020"]
+  ]},
+  { family:"Chrysler / Jeep / Dodge", marque:"Chrysler / Jeep / Dodge", silca:"CY24", jma:"CY24", keyline:"CY24", errebi:"CY24", type:"Laser", note:"Groupe Chrysler", lishi:"CY24", xhorse:"XKCY24", bladeType:"laser", transponder:"ID46 / 4D64", variants:[
+    ["300C","2004-2011"],["Voyager","2004-2016"],["Grand Cherokee WK2","2010+"],["Cherokee KL","2013+"],["Renegade","2014+"],["Dodge Journey","2008-2020"]
+  ]}
 ];
+
+const autoKeysDatabase = autoKeySeed.flatMap(seed => {
+  return seed.variants.map(([model, years], idx) => ({
+    id: `KM-${seed.silca.replace(/[^A-Z0-9]/gi,'').toUpperCase()}-${String(idx+1).padStart(2,'0')}`,
+    family: seed.family,
+    marque: seed.marque,
+    silca: seed.silca,
+    jma: seed.jma,
+    keyline: seed.keyline,
+    errebi: seed.errebi,
+    type: seed.type,
+    note: seed.note,
+    lishi: seed.lishi,
+    xhorse: seed.xhorse,
+    bladeType: seed.bladeType,
+    transponder: seed.transponder,
+    years,
+    models: model
+  }));
+});
 
 const plateDatabase = {
   'AA123AA': {plate:'AA-123-AA', make:'Peugeot', model:'207', year:'2011', profile:'HU83', note:'Exemple démo locale'},
@@ -158,6 +276,8 @@ const plateDatabase = {
   'NO654PQ': {plate:'NO-654-PQ', make:'Toyota', model:'Yaris', year:'2005', profile:'TOY43', note:'Exemple démo locale'}
 };
 
+let hasSearched = false;
+let lastResults = [];
 let records = loadJson(STORAGE_KEY, autoKeysDatabase);
 if (!Array.isArray(records) || !records.length) records = structuredClone(autoKeysDatabase);
 let favorites = loadJson(FAVORITES_KEY, []);
@@ -189,56 +309,54 @@ function searchableText(r){
   return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models].join(' | '));
 }
 
-function hasActiveSearch(){
-  const q = normalize(document.getElementById('searchInput').value);
-  const family = document.getElementById('brandFilter').value;
-  const blade = document.getElementById('bladeFilter').value;
-  const transponder = normalize(document.getElementById('transponderFilter').value);
-  return !!(q || family || blade || transponder);
+function codeFields(r){
+  return [r.id,r.silca,r.jma,r.keyline,r.errebi,r.lishi,r.xhorse].map(normalize).filter(Boolean);
 }
 
-function setIdleResults(){
-  const box = document.getElementById('results');
-  box.innerHTML = '<div class="empty">Lance une recherche pour afficher les fiches.</div>';
-  document.getElementById('searchSummary').textContent = 'En attente de recherche';
-  refreshStats(0);
+function currentFilters(){
+  return {
+    q: normalize(document.getElementById('searchInput').value),
+    family: document.getElementById('brandFilter').value,
+    blade: document.getElementById('bladeFilter').value,
+    transponder: normalize(document.getElementById('transponderFilter').value)
+  };
 }
 
-function exactFieldMatch(r, q){
-  const exactFields = [r.id, r.silca, r.jma, r.keyline, r.errebi, r.lishi, r.xhorse];
-  return exactFields.some(v => normalize(v) === q);
-}
-
-function getFilteredResults(source = records){
-  const q = normalize(document.getElementById('searchInput').value);
-  const family = document.getElementById('brandFilter').value;
-  const blade = document.getElementById('bladeFilter').value;
-  const transponder = normalize(document.getElementById('transponderFilter').value);
-
-  if (!q && !family && !blade && !transponder) return [];
-
-  let pool = source.filter(r => {
+function applyFilters(source, filters){
+  const {q, family, blade, transponder} = filters;
+  const scoped = source.filter(r => {
     const familyOk = !family || (r.family || r.marque) === family;
     const bladeOk = !blade || (r.bladeType || '').toLowerCase() === blade;
     const transOk = !transponder || normalize(r.transponder).includes(transponder);
     return familyOk && bladeOk && transOk;
   });
 
-  if (q) {
-    const exactMatches = pool.filter(r => exactFieldMatch(r, q));
-    if (exactMatches.length) return exactMatches;
-    pool = pool.filter(r => searchableText(r).includes(q));
-  }
+  if (!q) return scoped;
 
-  return pool;
+  const exact = scoped.filter(r => codeFields(r).includes(q));
+  if (exact.length) return exact;
+
+  return scoped.filter(r => searchableText(r).includes(q));
+}
+
+function clearResultsState(message = 'Lance une recherche pour afficher les fiches.'){
+  hasSearched = false;
+  lastResults = [];
+  document.getElementById('results').innerHTML = `<div class="empty">${message}</div>`;
+  document.getElementById('searchSummary').textContent = 'En attente de recherche';
+  refreshStats(0);
 }
 
 function runSearch(source = records){
-  const filtered = getFilteredResults(source);
-  if (!hasActiveSearch()) {
-    setIdleResults();
+  const filters = currentFilters();
+  const hasFilter = !!(filters.q || filters.family || filters.blade || filters.transponder);
+  if (!hasFilter) {
+    clearResultsState('Renseigne une référence, un modèle ou un filtre puis appuie sur Rechercher.');
     return;
   }
+  const filtered = applyFilters(source, filters);
+  hasSearched = true;
+  lastResults = filtered;
   renderResults(filtered);
   document.getElementById('searchSummary').textContent = `${filtered.length} résultat(s)`;
   refreshStats(filtered.length);
@@ -323,11 +441,12 @@ function deleteRecord(id){
   favorites = favorites.filter(x => x !== id);
   compareIds = compareIds.filter(x => x !== id);
   saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds);
-  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); runSearch();
+  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList();
+  if (hasSearched) runSearch(); else clearResultsState();
 }
 
 function getCurrentResults(){
-  return getFilteredResults(records);
+  return hasSearched ? lastResults : [];
 }
 
 function addKey(){
@@ -349,11 +468,11 @@ function addKey(){
     type: document.getElementById('newBladeType').options[document.getElementById('newBladeType').selectedIndex].text,
     note: document.getElementById('newNotes').value.trim()
   };
-  records.unshift(record); saveRecords(); clearForm(); refreshFamilyFilter(); renderDatasetList(); runSearch(); alert('Fiche ajoutée');
+  records.unshift(record); saveRecords(); clearForm(); refreshFamilyFilter(); renderDatasetList(); if (hasSearched) runSearch(); alert('Fiche ajoutée');
 }
 
 function clearForm(){ ['newFamily','newSilca','newJma','newKeyline','newErrebi','newLishi','newXhorse','newTransponder','newYears','newModels','newRefCode','newNotes'].forEach(id=>document.getElementById(id).value=''); document.getElementById('newBladeType').value='laser'; }
-function resetDatabase(){ records = structuredClone(autoKeysDatabase); favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); runSearch(); }
+function resetDatabase(){ records = structuredClone(autoKeysDatabase); favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); clearResultsState('Base réinitialisée. Lance une nouvelle recherche.'); }
 function exportData(){ const blob = new Blob([JSON.stringify(records, null, 2)], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'keymaster-auto-expert.json'; a.click(); URL.revokeObjectURL(url); }
 
 function importData(file){
@@ -362,7 +481,7 @@ function importData(file){
     try {
       const parsed = JSON.parse(reader.result);
       if (!Array.isArray(parsed)) throw new Error();
-      records = parsed; saveRecords(); refreshFamilyFilter(); renderDatasetList(); runSearch(); alert('Import terminé');
+      records = parsed; saveRecords(); refreshFamilyFilter(); renderDatasetList(); if (hasSearched) runSearch(); else clearResultsState('Import terminé. Lance une recherche.'); alert('Import terminé');
     } catch(e){ alert('JSON invalide'); }
   };
   reader.readAsText(file);
@@ -392,22 +511,22 @@ function attachDelegates(){
 }
 
 function init(){
-  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); setIdleResults(); attachDelegates();
+  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); clearResultsState(); attachDelegates();
   document.getElementById('searchBtn').addEventListener('click', runSearch);
-  document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; setIdleResults(); });
-  document.getElementById('showFavsBtn').addEventListener('click', () => renderResults(records.filter(r => favorites.includes(r.id))));
+  document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; clearResultsState(); });
+  document.getElementById('showFavsBtn').addEventListener('click', () => { const favs = records.filter(r => favorites.includes(r.id)); hasSearched = true; lastResults = favs; renderResults(favs); document.getElementById('searchSummary').textContent = `${favs.length} favori(s)`; refreshStats(favs.length); });
   document.getElementById('seedBtn').addEventListener('click', resetDatabase);
   document.getElementById('exportBtn').addEventListener('click', exportData);
   document.getElementById('addBtn').addEventListener('click', addKey);
   document.getElementById('clearFormBtn').addEventListener('click', clearForm);
-  document.getElementById('clearCustomBtn').addEventListener('click', () => { if (!confirm('Vider toute la base locale ?')) return; records = []; favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); runSearch(); });
-  document.getElementById('clearCompareBtn').addEventListener('click', () => { compareIds=[]; saveJson(COMPARE_KEY, compareIds); renderCompare(); runSearch(); });
-  document.getElementById('clearFavsBtn').addEventListener('click', () => { favorites=[]; saveJson(FAVORITES_KEY, favorites); renderFavorites(); runSearch(); refreshStats(getCurrentResults().length); });
+  document.getElementById('clearCustomBtn').addEventListener('click', () => { if (!confirm('Vider toute la base locale ?')) return; records = []; favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); clearResultsState('Base locale vidée.'); });
+  document.getElementById('clearCompareBtn').addEventListener('click', () => { compareIds=[]; saveJson(COMPARE_KEY, compareIds); renderCompare(); if (hasSearched) renderResults(lastResults); });
+  document.getElementById('clearFavsBtn').addEventListener('click', () => { favorites=[]; saveJson(FAVORITES_KEY, favorites); renderFavorites(); if (hasSearched) renderResults(lastResults); refreshStats(getCurrentResults().length); });
   document.getElementById('plateBtn').addEventListener('click', searchPlate);
   document.getElementById('plateExamplesBtn').addEventListener('click', () => { document.getElementById('plateInput').value='AA-123-AA'; searchPlate(); });
   document.getElementById('importFile').addEventListener('change', (e) => { if (e.target.files[0]) importData(e.target.files[0]); e.target.value=''; });
   document.getElementById('searchInput').addEventListener('keydown', (e)=>{ if (e.key === 'Enter') runSearch(); });
-  ['brandFilter','bladeFilter','transponderFilter'].forEach(id => document.getElementById(id).addEventListener('change', runSearch));
+  ['brandFilter','bladeFilter','transponderFilter'].forEach(id => document.getElementById(id).addEventListener('change', () => { document.getElementById('searchSummary').textContent = 'Filtres prêts · appuie sur Rechercher'; }));
 }
 
 document.addEventListener('DOMContentLoaded', init);
