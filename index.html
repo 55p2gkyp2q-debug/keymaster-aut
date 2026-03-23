@@ -16,9 +16,9 @@
     h1,h2,h3{margin:0 0 10px}.hero h1,.hero p{color:#fff}.hero p{margin:0;line-height:1.5;font-weight:600}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);font-size:.9rem;color:#fff;font-weight:700}
     .grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(5,1fr);margin-top:16px}.main{grid-template-columns:1.5fr 1fr;margin-top:16px}.two{grid-template-columns:1fr 1fr;margin-top:16px}
-    .card{background:linear-gradient(180deg,#fff,#fff5f5);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.sub{color:var(--muted);line-height:1.45;font-size:.95rem}
-    .stat .big{font-size:2rem;font-weight:800}.label{color:var(--muted);margin-top:6px}
-    label{display:block;font-weight:700;margin-bottom:8px;font-size:.93rem} input,select,textarea{width:100%;padding:14px;border:1px solid #d8dce3;border-radius:16px;font:inherit;outline:none} textarea{min-height:100px;resize:vertical}
+    .card{background:linear-gradient(135deg,#191a1f 0%,#24252d 50%,#b40f15 100%);color:#fff;linear-gradient(180deg,#fff,#fff5f5);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.sub{color:#d1d1d1;line-height:1.45;font-size:.95rem}
+    .stat .big{font-size:2rem;font-weight:800}.label{color:#d1d1d1;margin-top:6px}
+    label{display:block;font-weight:700;margin-bottom:8px;font-size:.93rem} input,select,textarea{width:100%;padding:14px;border:1px solid #d8dce3;border-radius:16px;font:inherit;outline:none;background:#fff;color:#000} textarea{min-height:100px;resize:vertical}
     input:focus,select:focus,textarea:focus{border-color:var(--red2);box-shadow:0 0 0 4px rgba(199,18,24,.12)}
     .search-grid,.form-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)} .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
     button,.button{border:none;background:var(--red);color:#fff;padding:13px 16px;border-radius:16px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.secondary{background:#fff;color:var(--red);border:1px solid var(--line)}.dark{background:var(--black)}.danger{background:#7f1014}
@@ -48,11 +48,21 @@
     .modal-backdrop{position:fixed;inset:0;background:rgba(18,19,23,.45);backdrop-filter:blur(3px);z-index:1300;display:none;align-items:center;justify-content:center;padding:18px}
     .modal-backdrop.show{display:flex}
     .modal-card{width:min(980px,100%);max-height:92vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:0 22px 50px rgba(15,23,42,.2);padding:20px}
+    
+    .toolbar-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .contact-box{display:grid;gap:12px;margin-top:14px}
+    .contact-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:#fff;color:#000}
+    .stock-alert-small{padding:9px 12px;font-size:.88rem;line-height:1.35}
+
     .hidden{display:none !important}
 
     @media (max-width:1100px){.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr 1fr}}
     @media (max-width:720px){.hero-grid,.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr}.hero img{width:100px;height:100px}.ref{font-size:1.2rem}}
-  </style>
+  
+    .contact-item{color:#000 !important;}
+    .contact-item strong{color:#000 !important;}
+
+</style>
 </head>
 <body>
 <button id="sidebarToggle" class="sidebar-toggle" aria-label="Ouvrir le menu">☰</button>
@@ -102,7 +112,7 @@
 
   <section id="searchSection" class="grid main">
     <div class="card">
-      <div class="toolbar"><div><h2>Recherche principale</h2><div class="sub">Recherche par référence, famille, modèle, Lishi, Xhorse, transpondeur ou note atelier.</div></div><div id="searchSummary" class="sub">En attente de recherche</div></div>
+      <div class="toolbar"><div><h2>🔎 Recherche principale</h2><div class="sub">Recherche par référence, famille, modèle, Lishi, Xhorse, transpondeur ou note atelier.</div></div><div id="searchSummary" class="sub">En attente de recherche</div></div>
       <div class="search-grid">
         <div><label for="searchInput">Recherche globale</label><input id="searchInput" placeholder="Ex : HU66, Yaris, ID48, HU92, Clio, XKHU83..."></div>
         <div><label for="brandFilter">Famille</label><select id="brandFilter"><option value="">Toutes</option></select></div>
@@ -112,37 +122,37 @@
       <div class="btns">
         <button id="searchBtn">Rechercher</button>
         <button class="secondary" id="resetBtn">Réinitialiser</button>
-                <button class="secondary" id="seedBtn">Réinitialiser la base pro</button>
+        <button class="secondary" id="seedBtn">Réinitialiser la base pro</button>
         <button class="secondary" id="exportBtn">Exporter JSON</button>
       </div>
       <div id="recentBox" class="card" style="margin-top:12px;padding:14px 16px;box-shadow:none">
-        <h3>Dernières recherches</h3>
+        <h3>🕘 Dernières recherches</h3>
         <div class="sub">Touchez une recherche pour la relancer instantanément.</div>
         <div id="recentSearches" class="recent-searches"></div>
       </div>
       <div class="footer">La recherche couvre : Silca / JMA / Keyline / Errebi, famille, modèles exemples, Lishi, Xhorse, type de lame, transpondeur et notes atelier.</div>
     </div>
 
-
+    <div class="card">
+      <h2>📞 KeyMaster Contact</h2>
+      <div class="sub">Informations de contact rapides.</div>
+      <div class="contact-box">
+        <div class="contact-item"><strong>📧 Email :</strong><br>keymaster@gmail.com</div>
+        <div class="contact-item"><strong>📱 Numéro de téléphone :</strong><br>0786301616</div>
+      </div>
+    </div>
   </section>
 
-  <section id="resultsSection" class="grid main">
+  <section id="resultsSection" class="grid">
     <div class="card">
-      <h2>Résultats</h2>
+      <h2>📋 Résultats</h2>
       <div id="results" class="results"></div>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <h3>Accès rapide</h3>
-        <div class="sub">Depuis chaque résultat tu peux copier la référence, ajuster le stock ou pré-remplir une intervention terrain.</div>
-        <div class="notice" style="margin-top:12px">Le comparateur rapide, les favoris et la recherche plaque ont été retirés pour alléger l’application.</div>
-      </div>
     </div>
   </section>
 
   <section id="interventionSection" class="grid two">
     <div class="card">
-      <h2>Mode terrain · Intervention</h2>
+      <h2>🚨 Mode terrain · Intervention</h2>
       <div class="sub">Prépare rapidement une intervention serrurerie auto depuis le terrain.</div>
       <div class="form-grid" style="margin-top:12px">
         <div><label for="interClient">Client</label><input id="interClient" placeholder="Nom client"></div>
@@ -163,7 +173,7 @@
     </div>
 
     <div class="card intervention-box">
-      <div class="toolbar"><h3>Résumé intervention</h3><button class="secondary" id="copyInterventionBtn">Copier</button></div>
+      <div class="toolbar"><h3>📝 Résumé intervention</h3><button class="secondary" id="copyInterventionBtn">Copier</button></div>
       <div id="interventionOutput" class="intervention-summary">
         <div class="intervention-title">Aucune intervention générée</div>
         <div class="sub">Choisis une référence ou remplis le formulaire puis crée la fiche intervention.</div>
@@ -173,12 +183,18 @@
 
   <section id="stockSection" class="grid main">
     <div class="card">
-      <div class="toolbar"><div><h2>Gestion du stock</h2><div class="sub">Visualise les quantités, repère le stock faible et ajuste rapidement.</div></div><button class="secondary" id="stockSortBtn">Trier stock faible</button></div>
+      <div class="toolbar">
+        <div><h2>📦 Gestion du stock</h2><div class="sub">Visualise les quantités, repère le stock faible et ajuste rapidement.</div></div>
+        <div class="toolbar-actions">
+          <button class="secondary" id="toggleStockBtn">Masquer</button>
+          <button class="secondary" id="stockSortBtn">Trier stock faible</button>
+        </div>
+      </div>
       <div id="stockList" class="list"></div>
     </div>
     <div class="card">
-      <h2>Alerte stock</h2>
-      <div id="stockAlert" class="notice">Aucune alerte pour le moment.</div>
+      <h2>⚠️ Alerte stock</h2>
+      <div id="stockAlert" class="notice stock-alert-small">Aucune alerte pour le moment.</div>
       <div class="footer">Seuil stock faible : inférieur ou égal à 2 pièces.</div>
     </div>
   </section>
@@ -187,7 +203,7 @@
     <div id="datasetSection" class="card">
       <div class="toolbar">
     <div>
-      <h2>Base locale</h2>
+      <h2>🗂️ Base locale</h2>
       <div class="sub">Tu peux masquer ou afficher la base.</div>
     </div>
     <div>
@@ -203,7 +219,7 @@
 <div id="addModal" class="modal-backdrop" aria-hidden="true">
   <div class="modal-card">
     <div class="toolbar">
-      <div><h2>Créer une fiche</h2><div class="sub">Ajoute directement une nouvelle fiche depuis ce pop-up.</div></div>
+      <div><h2>➕ Créer une fiche</h2><div class="sub">Ajoute directement une nouvelle fiche depuis ce pop-up.</div></div>
       <button class="secondary" id="closeAddModalBtn">Fermer</button>
     </div>
     <div class="form-grid" style="margin-top:12px">
@@ -694,6 +710,20 @@ document.addEventListener('DOMContentLoaded', () => {
       datasetVisible = !datasetVisible;
       section.style.display = datasetVisible ? 'grid' : 'none';
       btn.textContent = datasetVisible ? 'Masquer' : 'Afficher';
+    });
+  }
+});
+
+
+let stockVisible = true;
+document.addEventListener('DOMContentLoaded', () => {
+  const stockBtn = document.getElementById('toggleStockBtn');
+  if (stockBtn) {
+    stockBtn.addEventListener('click', () => {
+      const stockList = document.getElementById('stockList');
+      stockVisible = !stockVisible;
+      stockList.style.display = stockVisible ? 'grid' : 'none';
+      stockBtn.textContent = stockVisible ? 'Masquer' : 'Afficher';
     });
   }
 });
