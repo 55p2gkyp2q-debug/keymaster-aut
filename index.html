@@ -26,47 +26,17 @@
     .meta-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);margin:14px 0}.meta{padding:15px;border-radius:18px;border:1px solid var(--line);background:#fff;min-height:78px}.meta strong{display:block;color:var(--muted);font-size:.82rem;margin-bottom:8px}
     .toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}.list{display:grid;gap:10px;max-height:520px;overflow:auto}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare-card{min-height:180px;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.notice{padding:13px 14px;border-radius:16px;background:#f5f7ff;border:1px solid #d9e1ff;color:#33417a}.empty{text-align:center;padding:28px;border:1px dashed #d7dbe2;border-radius:18px;color:var(--muted)}
     .footer{margin-top:16px;color:var(--muted);font-size:.92rem;line-height:1.55}
-    
-    .sidebar-toggle{position:fixed;top:14px;left:14px;z-index:1200;width:52px;height:52px;border-radius:16px;background:#121317;color:#fff;box-shadow:var(--shadow)}
-    .sidebar{position:fixed;top:0;left:0;height:100vh;width:290px;background:#fff;border-right:1px solid var(--line);box-shadow:0 16px 40px rgba(15,23,42,.12);z-index:1150;transform:translateX(-100%);transition:transform .25s ease;padding:18px;display:flex;flex-direction:column;gap:12px}
-    .sidebar.open{transform:translateX(0)}
-    .sidebar-backdrop{position:fixed;inset:0;background:rgba(18,19,23,.35);backdrop-filter:blur(2px);z-index:1100;opacity:0;pointer-events:none;transition:opacity .25s ease}
-    .sidebar-backdrop.show{opacity:1;pointer-events:auto}
-    .sidebar-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .sidebar-nav{display:grid;gap:10px;margin-top:6px}
-    .sidebar-link{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;background:#fff;border:1px solid var(--line);font-weight:800;cursor:pointer;text-align:left}
-    .sidebar-link:hover{background:#f8fafc}
-    .top-anchor{position:relative;top:-12px}
-    .floating-home{position:fixed;right:16px;bottom:20px;z-index:1000;width:58px;height:58px;border-radius:20px;background:#121317;color:#fff;box-shadow:var(--shadow);display:none}
-    .floating-home.show{display:inline-flex}
-    .vvdi-ok{color:#08784b;font-weight:800}
-    .vvdi-limited{color:#b36b00;font-weight:800}
-    .vvdi-no{color:#b70f16;font-weight:800}
 
+    .result-flex{display:flex;gap:16px;align-items:flex-start}
+    .result-img{width:96px;height:96px;object-fit:contain;border-radius:18px;background:#f3f4f7;padding:8px;border:1px solid var(--line);flex:0 0 96px}
+    .recent-searches{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .recent-tag{display:inline-flex;align-items:center;justify-content:center;padding:9px 12px;background:#eef0f3;border:1px solid var(--line);border-radius:999px;cursor:pointer;font-size:.88rem;font-weight:700}
+    .recent-tag:hover{background:#dfe3e8}
     @media (max-width:1100px){.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr 1fr}}
     @media (max-width:720px){.hero-grid,.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr}.hero img{width:100px;height:100px}.ref{font-size:1.2rem}}
   </style>
 </head>
 <body>
-<button id="sidebarToggle" class="sidebar-toggle" aria-label="Ouvrir le menu">☰</button>
-<div id="sidebarBackdrop" class="sidebar-backdrop"></div>
-<aside id="sidebar" class="sidebar" aria-hidden="true">
-  <div class="sidebar-head">
-    <h3 style="margin:0">Menu</h3>
-    <button id="sidebarClose" class="secondary" style="padding:10px 12px">Fermer</button>
-  </div>
-  <div class="sub">Accès rapide aux sections principales.</div>
-  <nav class="sidebar-nav">
-    <button class="sidebar-link" data-scroll="#topPage">🏠 Accueil</button>
-    <button class="sidebar-link" data-scroll="#searchSection">🔎 Recherche</button>
-    <button class="sidebar-link" data-scroll="#resultsSection">📋 Résultats</button>
-    <button class="sidebar-link" data-scroll="#addSection">➕ Ajouter une fiche</button>
-    <button class="sidebar-link" data-scroll="#datasetSection">🗂️ Base locale</button>
-  </nav>
-</aside>
-<button id="homeFloatBtn" class="floating-home" aria-label="Retour en haut">↑</button>
-<div id="topPage" class="top-anchor"></div>
-
 <div class="app">
   <section class="hero">
     <div class="hero-grid">
@@ -91,7 +61,7 @@
     <div class="card stat"><div class="big" id="statFavs">0</div><div class="label">Favoris</div></div>
   </section>
 
-  <section id="searchSection" class="grid main">
+  <section class="grid main">
     <div class="card">
       <div class="toolbar"><div><h2>Recherche principale</h2><div class="sub">Recherche par référence, famille, modèle, Lishi, Xhorse, transpondeur ou note atelier.</div></div><div id="searchSummary" class="sub">En attente de recherche</div></div>
       <div class="search-grid">
@@ -107,12 +77,12 @@
         <button class="secondary" id="seedBtn">Réinitialiser la base pro</button>
         <button class="secondary" id="exportBtn">Exporter JSON</button>
       </div>
+      <div class="footer">La recherche couvre : Silca / JMA / Keyline / Errebi, famille, modèles exemples, Lishi, Xhorse, type de lame, transpondeur et notes atelier.</div>
       <div id="recentBox" class="card" style="margin-top:12px;padding:14px 16px;box-shadow:none">
         <h3>Dernières recherches</h3>
         <div class="sub">Touchez une recherche pour la relancer instantanément.</div>
         <div id="recentSearches" class="recent-searches"></div>
       </div>
-      <div class="footer">La recherche couvre : Silca / JMA / Keyline / Errebi, famille, modèles exemples, Lishi, Xhorse, type de lame, transpondeur et notes atelier.</div>
     </div>
 
     <div class="card">
@@ -124,7 +94,7 @@
     </div>
   </section>
 
-  <section id="resultsSection" class="grid main">
+  <section class="grid main">
     <div class="card">
       <h2>Résultats</h2>
       <div id="results" class="results"></div>
@@ -136,7 +106,6 @@
   </section>
 
   <section class="grid two">
-    <div id="addSection" class="top-anchor"></div>
     <div class="card">
       <h2>Ajouter une fiche</h2>
       <div class="form-grid">
@@ -152,15 +121,12 @@
         <div><label for="newYears">Années</label><input id="newYears" placeholder="2002-2008"></div>
         <div><label for="newModels">Modèles</label><input id="newModels" placeholder="Yaris 1, Corolla..."></div>
         <div><label for="newRefCode">Code interne</label><input id="newRefCode" placeholder="KM-TOY43-99"></div>
-        <div><label for="newShellType">Type de coque</label><input id="newShellType" placeholder="Coque pliante / flip"></div>
-        <div><label for="newVvdiMini">VVDI MINI Key Tool</label><select id="newVvdiMini"><option value="Oui">Oui</option><option value="Partiel">Partiel</option><option value="À vérifier">À vérifier</option><option value="Non">Non</option></select></div>
       </div>
-      <div style="margin-top:12px"><label for="newVvdiNote">Note VVDI MINI</label><textarea id="newVvdiNote" placeholder="Clonage, génération, précodage ou programmation OBD selon le cas..."></textarea></div>
       <div style="margin-top:12px"><label for="newNotes">Notes atelier</label><textarea id="newNotes" placeholder="Notes utiles atelier..."></textarea></div>
       <div class="btns"><button id="addBtn">Ajouter la fiche</button><button class="secondary" id="clearFormBtn">Vider</button><label class="button secondary">Importer JSON<input id="importFile" type="file" accept="application/json" style="display:none"></label></div>
     </div>
 
-    <div id="datasetSection" class="card">
+    <div class="card">
       <div class="toolbar"><div><h2>Base locale</h2><div class="sub">Tu peux supprimer les fiches ajoutées ou repartir de la base pro.</div></div><button class="danger" id="clearCustomBtn">Tout vider</button></div>
       <div id="datasetList" class="list"></div>
     </div>
@@ -171,7 +137,7 @@
 const STORAGE_KEY = 'keymaster_auto_expert_v1';
 const FAVORITES_KEY = 'keymaster_auto_expert_favs_v1';
 const COMPARE_KEY = 'keymaster_auto_expert_compare_v1';
-const RECENT_KEY = 'keymaster_recent_searches_v1';
+const RECENT_KEY = 'keymaster_auto_expert_recent_v1';
 
 // ==========================
 // 🔴 BASE DE DONNÉES AUTO
@@ -310,10 +276,7 @@ const autoKeysDatabase = autoKeySeed.flatMap(seed => {
     bladeType: seed.bladeType,
     transponder: seed.transponder,
     years,
-    models: model,
-    shellType: guessShellType({bladeType: seed.bladeType, type: seed.type}),
-    vvdiMini: guessVvdiMini({transponder: seed.transponder, bladeType: seed.bladeType, type: seed.type}).label,
-    vvdiMiniNote: guessVvdiMini({transponder: seed.transponder, bladeType: seed.bladeType, type: seed.type}).note
+    models: model
   }));
 });
 
@@ -327,59 +290,53 @@ const plateDatabase = {
 
 let hasSearched = false;
 let lastResults = [];
-let records = mergeRecords(loadJson(STORAGE_KEY, []), autoKeysDatabase);
+let records = loadJson(STORAGE_KEY, autoKeysDatabase);
+if (!Array.isArray(records) || !records.length) records = structuredClone(autoKeysDatabase);
 let favorites = loadJson(FAVORITES_KEY, []);
 let compareIds = loadJson(COMPARE_KEY, []);
 
 function loadJson(key, fallback){ try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : structuredClone(fallback);} catch(e){ return structuredClone(fallback);} }
-function mergeRecords(stored, seed){
-  const base = Array.isArray(seed) ? structuredClone(seed) : [];
-  if (!Array.isArray(stored) || !stored.length) return base;
-  const byId = new Map(base.map(r => [r.id, r]));
-  stored.forEach(r => {
-    if (!r || !r.id) return;
-    if (byId.has(r.id)) byId.set(r.id, {...byId.get(r.id), ...r});
-    else byId.set(r.id, r);
-  });
-  return Array.from(byId.values());
+function saveJson(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
+function normalize(v){ return (v||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
+function escapeHtml(v){ return (v||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+function safeJsString(v){ return (v||'').toString().replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function imageCandidates(r){
+  const base = [r.silca, r.jma, r.keyline, r.errebi, r.lishi, r.xhorse]
+    .filter(Boolean)
+    .map(v => v.toString().replace(/[^A-Za-z0-9_-]/g,'').toUpperCase());
+  return [...new Set(base.flatMap(code => [`images/${code}.jpg`,`images/${code}.png`,`images/${code}.webp`]))];
 }
-
-function guessShellType(record){
-  const blade = (record.bladeType || '').toLowerCase();
-  const type = normalize(record.type || '');
-  if (blade === 'smart') return 'Coque smart key';
-  if (blade === 'flip' || type.includes('plip')) return 'Coque pliante / flip';
-  if (blade === 'laser') return 'Coque télécommande laser';
-  return 'Coque standard';
+function resultImageHtml(r){
+  const candidates = imageCandidates(r);
+  const first = candidates[0] || '';
+  const fallback = `https://via.placeholder.com/96?text=${encodeURIComponent((r.silca || r.jma || 'KEY').toString())}`;
+  const dataAttr = escapeHtml(JSON.stringify(candidates));
+  return `<img src="${escapeHtml(first)}" data-images='${dataAttr}' data-fallback="${escapeHtml(fallback)}" onerror="rotateResultImage(this)" class="result-img" alt="Ébauche ${escapeHtml(r.silca || r.jma || r.id || 'clé')}">`;
 }
-
-function guessVvdiMini(record){
-  const t = normalize(record.transponder || '');
-  const blade = normalize(record.bladeType || '');
-  if (t.includes('aes') || t.includes('8a') || t.includes('h') || t.includes('fem') || t.includes('cas4') || t.includes('bga') || t.includes('nec') || t.includes('ir')) {
-    return {label:'Partiel', className:'vvdi-limited', note:'Lecture / génération possible selon puce, programmation véhicule souvent nécessaire'};
+function rotateResultImage(img){
+  try {
+    const list = JSON.parse(img.dataset.images || '[]');
+    const current = img.getAttribute('src');
+    const idx = list.indexOf(current);
+    if (idx >= 0 && idx < list.length - 1) { img.src = list[idx + 1]; return; }
+  } catch(e) {}
+  if (img.dataset.fallback && img.getAttribute('src') !== img.dataset.fallback) {
+    img.src = img.dataset.fallback;
+    return;
   }
-  if (t.includes('id46') || t.includes('id48') || t.includes('4c') || t.includes('4d') || t.includes('pcf7941') || t.includes('pcf7945') || t.includes('pcf7946') || t.includes('pcf7947') || t.includes('id63') || t.includes('80bit')) {
-    return {label:'Oui', className:'vvdi-ok', note:'Compatible préparation / clonage selon puce et version'};
-  }
-  if (blade === 'smart') {
-    return {label:'Partiel', className:'vvdi-limited', note:'Coque et préparation possibles, démarrage souvent via OBD ou outil complémentaire'};
-  }
-  return {label:'À vérifier', className:'vvdi-limited', note:'Compatibilité non garantie selon année / puce'};
+  img.onerror = null;
 }
-
-function getPhotoUrl(record){
-  const ref = encodeURIComponent((record.silca || '').toUpperCase());
-  return `images/${ref}.jpg`;
-}
+function uniqueFamilies(){ return [...new Set(records.map(r => r.family || r.marque).filter(Boolean))].sort((a,b)=>a.localeCompare(b)); }
+function saveRecords(){ saveJson(STORAGE_KEY, records); }
 
 function saveRecentSearch(query){
-  const q = (query || '').trim();
-  if (!q) return;
+  const clean = (query || '').trim();
+  if (!clean) return;
   let list = loadJson(RECENT_KEY, []);
-  list = list.filter(item => normalize(item) !== normalize(q));
-  list.unshift(q);
-  list = list.slice(0, 8);
+  list = Array.isArray(list) ? list : [];
+  list = list.filter(item => normalize(item) !== normalize(clean));
+  list.unshift(clean);
+  if (list.length > 8) list = list.slice(0, 8);
   saveJson(RECENT_KEY, list);
   renderRecentSearches();
 }
@@ -388,15 +345,17 @@ function renderRecentSearches(){
   const box = document.getElementById('recentSearches');
   if (!box) return;
   const list = loadJson(RECENT_KEY, []);
-  box.innerHTML = list.length
-    ? list.map(q => `<button class="recent-tag" data-recent="${escapeHtml(q)}">${escapeHtml(q)}</button>`).join('')
-    : '<div class="sub">Aucune recherche</div>';
+  if (!Array.isArray(list) || !list.length) {
+    box.innerHTML = '<div class="sub">Aucune recherche récente.</div>';
+    return;
+  }
+  box.innerHTML = list.map(q => `<button type="button" class="recent-tag" onclick="repeatSearch('${safeJsString(q)}')">${escapeHtml(q)}</button>`).join('');
 }
-function saveJson(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
-function normalize(v){ return (v||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
-function escapeHtml(v){ return (v||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
-function uniqueFamilies(){ return [...new Set(records.map(r => r.family || r.marque).filter(Boolean))].sort((a,b)=>a.localeCompare(b)); }
-function saveRecords(){ saveJson(STORAGE_KEY, records); }
+
+function repeatSearch(query){
+  document.getElementById('searchInput').value = query;
+  runSearch();
+}
 
 function refreshStats(resultCount = 0){
   document.getElementById('statRecords').textContent = records.length;
@@ -414,7 +373,7 @@ function refreshFamilyFilter(){
 }
 
 function searchableText(r){
-  return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models,r.shellType,r.vvdiMini,r.vvdiMiniNote].join(' | '));
+  return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models].join(' | '));
 }
 
 function codeFields(r){
@@ -463,7 +422,7 @@ function runSearch(source = records){
     return;
   }
   const filtered = applyFilters(source, filters);
-  if (filters.q) saveRecentSearch(filters.q);
+  if (filters.q) saveRecentSearch(document.getElementById('searchInput').value.trim());
   hasSearched = true;
   lastResults = filtered;
   renderResults(filtered);
@@ -478,12 +437,10 @@ function renderResults(list){
     const id = escapeHtml(r.id || '');
     const isFav = favorites.includes(r.id);
     const inCompare = compareIds.includes(r.id);
-    const vvdi = guessVvdiMini(r);
-    const shellType = r.shellType || guessShellType(r);
     return `
       <div class="result">
         <div class="result-flex">
-          <img src="${getPhotoUrl(r)}" alt="Ébauche ${escapeHtml(r.silca || '-') }" class="result-img" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,${encodeURIComponent("<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96"><rect x="1" y="1" width="94" height="94" rx="18" fill="%23f3f4f7" stroke="%23d9dde5"/><text x="48" y="54" text-anchor="middle" font-family="Arial" font-size="12" fill="%2369707d">" ) + encodeURIComponent((r.silca || 'PHOTO')) + encodeURIComponent("</text></svg>") }'">
+          ${resultImageHtml(r)}
           <div style="flex:1;min-width:0">
             <div class="head">
               <div>
@@ -502,9 +459,6 @@ function renderResults(list){
               <div class="meta"><strong>Keyline</strong>${escapeHtml(r.keyline || '-')}</div>
               <div class="meta"><strong>Errebi</strong>${escapeHtml(r.errebi || '-')}</div>
               <div class="meta"><strong>Années</strong>${escapeHtml(r.years || '-')}</div>
-              <div class="meta"><strong>Type de coque</strong>${escapeHtml(shellType || '-')}</div>
-              <div class="meta"><strong>VVDI MINI Key Tool</strong><span class="${vvdi.className}">${escapeHtml(vvdi.label)}</span></div>
-              <div class="meta" style="grid-column:span 2"><strong>Note VVDI</strong>${escapeHtml(r.vvdiMiniNote || vvdi.note || '-')}</div>
             </div>
             <div class="sub"><strong>Note atelier :</strong> ${escapeHtml(r.note || r.notes || '-')}</div>
             <div class="sub" style="margin-top:8px"><strong>Code fiche :</strong> ${id}</div>
@@ -532,7 +486,7 @@ function renderCompare(){
   const cards = [];
   for (let i = 0; i < 3; i++) {
     const r = selected[i];
-    cards.push(r ? `<div class="compare-card"><h3>${escapeHtml(r.silca)}</h3><div class="sub"><strong>${escapeHtml(r.family || r.marque)}</strong></div><div class="sub">JMA: ${escapeHtml(r.jma || '-')}</div><div class="sub">Keyline: ${escapeHtml(r.keyline || '-')}</div><div class="sub">Errebi: ${escapeHtml(r.errebi || '-')}</div><div class="sub">Lishi: ${escapeHtml(r.lishi || '-')}</div><div class="sub">Xhorse: ${escapeHtml(r.xhorse || '-')}</div><div class="sub">Transpondeur: ${escapeHtml(r.transponder || '-')}</div><div class="sub">Coque: ${escapeHtml(r.shellType || guessShellType(r) || '-')}</div><div class="sub">VVDI MINI: ${escapeHtml(r.vvdiMini || guessVvdiMini(r).label || '-')}</div></div>` : '<div class="compare-card"><div class="empty">Aucune fiche sélectionnée.</div></div>');
+    cards.push(r ? `<div class="compare-card"><h3>${escapeHtml(r.silca)}</h3><div class="sub"><strong>${escapeHtml(r.family || r.marque)}</strong></div><div class="sub">JMA: ${escapeHtml(r.jma || '-')}</div><div class="sub">Keyline: ${escapeHtml(r.keyline || '-')}</div><div class="sub">Errebi: ${escapeHtml(r.errebi || '-')}</div><div class="sub">Lishi: ${escapeHtml(r.lishi || '-')}</div><div class="sub">Xhorse: ${escapeHtml(r.xhorse || '-')}</div><div class="sub">Transpondeur: ${escapeHtml(r.transponder || '-')}</div></div>` : '<div class="compare-card"><div class="empty">Aucune fiche sélectionnée.</div></div>');
   }
   box.innerHTML = cards.join('');
 }
@@ -585,15 +539,12 @@ function addKey(){
     years: document.getElementById('newYears').value.trim(),
     models: document.getElementById('newModels').value.trim(),
     type: document.getElementById('newBladeType').options[document.getElementById('newBladeType').selectedIndex].text,
-    shellType: document.getElementById('newShellType').value.trim() || guessShellType({bladeType: document.getElementById('newBladeType').value, type: document.getElementById('newBladeType').options[document.getElementById('newBladeType').selectedIndex].text}),
-    vvdiMini: document.getElementById('newVvdiMini').value,
-    vvdiMiniNote: document.getElementById('newVvdiNote').value.trim(),
     note: document.getElementById('newNotes').value.trim()
   };
   records.unshift(record); saveRecords(); clearForm(); refreshFamilyFilter(); renderDatasetList(); if (hasSearched) runSearch(); alert('Fiche ajoutée');
 }
 
-function clearForm(){ ['newFamily','newSilca','newJma','newKeyline','newErrebi','newLishi','newXhorse','newTransponder','newYears','newModels','newRefCode','newShellType','newVvdiNote','newNotes'].forEach(id=>document.getElementById(id).value=''); document.getElementById('newBladeType').value='laser'; document.getElementById('newVvdiMini').value='Oui'; }
+function clearForm(){ ['newFamily','newSilca','newJma','newKeyline','newErrebi','newLishi','newXhorse','newTransponder','newYears','newModels','newRefCode','newNotes'].forEach(id=>document.getElementById(id).value=''); document.getElementById('newBladeType').value='laser'; }
 function resetDatabase(){ records = structuredClone(autoKeysDatabase); favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); clearResultsState('Base réinitialisée. Lance une nouvelle recherche.'); }
 function exportData(){ const blob = new Blob([JSON.stringify(records, null, 2)], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'keymaster-auto-expert.json'; a.click(); URL.revokeObjectURL(url); }
 
@@ -629,30 +580,10 @@ function attachDelegates(){
     if (action === 'compare') toggleCompare(id);
     if (action === 'delete') deleteRecord(id);
     if (action === 'copy') navigator.clipboard.writeText(id).then(()=>alert('Référence copiée')).catch(()=>alert('Copie impossible'));
-    const recent = e.target.closest('[data-recent]');
-    if (recent) { document.getElementById('searchInput').value = recent.dataset.recent; runSearch(); }
-    const scrollBtn = e.target.closest('[data-scroll]');
-    if (scrollBtn) { const target = document.querySelector(scrollBtn.dataset.scroll); if (target) target.scrollIntoView({behavior:'smooth', block:'start'}); closeSidebar(); }
   });
 }
 
-
-function openSidebar(){
-  document.getElementById('sidebar').classList.add('open');
-  document.getElementById('sidebarBackdrop').classList.add('show');
-}
-function closeSidebar(){
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarBackdrop').classList.remove('show');
-}
-function handleScrollUi(){
-  const btn = document.getElementById('homeFloatBtn');
-  if (!btn) return;
-  btn.classList.toggle('show', window.scrollY > 500);
-}
-
 function init(){
-  saveRecords();
   refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); renderRecentSearches(); clearResultsState(); attachDelegates();
   document.getElementById('searchBtn').addEventListener('click', runSearch);
   document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; clearResultsState(); });
@@ -668,12 +599,6 @@ function init(){
   document.getElementById('plateExamplesBtn').addEventListener('click', () => { document.getElementById('plateInput').value='AA-123-AA'; searchPlate(); });
   document.getElementById('importFile').addEventListener('change', (e) => { if (e.target.files[0]) importData(e.target.files[0]); e.target.value=''; });
   document.getElementById('searchInput').addEventListener('keydown', (e)=>{ if (e.key === 'Enter') runSearch(); });
-  document.getElementById('sidebarToggle').addEventListener('click', openSidebar);
-  document.getElementById('sidebarClose').addEventListener('click', closeSidebar);
-  document.getElementById('sidebarBackdrop').addEventListener('click', closeSidebar);
-  document.getElementById('homeFloatBtn').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
-  window.addEventListener('scroll', handleScrollUi);
-  handleScrollUi();
   ['brandFilter','bladeFilter','transponderFilter'].forEach(id => document.getElementById(id).addEventListener('change', () => { document.getElementById('searchSummary').textContent = 'Filtres prêts · appuie sur Rechercher'; }));
 }
 
