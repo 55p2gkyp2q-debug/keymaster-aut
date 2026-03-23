@@ -246,6 +246,29 @@ body{
     .app.locked{filter:blur(10px);pointer-events:none;user-select:none}
     body.locked{overflow:hidden}
 
+
+
+.xt57b-badge{
+  margin-top:8px;
+  padding:6px 10px;
+  border-radius:10px;
+  font-weight:800;
+  font-size:13px;
+  display:inline-block;
+}
+
+.xt57b-badge.compatible{
+  background:rgba(0,200,83,0.12);
+  color:#00c853 !important;
+  border:1px solid #00c853;
+}
+
+.xt57b-badge.incompatible{
+  background:rgba(255,61,0,0.12);
+  color:#ff3d00 !important;
+  border:1px solid #ff3d00;
+}
+
 </style>
   <link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 </head>
@@ -491,6 +514,31 @@ body{
 const STORAGE_KEY = 'keymaster_auto_expert_v1';
 const RECENT_KEY = 'keymaster_recent_searches_v1';
 
+
+function getXT57BStatus(transponder){
+  const compatibles = [
+    "ID11","ID12","ID13",
+    "ID33","ID40","ID41","ID42","ID43","ID44",
+    "ID46","ID47","ID48","ID49",
+    "ID4A","ID4C","ID4D",
+    "ID8A","ID8C","ID8E",
+    "ID5C","MQB","4C","4D","G CHIP","PCF7941","PCF7946","PCF7947"
+  ];
+
+  if(!transponder) {
+    return '<div class="xt57b-badge incompatible">🔴 Non compatible XT57B</div>';
+  }
+
+  const value = transponder.toUpperCase();
+
+  const isCompatible = compatibles.some(c => value.includes(c));
+
+  return isCompatible
+    ? '<div class="xt57b-badge compatible">🟢 Compatible XT57B</div>'
+    : '<div class="xt57b-badge incompatible">🔴 Non compatible XT57B</div>';
+}
+
+
 const autoKeySeed = [
   { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Lame plip / transpondeur", note:"Très courant VAG, attention ID48", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["Golf V","2003-2009"],["Golf VI","2008-2012"],["Passat B6","2005-2010"],["Polo 9N","2001-2009"],["Touran","2003-2010"],["A3 8P","2003-2012"],["A4 B7","2004-2008"],["Leon II","2005-2012"],["Octavia II","2004-2013"],["Fabia II","2007-2014"]]},
   { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"VAG récent AES", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", variants:[["Golf VII","2013-2020"],["Golf VIII","2020+"],["A3 8V","2013-2020"],["A4 B9","2015+"],["Leon III","2012-2020"],["Octavia III","2013-2020"],["Kodiaq","2016+"],["Tiguan II","2016+"]]},
@@ -530,7 +578,7 @@ const autoKeySeed = [
   { family:"Suzuki", marque:"Suzuki", silca:"SZ14R", jma:"SZ14R", keyline:"SZ14R", errebi:"SZ14R", type:"Laser", note:"Suzuki récent", lishi:"SZ14R", xhorse:"XKSZ14R", bladeType:"laser", transponder:"ID46", variants:[["Swift III","2010-2017"],["Vitara","2015+"],["S-Cross","2013+"],["Baleno","2015+"],["Ignis","2016+"]]},
   { family:"Chevrolet / Daewoo", marque:"Chevrolet / Daewoo", silca:"DW04R", jma:"DW04R", keyline:"DW04R", errebi:"DW04R", type:"Laser", note:"Chevrolet Europe", lishi:"DW04R", xhorse:"XKDW04R", bladeType:"laser", transponder:"ID46", variants:[["Aveo","2011-2020"],["Cruze","2009-2016"],["Orlando","2011-2018"],["Trax","2013-2020"],["Spark","2010-2020"]]},
   { family:"Chrysler / Jeep / Dodge", marque:"Chrysler / Jeep / Dodge", silca:"CY24", jma:"CY24", keyline:"CY24", errebi:"CY24", type:"Laser", note:"Groupe Chrysler", lishi:"CY24", xhorse:"XKCY24", bladeType:"laser", transponder:"ID46 / 4D64", variants:[["300C","2004-2011"],["Voyager","2004-2016"],["Grand Cherokee WK2","2010+"],["Cherokee KL","2013+"],["Renegade","2014+"],["Dodge Journey","2008-2020"]]},
-  ,{ family:"Citroën / Peugeot / Opel / Toyota utilitaires", marque:"Citroën / Peugeot / Opel / Toyota utilitaires", silca:"HU83", jma:"HU83", keyline:"HU83", errebi:"HU83", type:"Transpondeur utilitaire", note:"Profils dérivés utilitaires PSA", lishi:"HU83", xhorse:"XKHU83", bladeType:"laser", transponder:"ID46 / PCF7941 / PCF7946", variants:[["Expert II","2007-2016"],["Expert III","2016+"],["Jumpy II","2007-2016"],["Jumpy III","2016+"],["Dispatch","2007+"],["ProAce II","2016+"],["Combo E","2018+"],["Vivaro C","2019+"]]},
+  { family:"Citroën / Peugeot / Opel / Toyota utilitaires", marque:"Citroën / Peugeot / Opel / Toyota utilitaires", silca:"HU83", jma:"HU83", keyline:"HU83", errebi:"HU83", type:"Transpondeur utilitaire", note:"Profils dérivés utilitaires PSA", lishi:"HU83", xhorse:"XKHU83", bladeType:"laser", transponder:"ID46 / PCF7941 / PCF7946", variants:[["Expert II","2007-2016"],["Expert III","2016+"],["Jumpy II","2007-2016"],["Jumpy III","2016+"],["Dispatch","2007+"],["ProAce II","2016+"],["Combo E","2018+"],["Vivaro C","2019+"]]},
   { family:"Renault / Nissan utilitaires", marque:"Renault / Nissan utilitaires", silca:"NE72", jma:"NE72", keyline:"NE72", errebi:"NE72", type:"Carte / utilitaire", note:"Renault utilitaires récents", lishi:"NE72", xhorse:"XKNE72", bladeType:"smart", transponder:"PCF7947 / AES selon version", variants:[["Trafic III","2014+"],["Master III","2010+"],["Kangoo II","2008-2021"],["Kangoo III","2021+"],["NV300","2016+"],["Primastar II","2022+"],["Townstar","2021+"]]},
   { family:"Renault / Nissan utilitaires", marque:"Renault / Nissan utilitaires", silca:"VA2T", jma:"VA2T", keyline:"VA2T", errebi:"VA2T", type:"Plip utilitaire", note:"Renault utilitaires génération précédente", lishi:"VA2T", xhorse:"XKVA2T", bladeType:"flip", transponder:"ID46 / PCF7946", variants:[["Trafic II","2001-2014"],["Master II","2003-2010"],["Kangoo I","1998-2008"],["Primastar I","2002-2014"],["Interstar","2002-2010"]]},
   { family:"Mercedes utilitaires", marque:"Mercedes utilitaires", silca:"HU64", jma:"HU64", keyline:"HU64", errebi:"HU64", type:"Laser utilitaire", note:"Mercedes vans / utilitaires", lishi:"HU64", xhorse:"XKHU64", bladeType:"laser", transponder:"IR / NEC / BGA selon génération", variants:[["Vito W639","2004-2014"],["Vito W447","2014+"],["Sprinter II","2006-2018"],["Sprinter III","2018+"],["Citan I","2012-2021"],["Citan II","2021+"]]},
@@ -734,11 +782,16 @@ function runSearch(source = records){
 
 function renderResults(list){
   const box = document.getElementById('results');
-  if (!list.length) { box.innerHTML = '<div class="empty">Aucun résultat</div>'; return; }
+  if (!list.length) { 
+    box.innerHTML = '<div class="empty">Aucun résultat</div>'; 
+    return; 
+  }
+
   box.innerHTML = list.map(r => {
     const id = escapeHtml(r.id || '');
     const stock = Number(r.stock) || 0;
     const status = stockStatus(stock);
+
     return `
       <div class="result">
         <div class="result-top">
@@ -756,14 +809,18 @@ function renderResults(list){
                 <span class="badge stock">Stock : ${stock}</span>
               </div>
             </div>
+
             <div class="meta-grid">
               <div class="meta"><strong>JMA</strong>${escapeHtml(r.jma || '-')}</div>
               <div class="meta"><strong>Keyline</strong>${escapeHtml(r.keyline || '-')}</div>
               <div class="meta"><strong>Errebi</strong>${escapeHtml(r.errebi || '-')}</div>
               <div class="meta"><strong>Années</strong>${escapeHtml(r.years || '-')}</div>
             </div>
+
             <div class="sub"><strong>Note atelier :</strong> ${escapeHtml(r.note || r.notes || '-')}</div>
             <div class="sub" style="margin-top:8px"><strong>État stock :</strong> <span class="${status.className}">${status.label}</span> · <strong>Code fiche :</strong> ${id}</div>
+            <div style="margin-top:10px">${getXT57BStatus(r.transponder)}</div>
+
             <div class="btns">
               <button class="secondary" data-action="copy" data-id="${id}">Copier réf.</button>
               <button class="secondary" data-action="prefill-intervention" data-id="${id}">Intervention</button>
