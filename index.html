@@ -6,25 +6,25 @@
   <link rel="apple-touch-icon" href="logo-keymaster.jpg">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>KeyMaster Auto Expert</title>
+  <title>KeyMaster Auto</title>
   <style>
     :root{--red:#c71218;--red2:#e52a2f;--black:#121317;--white:#fff;--bg:#f5f6f8;--line:#e5e7eb;--muted:#69707d;--green:#0f9f64;--amber:#f0a500;--radius:22px;--shadow:0 14px 34px rgba(15,23,42,.08)}
-    *{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;background:linear-gradient(180deg,#fff,#ffeaea);color:var(--black)}
-    .app{max-width:1600px;margin:0 auto;padding:16px}
+    *{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;background:linear-gradient(180deg,#1a1b20 0%, #2a0d0f 50%, #1a1b20 100%);color:var(--black)}
+    .app{max-width:1320px;margin:0 auto;padding:16px}
     .hero{background:linear-gradient(135deg,#191a1f 0%,#24252d 50%,#b40f15 100%);color:#fff;padding:18px;border-radius:30px;box-shadow:var(--shadow)}
-    .hero-grid{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center}.hero img{width:120px;height:120px;border-radius:24px;object-fit:cover;background:#fff;border:1px solid rgba(255,255,255,.15)}
+    .hero-grid{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center}.hero img{width:120px;height:120px;border-radius:28px;object-fit:cover;background:#fff;border:2px solid #fff;box-shadow:0 8px 25px rgba(0,0,0,0.25)}
     h1,h2,h3{margin:0 0 10px}.hero h1,.hero p{color:#fff}.hero p{margin:0;line-height:1.5;font-weight:600}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);font-size:.9rem;color:#fff;font-weight:700}
     .grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(5,1fr);margin-top:16px}.main{grid-template-columns:1.5fr 1fr;margin-top:16px}.two{grid-template-columns:1fr 1fr;margin-top:16px}
-    .card{background:linear-gradient(180deg,#fff,#fff5f5);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.sub{color:var(--muted);line-height:1.45;font-size:.95rem}
+    .card{background:linear-gradient(145deg,#ffffff 0%, #fff3f4 100%);border:1px solid #ffd5d8;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.sub{color:var(--muted);line-height:1.45;font-size:.95rem}
     .stat .big{font-size:2rem;font-weight:800}.label{color:var(--muted);margin-top:6px}
     label{display:block;font-weight:700;margin-bottom:8px;font-size:.93rem} input,select,textarea{width:100%;padding:14px;border:1px solid #d8dce3;border-radius:16px;font:inherit;outline:none} textarea{min-height:100px;resize:vertical}
     input:focus,select:focus,textarea:focus{border-color:var(--red2);box-shadow:0 0 0 4px rgba(199,18,24,.12)}
     .search-grid,.form-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)} .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
     button,.button{border:none;background:var(--red);color:#fff;padding:13px 16px;border-radius:16px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.secondary{background:#fff;color:var(--red);border:1px solid var(--line)}.dark{background:var(--black)}.danger{background:#7f1014}
-    .results{display:grid;gap:18px}.result{border:1px solid var(--line);border-radius:26px;padding:24px;background:linear-gradient(180deg,#fff,#fcfcfd);box-shadow:0 16px 40px rgba(15,23,42,.08)} .head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}.ref{font-weight:900;font-size:1.8rem}.badges{display:flex;gap:10px;flex-wrap:wrap}.badge{padding:9px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.9rem;font-weight:800}.badge.red{background:#fff0f1;border-color:#ffd5d8;color:#b70f16}.badge.green{background:#eefcf6;border-color:#ccefdc;color:#08784b}.badge.dark{background:#16171b;color:var(--red2);border-color:#16171b}.badge.stock{background:#fff7e8;border-color:#ffe1a3;color:#9a5a00}
-    .meta-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);margin:14px 0}.meta{padding:15px;border-radius:18px;border:1px solid var(--line);background:#fff;min-height:78px}.meta strong{display:block;color:var(--muted);font-size:.82rem;margin-bottom:8px}
-    .toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}.list{display:grid;gap:10px;max-height:900px;overflow:auto}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare-card{min-height:180px;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.notice{padding:13px 14px;border-radius:16px;background:#f5f7ff;border:1px solid #d9e1ff;color:#33417a}.empty{text-align:center;padding:28px;border:1px dashed #d7dbe2;border-radius:18px;color:var(--muted)}
+    .results{display:grid;gap:18px}.result{border:1px solid var(--line);border-radius:26px;padding:24px;background:linear-gradient(180deg,#ffffff,#fff1f2);box-shadow:0 16px 40px rgba(15,23,42,.08)} .head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}.ref{font-weight:900;font-size:1.8rem}.badges{display:flex;gap:10px;flex-wrap:wrap}.badge{padding:9px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.9rem;font-weight:800}.badge.red{background:#fff0f1;border-color:#ffd5d8;color:#b70f16}.badge.green{background:#eefcf6;border-color:#ccefdc;color:#08784b}.badge.dark{background:#16171b;color:var(--red2);border-color:#16171b}.badge.stock{background:#fff7e8;border-color:#ffe1a3;color:#9a5a00}
+    .meta-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);margin:14px 0}.meta{padding:15px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(145deg,#ffffff,#fff5f5);min-height:78px}.meta strong{display:block;color:var(--muted);font-size:.82rem;margin-bottom:8px}
+    .toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}.list{display:grid;gap:10px;max-height:520px;overflow:auto}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare-card{min-height:180px;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.notice{padding:13px 14px;border-radius:16px;background:#f5f7ff;border:1px solid #d9e1ff;color:#33417a}.empty{text-align:center;padding:28px;border:1px dashed #d7dbe2;border-radius:18px;color:var(--muted)}
     .footer{margin-top:16px;color:var(--muted);font-size:.92rem;line-height:1.55}
     .result-top{display:flex;gap:14px;align-items:flex-start}.result-media{width:92px;height:92px;flex:0 0 92px;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center}.result-media img{width:100%;height:100%;object-fit:contain;display:block}.result-main{flex:1;min-width:0}
     .sidebar-toggle{position:fixed;top:14px;left:14px;z-index:1200;width:52px;height:52px;border-radius:16px;background:#121317;color:var(--red2);box-shadow:var(--shadow)}
@@ -69,6 +69,7 @@
     <button class="sidebar-link" data-scroll="#resultsSection">📋 Résultats</button>
     <button class="sidebar-link" data-scroll="#interventionSection">🚨 Intervention</button>
     <button class="sidebar-link" data-scroll="#stockSection">📦 Stock</button>
+    <button class="sidebar-link" id="openEstimateModalBtn">💶 Estimation</button>
     <button class="sidebar-link" id="openAddModalBtn">➕ Ajouter une fiche</button>
     <button class="sidebar-link" data-scroll="#datasetSection">🗂️ Base locale</button>
   </nav>
@@ -81,8 +82,8 @@
     <div class="hero-grid">
       <img src="logo-keymaster.jpg" alt="Logo KeyMaster Auto">
       <div>
-        <h1>KeyMaster Auto Expert</h1>
-        <p>Comparateur serrurier auto niveau atelier : profils Silca / JMA / Keyline / Errebi, Lishi, Xhorse, transpondeur, gestion du stock, mode terrain intervention, ajout de fiches par pop-up, export JSON et base locale.</p>
+        <h1>KeyMaster Auto</h1>
+        <p>Serrurier Auto professionnel</p>
         <div class="chips">
           <span class="chip">Expert serrurier auto</span>
           <span class="chip">Lishi + Xhorse</span>
@@ -136,6 +137,10 @@
         <h3>Accès rapide</h3>
         <div class="sub">Depuis chaque résultat tu peux copier la référence, ajuster le stock ou pré-remplir une intervention terrain.</div>
         <div class="notice" style="margin-top:12px">Le comparateur rapide, les favoris et la recherche plaque ont été retirés pour alléger l’application.</div>
+        <div id="estimateQuickBox" class="notice" style="margin-top:12px">
+          <strong>Dernière estimation</strong><br>
+          Aucune estimation enregistrée.
+        </div>
       </div>
     </div>
   </section>
@@ -220,6 +225,53 @@
   </div>
 </div>
 
+
+<div id="estimateModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal-card">
+    <div class="toolbar">
+      <div><h2>Estimation</h2><div class="sub">Estime rapidement un prix selon le type de clé, la famille, le modèle et le déplacement.</div></div>
+      <button class="secondary" id="closeEstimateModalBtn">Fermer</button>
+    </div>
+    <div class="form-grid" style="margin-top:12px">
+      <div>
+        <label for="estimateKeyType">Type de clé</label>
+        <select id="estimateKeyType">
+          <option value="simple">Clé simple</option>
+          <option value="telecommande">Clé télécommande</option>
+        </select>
+      </div>
+      <div>
+        <label for="estimateFamily">Famille</label>
+        <input id="estimateFamily" placeholder="Ex : Peugeot / Citroën">
+      </div>
+      <div>
+        <label for="estimateModel">Modèle</label>
+        <input id="estimateModel" placeholder="Ex : 208">
+      </div>
+      <div>
+        <label for="estimateTravel">Déplacement (€)</label>
+        <input id="estimateTravel" type="number" min="0" step="1" value="30">
+      </div>
+      <div>
+        <label for="estimateUnitPrice">Prix unitaire (€)</label>
+        <input id="estimateUnitPrice" type="number" min="0" step="1" value="95">
+      </div>
+      <div>
+        <label for="estimateQty">Quantité</label>
+        <input id="estimateQty" type="number" min="1" step="1" value="1">
+      </div>
+    </div>
+    <div class="btns">
+      <button id="calculateEstimateBtn">Calculer l’estimation</button>
+      <button class="secondary" id="clearEstimateBtn">Vider</button>
+    </div>
+    <div id="estimateOutput" class="intervention-summary" style="margin-top:14px">
+      <div class="intervention-title">Aucune estimation générée</div>
+      <div class="sub">Renseigne les champs puis calcule le prix.</div>
+    </div>
+  </div>
+</div>
+
 <script>
 const STORAGE_KEY = 'keymaster_auto_expert_v1';
 const RECENT_KEY = 'keymaster_recent_searches_v1';
@@ -262,54 +314,7 @@ const autoKeySeed = [
   { family:"Subaru", marque:"Subaru", silca:"DAT17", jma:"DAT17", keyline:"DAT17", errebi:"DAT17", type:"Laser", note:"Subaru / Nissan dérivé", lishi:"DAT17", xhorse:"XKDAT17", bladeType:"laser", transponder:"ID46", variants:[["Forester SJ","2012-2018"],["Outback","2010+"],["Legacy","2010+"],["XV","2011+"],["Impreza","2012+"]]},
   { family:"Suzuki", marque:"Suzuki", silca:"SZ14R", jma:"SZ14R", keyline:"SZ14R", errebi:"SZ14R", type:"Laser", note:"Suzuki récent", lishi:"SZ14R", xhorse:"XKSZ14R", bladeType:"laser", transponder:"ID46", variants:[["Swift III","2010-2017"],["Vitara","2015+"],["S-Cross","2013+"],["Baleno","2015+"],["Ignis","2016+"]]},
   { family:"Chevrolet / Daewoo", marque:"Chevrolet / Daewoo", silca:"DW04R", jma:"DW04R", keyline:"DW04R", errebi:"DW04R", type:"Laser", note:"Chevrolet Europe", lishi:"DW04R", xhorse:"XKDW04R", bladeType:"laser", transponder:"ID46", variants:[["Aveo","2011-2020"],["Cruze","2009-2016"],["Orlando","2011-2018"],["Trax","2013-2020"],["Spark","2010-2020"]]},
-  { family:"Chrysler / Jeep / Dodge", marque:"Chrysler / Jeep / Dodge", silca:"CY24", jma:"CY24", keyline:"CY24", errebi:"CY24", type:"Laser", note:"Groupe Chrysler", lishi:"CY24", xhorse:"XKCY24", bladeType:"laser", transponder:"ID46 / 4D64", variants:[["300C","2004-2011"],["Voyager","2004-2016"],["Grand Cherokee WK2","2010+"],["Cherokee KL","2013+"],["Renegade","2014+"],["Dodge Journey","2008-2020"]]},
-  ,{ family:"Citroën / Peugeot / Opel / Toyota utilitaires", marque:"Citroën / Peugeot / Opel / Toyota utilitaires", silca:"HU83", jma:"HU83", keyline:"HU83", errebi:"HU83", type:"Transpondeur utilitaire", note:"Profils dérivés utilitaires PSA", lishi:"HU83", xhorse:"XKHU83", bladeType:"laser", transponder:"ID46 / PCF7941 / PCF7946", variants:[["Expert II","2007-2016"],["Expert III","2016+"],["Jumpy II","2007-2016"],["Jumpy III","2016+"],["Dispatch","2007+"],["ProAce II","2016+"],["Combo E","2018+"],["Vivaro C","2019+"]]},
-  { family:"Renault / Nissan utilitaires", marque:"Renault / Nissan utilitaires", silca:"NE72", jma:"NE72", keyline:"NE72", errebi:"NE72", type:"Carte / utilitaire", note:"Renault utilitaires récents", lishi:"NE72", xhorse:"XKNE72", bladeType:"smart", transponder:"PCF7947 / AES selon version", variants:[["Trafic III","2014+"],["Master III","2010+"],["Kangoo II","2008-2021"],["Kangoo III","2021+"],["NV300","2016+"],["Primastar II","2022+"],["Townstar","2021+"]]},
-  { family:"Renault / Nissan utilitaires", marque:"Renault / Nissan utilitaires", silca:"VA2T", jma:"VA2T", keyline:"VA2T", errebi:"VA2T", type:"Plip utilitaire", note:"Renault utilitaires génération précédente", lishi:"VA2T", xhorse:"XKVA2T", bladeType:"flip", transponder:"ID46 / PCF7946", variants:[["Trafic II","2001-2014"],["Master II","2003-2010"],["Kangoo I","1998-2008"],["Primastar I","2002-2014"],["Interstar","2002-2010"]]},
-  { family:"Mercedes utilitaires", marque:"Mercedes utilitaires", silca:"HU64", jma:"HU64", keyline:"HU64", errebi:"HU64", type:"Laser utilitaire", note:"Mercedes vans / utilitaires", lishi:"HU64", xhorse:"XKHU64", bladeType:"laser", transponder:"IR / NEC / BGA selon génération", variants:[["Vito W639","2004-2014"],["Vito W447","2014+"],["Sprinter II","2006-2018"],["Sprinter III","2018+"],["Citan I","2012-2021"],["Citan II","2021+"]]},
-  { family:"Iveco", marque:"Iveco", silca:"SIP22", jma:"SIP22", keyline:"SIP22", errebi:"SIP22", type:"Laser utilitaire", note:"Iveco Daily récent", lishi:"SIP22", xhorse:"XKSIP22", bladeType:"laser", transponder:"ID46", variants:[["Daily IV","2006-2011"],["Daily V","2011-2014"],["Daily VI","2014+"]]},
-  { family:"Iveco", marque:"Iveco", silca:"NE72", jma:"NE72", keyline:"NE72", errebi:"NE72", type:"Télécommande", note:"Partage plateforme Renault sur certains modèles", lishi:"NE72", xhorse:"XKNE72", bladeType:"smart", transponder:"PCF7947", variants:[["Daily avec télécommande mains libres","2016+"]]},
-  { family:"Seat / Cupra", marque:"Seat / Cupra", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"MQB Seat / Cupra", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", variants:[["Leon IV","2020+"],["Ibiza V","2017+"],["Arona","2017+"],["Ateca","2016+"],["Formentor","2020+"],["Cupra Leon","2020+"]]},
-  { family:"Skoda", marque:"Skoda", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"MQB Skoda", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", variants:[["Fabia IV","2021+"],["Scala","2019+"],["Kamiq","2019+"],["Octavia IV","2020+"],["Superb III","2015+"],["Karoq","2017+"],["Kodiaq","2016+"]]},
-  { family:"Audi", marque:"Audi", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"Audi MQB / MLB récents", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", variants:[["A1 GB","2018+"],["A3 8Y","2020+"],["A4 B9","2015+"],["A5 F5","2016+"],["Q2","2016+"],["Q3 F3","2018+"],["Q5 FY","2017+"]]},
-  { family:"Volkswagen", marque:"Volkswagen", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"Volkswagen récents", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", variants:[["T-Roc","2017+"],["T-Cross","2018+"],["Taigo","2021+"],["Arteon","2017+"],["Passat B8","2014+"],["Touareg III","2018+"],["Caddy V","2020+"]]},
-  { family:"Peugeot", marque:"Peugeot", silca:"SX9", jma:"SX9", keyline:"SX9", errebi:"SX9", type:"Laser", note:"PSA nouvelle génération", lishi:"SX9", xhorse:"XKSX9", bladeType:"laser", transponder:"ID46 / ID49", variants:[["208 II","2019+"],["2008 II","2020+"],["308 III","2021+"],["408","2022+"],["508 II","2018+"],["Rifter","2018+"],["Traveller","2016+"]]},
-  { family:"Citroën / DS", marque:"Citroën / DS", silca:"SX9", jma:"SX9", keyline:"SX9", errebi:"SX9", type:"Laser", note:"Citroën / DS récente", lishi:"SX9", xhorse:"XKSX9", bladeType:"laser", transponder:"ID46 / ID49", variants:[["C3 III","2016+"],["C3 Aircross","2017+"],["C4 Cactus","2014-2020"],["C4 III","2020+"],["C5 Aircross","2018+"],["DS3 Crossback","2018+"],["DS7 Crossback","2017+"]]},
-  { family:"Opel", marque:"Opel", silca:"SX9", jma:"SX9", keyline:"SX9", errebi:"SX9", type:"Laser", note:"Opel sur base PSA", lishi:"SX9", xhorse:"XKSX9", bladeType:"laser", transponder:"ID46 / ID49", variants:[["Corsa F","2019+"],["Mokka II","2021+"],["Combo E","2018+"],["Vivaro C","2019+"],["Astra L","2021+"]]},
-  { family:"Toyota", marque:"Toyota", silca:"TOY47", jma:"TOY47", keyline:"TOY47", errebi:"TOY47", type:"Laser", note:"Toyota compactes et hybrides", lishi:"TOY47", xhorse:"XKTOY47", bladeType:"laser", transponder:"G chip / 8A selon version", variants:[["Yaris Hybrid","2012-2020"],["Aygo II","2014-2021"],["Corolla Verso","2004-2009"],["Verso","2009-2018"],["Prius+","2012-2021"],["Avensis T27","2009-2018"]]},
-  { family:"Lexus", marque:"Lexus", silca:"TOY50", jma:"TOY50", keyline:"TOY50", errebi:"TOY50", type:"Smart key", note:"Lexus smart key", lishi:"TOY50", xhorse:"XKTOY50", bladeType:"smart", transponder:"8A / H", variants:[["IS III","2013+"],["NX I","2014-2021"],["RX IV","2015+"],["UX","2018+"],["ES VII","2018+"],["LC","2017+"]]},
-  { family:"Honda", marque:"Honda", silca:"HON66", jma:"HON66", keyline:"HON66", errebi:"HON66", type:"Laser", note:"Honda gamme élargie", lishi:"HON66", xhorse:"XKHON66", bladeType:"laser", transponder:"ID46", variants:[["Civic X","2016+"],["CR-V V","2017+"],["Jazz III","2015-2020"],["Jazz IV","2020+"],["HR-V I","1999-2006"],["HR-V II","2015+"],["e","2020+"]]},
-  { family:"Mazda", marque:"Mazda", silca:"MAZ24", jma:"MAZ24", keyline:"MAZ24", errebi:"MAZ24", type:"Laser", note:"Mazda gamme étendue", lishi:"MAZ24", xhorse:"XKMAZ24", bladeType:"laser", transponder:"ID46 / 80bit", variants:[["Mazda 2 DJ","2014+"],["Mazda 3 BP","2019+"],["Mazda 6 GJ","2012+"],["CX-30","2019+"],["CX-5 KF","2017+"],["CX-60","2022+"]]},
-  { family:"Hyundai", marque:"Hyundai", silca:"HYN20", jma:"HYN20", keyline:"HYN20", errebi:"HYN20", type:"Laser", note:"Hyundai gamme large", lishi:"HYN20", xhorse:"XKHYN20", bladeType:"laser", transponder:"ID46", variants:[["i10","2013+"],["i20","2014+"],["i30","2012+"],["Bayon","2021+"],["Kona","2017+"],["Tucson III","2015-2020"],["Tucson IV","2020+"]]},
-  { family:"Kia", marque:"Kia", silca:"HYN20", jma:"HYN20", keyline:"HYN20", errebi:"HYN20", type:"Laser", note:"Kia gamme large", lishi:"HYN20", xhorse:"XKHYN20", bladeType:"laser", transponder:"ID46", variants:[["Picanto II","2011-2017"],["Picanto III","2017+"],["Rio IV","2017+"],["Ceed III","2018+"],["Niro","2016+"],["Stonic","2017+"],["Sportage IV","2015-2021"],["Sportage V","2021+"]]},
-  { family:"Nissan", marque:"Nissan", silca:"NSN14", jma:"NSN14", keyline:"NSN14", errebi:"NSN14", type:"Laser", note:"Nissan gamme élargie", lishi:"NSN14", xhorse:"XKNSN14", bladeType:"laser", transponder:"ID46 / PCF7936", variants:[["Leaf I","2010-2017"],["Leaf II","2017+"],["Pulsar C13","2014-2018"],["Micra K14","2017+"],["X-Trail T32","2014+"],["Townstar","2021+"]]},
-  { family:"Suzuki", marque:"Suzuki", silca:"SZ14R", jma:"SZ14R", keyline:"SZ14R", errebi:"SZ14R", type:"Laser", note:"Suzuki récente", lishi:"SZ14R", xhorse:"XKSZ14R", bladeType:"laser", transponder:"ID46", variants:[["Swift IV","2017+"],["Vitara II","2015+"],["S-Cross II","2021+"],["Across","2020+"],["Swace","2020+"]]},
-  { family:"Volvo", marque:"Volvo", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Laser", note:"Volvo Ford era et après", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID46 / 80bit", variants:[["S60 II","2010-2018"],["V60 I","2010-2018"],["XC60 I","2008-2017"],["XC70 III","2007-2016"],["S80 II","2006-2016"]]},
-  { family:"Volvo", marque:"Volvo", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"Volvo SPA", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES / smart", variants:[["XC90 II","2015+"],["S90","2016+"],["V90","2016+"],["XC60 II","2017+"],["XC40","2017+"]]},
-  { family:"Jaguar", marque:"Jaguar", silca:"JAG1", jma:"JAG1", keyline:"JAG1", errebi:"JAG1", type:"Smart key", note:"Jaguar récente", lishi:"JAG1", xhorse:"XKJAG1", bladeType:"smart", transponder:"smart / AES", variants:[["XE","2015+"],["XF X260","2015+"],["F-Pace","2016+"],["E-Pace","2017+"],["I-Pace","2018+"]]},
-  { family:"Land Rover", marque:"Land Rover", silca:"JAG1", jma:"JAG1", keyline:"JAG1", errebi:"JAG1", type:"Smart key", note:"Land Rover récent", lishi:"JAG1", xhorse:"XKJAG1", bladeType:"smart", transponder:"smart / AES", variants:[["Discovery 5","2017+"],["Discovery Sport","2014+"],["Evoque","2011+"],["Velar","2017+"],["Defender L663","2020+"]]},
-  { family:"BMW / Mini", marque:"BMW / Mini", silca:"HU100R", jma:"HU100R", keyline:"HU100R", errebi:"HU100R", type:"Smart key", note:"BMW série F/G", lishi:"HU100R", xhorse:"XKHU100R", bladeType:"smart", transponder:"FEM / CAS4 / BDC", variants:[["Serie 2 F22","2014+"],["Serie 4 F32","2013+"],["X2 F39","2018+"],["X3 G01","2017+"],["X5 G05","2018+"],["Mini Clubman F54","2015+"],["Mini Countryman F60","2017+"]]},
-  { family:"Mercedes", marque:"Mercedes", silca:"HU64", jma:"HU64", keyline:"HU64", errebi:"HU64", type:"Laser", note:"Mercedes gamme étendue", lishi:"HU64", xhorse:"XKHU64", bladeType:"laser", transponder:"IR / NEC / BGA selon génération", variants:[["CLA C117","2013-2019"],["GLA X156","2013-2020"],["GLC X253","2015+"],["GLE W166","2015-2019"],["CLS C257","2018+"]]},
-  { family:"Mercedes", marque:"Mercedes", silca:"HU64T", jma:"HU64T", keyline:"HU64T", errebi:"HU64T", type:"Smart key", note:"Mercedes récentes keyless", lishi:"HU64T", xhorse:"XKHU64T", bladeType:"smart", transponder:"IR / BGA", variants:[["Classe A W177","2018+"],["Classe B W247","2019+"],["Classe C W206","2021+"],["Classe S W223","2020+"]]},
-  { family:"Fiat", marque:"Fiat", silca:"SIP22", jma:"SIP22", keyline:"SIP22", errebi:"SIP22", type:"Laser", note:"Fiat / utilitaires récents", lishi:"SIP22", xhorse:"XKSIP22", bladeType:"laser", transponder:"ID46", variants:[["500X","2014+"],["Tipo","2015+"],["Panda III","2012+"],["Ducato X290","2014+"],["Talento","2016-2022"]]},
-  { family:"Jeep", marque:"Jeep", silca:"SIP22", jma:"SIP22", keyline:"SIP22", errebi:"SIP22", type:"Laser", note:"Jeep base Fiat", lishi:"SIP22", xhorse:"XKSIP22", bladeType:"laser", transponder:"ID46", variants:[["Renegade","2014+"],["Compass II","2017+"],["Commander","2021+"]]},
-  { family:"Alfa Romeo", marque:"Alfa Romeo", silca:"SIP22", jma:"SIP22", keyline:"SIP22", errebi:"SIP22", type:"Laser", note:"Alfa modernes", lishi:"SIP22", xhorse:"XKSIP22", bladeType:"laser", transponder:"ID46", variants:[["Giulia","2015+"],["Stelvio","2016+"],["Tonale","2022+"]]},
-  { family:"Chevrolet / Daewoo", marque:"Chevrolet / Daewoo", silca:"DW04R", jma:"DW04R", keyline:"DW04R", errebi:"DW04R", type:"Laser", note:"Chevrolet Europe gamme", lishi:"DW04R", xhorse:"XKDW04R", bladeType:"laser", transponder:"ID46", variants:[["Captiva","2006-2018"],["Malibu","2012-2016"],["Lacetti","2004-2011"],["Kalos","2002-2011"]]},
-  { family:"Porsche", marque:"Porsche", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Laser", note:"Porsche VAG", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48 / smart selon version", variants:[["Cayenne 955","2002-2010"],["Panamera 970","2009-2016"],["Macan","2014+"],["Cayenne 958","2010-2017"]]},
-  { family:"Porsche", marque:"Porsche", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"Porsche récente", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES / smart", variants:[["911 992","2019+"],["Taycan","2019+"],["Cayenne E3","2017+"],["Panamera 971","2016+"]]},
-  { family:"Saab", marque:"Saab", silca:"HU100", jma:"HU100", keyline:"HU100", errebi:"HU100", type:"Laser", note:"Saab génération GM", lishi:"HU100", xhorse:"XKHU100", bladeType:"laser", transponder:"ID46", variants:[["9-3 II","2002-2014"],["9-5 II","2010-2012"]]},
-  { family:"Rover / MG", marque:"Rover / MG", silca:"NE38", jma:"NE38", keyline:"NE38", errebi:"NE38", type:"Standard", note:"Anciens Rover / MG", lishi:"NE38", xhorse:"XKNE38", bladeType:"standard", transponder:"ID33 / ID13 selon version", variants:[["Rover 25","1999-2005"],["Rover 45","1999-2005"],["MG ZR","2001-2005"],["MG ZS","2001-2005"]]},
-  { family:"MG", marque:"MG", silca:"VA6", jma:"VA6", keyline:"VA6", errebi:"VA6", type:"Laser", note:"MG récents d'origine chinoise", lishi:"VA6", xhorse:"XKVA6", bladeType:"laser", transponder:"ID46 / smart selon version", variants:[["MG ZS","2017+"],["MG EHS","2020+"],["MG4","2022+"],["MG5","2021+"]]},
-  { family:"Dacia", marque:"Dacia", silca:"DA34", jma:"DA34", keyline:"DA34", errebi:"DA34", type:"Standard", note:"Dacia large gamme", lishi:"DA34", xhorse:"XKDA34", bladeType:"standard", transponder:"ID46", variants:[["Spring","2021+"],["Jogger","2021+"],["Sandero III","2020+"],["Logan III","2020+"]]},
-  { family:"Tesla", marque:"Tesla", silca:"TESLA-SMART", jma:"TESLA-SMART", keyline:"TESLA-SMART", errebi:"TESLA-SMART", type:"Carte / smart key", note:"Référence indicatrice atelier", lishi:"-", xhorse:"-", bladeType:"smart", transponder:"smart / carte", variants:[["Model S","2012+"],["Model X","2015+"],["Model 3","2017+"],["Model Y","2020+"]]},
-  { family:"Cupra / Seat", marque:"Cupra / Seat", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Laser", note:"Seat générations précédentes", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["Leon II","2005-2012"],["Altea","2004-2015"],["Toledo III","2004-2009"],["Exeo","2008-2013"]]},
-  { family:"Skoda", marque:"Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Laser", note:"Skoda générations précédentes", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["Octavia I","1996-2010"],["Superb I","2001-2008"],["Roomster","2006-2015"],["Yeti","2009-2017"]]},
-  { family:"Audi", marque:"Audi", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Laser", note:"Audi générations HU66", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["A2","2000-2005"],["A6 C5","1997-2004"],["TT 8N","1998-2006"],["Allroad C5","2000-2005"]]},
-  { family:"Ford", marque:"Ford", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Laser", note:"Ford gamme complémentaire", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID63 / 80bit", variants:[["Ranger","2011+"],["S-Max","2006+"],["Galaxy III","2006+"],["Tourneo Custom","2012+"]]},
-  { family:"Opel / Vauxhall", marque:"Opel / Vauxhall", silca:"HU100", jma:"HU100", keyline:"HU100", errebi:"HU100", type:"Laser", note:"Opel gamme complémentaire", lishi:"HU100", xhorse:"XKHU100", bladeType:"laser", transponder:"ID46", variants:[["Adam","2013-2019"],["Karl","2015-2019"],["Crossland X","2017-2020"],["Grandland X","2017-2021"]]},
-  { family:"Subaru", marque:"Subaru", silca:"DAT17", jma:"DAT17", keyline:"DAT17", errebi:"DAT17", type:"Laser", note:"Subaru complément", lishi:"DAT17", xhorse:"XKDAT17", bladeType:"laser", transponder:"ID46", variants:[["Forester SK","2018+"],["Outback VI","2021+"],["BRZ","2012+"],["Levorg","2015+"]]},
-  { family:"Mitsubishi", marque:"Mitsubishi", silca:"MIT11", jma:"MIT11", keyline:"MIT11", errebi:"MIT11", type:"Laser", note:"Mitsubishi complément", lishi:"MIT11", xhorse:"XKMIT11", bladeType:"laser", transponder:"ID46", variants:[["Eclipse Cross","2018+"],["Outlander III","2012-2021"],["Space Star II","2012+"],["L200 V","2015+"]]},
-  { family:"Chrysler / Jeep / Dodge", marque:"Chrysler / Jeep / Dodge", silca:"CY24", jma:"CY24", keyline:"CY24", errebi:"CY24", type:"Laser", note:"Complément gamme US", lishi:"CY24", xhorse:"XKCY24", bladeType:"laser", transponder:"ID46 / 4D64", variants:[["Charger","2011+"],["Challenger","2008+"],["Durango","2011+"],["RAM ProMaster","2014+"]]}
+  { family:"Chrysler / Jeep / Dodge", marque:"Chrysler / Jeep / Dodge", silca:"CY24", jma:"CY24", keyline:"CY24", errebi:"CY24", type:"Laser", note:"Groupe Chrysler", lishi:"CY24", xhorse:"XKCY24", bladeType:"laser", transponder:"ID46 / 4D64", variants:[["300C","2004-2011"],["Voyager","2004-2016"],["Grand Cherokee WK2","2010+"],["Cherokee KL","2013+"],["Renegade","2014+"],["Dodge Journey","2008-2020"]]}
 ];
 
 const autoKeysDatabase = autoKeySeed.flatMap(seed => {
@@ -396,7 +401,76 @@ function saveRecentSearch(query){
   list.unshift(q);
   list = list.slice(0, 8);
   saveJson(RECENT_KEY, list);
-  renderRecentSearches();
+  
+const estimateModal = document.getElementById('estimateModal');
+function openEstimateModal(){ estimateModal.classList.add('show'); estimateModal.setAttribute('aria-hidden','false'); }
+function closeEstimateModal(){ estimateModal.classList.remove('show'); estimateModal.setAttribute('aria-hidden','true'); }
+
+function syncEstimateDefaults(){
+  const type = document.getElementById('estimateKeyType').value;
+  const travel = document.getElementById('estimateTravel');
+  const unit = document.getElementById('estimateUnitPrice');
+  if (type === 'simple'){
+    if (!travel.dataset.touched) travel.value = '30';
+    if (!unit.dataset.touched) unit.value = '95';
+  } else {
+    if (!travel.dataset.touched) travel.value = '20';
+    if (!unit.dataset.touched) unit.value = '150';
+  }
+}
+
+function calculateEstimate(){
+  const keyType = document.getElementById('estimateKeyType').value;
+  const family = document.getElementById('estimateFamily').value.trim() || 'Non renseignée';
+  const model = document.getElementById('estimateModel').value.trim() || 'Non renseigné';
+  const travel = Math.max(0, Number(document.getElementById('estimateTravel').value) || 0);
+  const unitPrice = Math.max(0, Number(document.getElementById('estimateUnitPrice').value) || 0);
+  const qty = Math.max(1, Number(document.getElementById('estimateQty').value) || 1);
+
+  const subtotal = unitPrice * qty;
+  const total = subtotal + travel;
+  const typeLabel = keyType === 'simple' ? 'Clé simple' : 'Clé télécommande';
+
+  const output = `
+    <div class="intervention-title">Estimation prête</div>
+    <div class="sub" style="margin-top:8px"><strong>Type de clé :</strong> ${typeLabel}</div>
+    <div class="sub"><strong>Famille :</strong> ${escapeHtml(family)}</div>
+    <div class="sub"><strong>Modèle :</strong> ${escapeHtml(model)}</div>
+    <div class="sub"><strong>Prix unitaire :</strong> ${unitPrice.toFixed(0)} €</div>
+    <div class="sub"><strong>Quantité :</strong> ${qty}</div>
+    <div class="sub"><strong>Déplacement :</strong> ${travel.toFixed(0)} €</div>
+    <div class="sub" style="margin-top:10px;font-weight:800"><strong>Total estimé :</strong> ${total.toFixed(0)} €</div>
+  `;
+  document.getElementById('estimateOutput').innerHTML = output;
+  document.getElementById('estimateQuickBox').innerHTML = `
+    <strong>Dernière estimation</strong><br>
+    ${typeLabel} · ${escapeHtml(family)} · ${escapeHtml(model)}<br>
+    Total : <strong>${total.toFixed(0)} €</strong>
+  `;
+}
+
+function clearEstimate(){
+  document.getElementById('estimateKeyType').value = 'simple';
+  document.getElementById('estimateFamily').value = '';
+  document.getElementById('estimateModel').value = '';
+  document.getElementById('estimateTravel').value = '30';
+  document.getElementById('estimateUnitPrice').value = '95';
+  document.getElementById('estimateQty').value = '1';
+  document.getElementById('estimateTravel').dataset.touched = '';
+  document.getElementById('estimateUnitPrice').dataset.touched = '';
+  document.getElementById('estimateOutput').innerHTML = '<div class="intervention-title">Aucune estimation générée</div><div class="sub">Renseigne les champs puis calcule le prix.</div>';
+}
+
+document.getElementById('openEstimateModalBtn').addEventListener('click', openEstimateModal);
+document.getElementById('closeEstimateModalBtn').addEventListener('click', closeEstimateModal);
+document.getElementById('calculateEstimateBtn').addEventListener('click', calculateEstimate);
+document.getElementById('clearEstimateBtn').addEventListener('click', clearEstimate);
+document.getElementById('estimateKeyType').addEventListener('change', syncEstimateDefaults);
+document.getElementById('estimateTravel').addEventListener('input', function(){ this.dataset.touched = '1'; });
+document.getElementById('estimateUnitPrice').addEventListener('input', function(){ this.dataset.touched = '1'; });
+estimateModal.addEventListener('click', (e) => { if (e.target === estimateModal) closeEstimateModal(); });
+
+renderRecentSearches();
 }
 
 function renderRecentSearches(){
@@ -536,7 +610,7 @@ function renderStockAlert(){
 function deleteRecord(id){
   records = records.filter(r => r.id !== id);
   saveRecords();
-  refreshFamilyFilter();  renderDatasetList(); renderStockList();
+  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); renderStockList();
   if (hasSearched) runSearch(); else clearResultsState();
 }
 
@@ -545,7 +619,7 @@ function updateStock(id, delta){
   if (!record) return;
   record.stock = Math.max(0, (Number(record.stock) || 0) + delta);
   saveRecords();
-  renderStockList(); renderDatasetList(); 
+  renderStockList(); renderDatasetList(); renderFavorites(); renderCompare();
   if (hasSearched) runSearch(); else refreshStats(0);
 }
 
