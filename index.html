@@ -327,12 +327,22 @@ const plateDatabase = {
 
 let hasSearched = false;
 let lastResults = [];
-let records = loadJson(STORAGE_KEY, autoKeysDatabase);
-if (!Array.isArray(records) || !records.length) records = structuredClone(autoKeysDatabase);
+let records = mergeRecords(loadJson(STORAGE_KEY, []), autoKeysDatabase);
 let favorites = loadJson(FAVORITES_KEY, []);
 let compareIds = loadJson(COMPARE_KEY, []);
 
 function loadJson(key, fallback){ try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : structuredClone(fallback);} catch(e){ return structuredClone(fallback);} }
+function mergeRecords(stored, seed){
+  const base = Array.isArray(seed) ? structuredClone(seed) : [];
+  if (!Array.isArray(stored) || !stored.length) return base;
+  const byId = new Map(base.map(r => [r.id, r]));
+  stored.forEach(r => {
+    if (!r || !r.id) return;
+    if (byId.has(r.id)) byId.set(r.id, {...byId.get(r.id), ...r});
+    else byId.set(r.id, r);
+  });
+  return Array.from(byId.values());
+}
 
 function guessShellType(record){
   const blade = (record.bladeType || '').toLowerCase();
@@ -642,6 +652,7 @@ function handleScrollUi(){
 }
 
 function init(){
+  saveRecords();
   refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); renderRecentSearches(); clearResultsState(); attachDelegates();
   document.getElementById('searchBtn').addEventListener('click', runSearch);
   document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; clearResultsState(); });
