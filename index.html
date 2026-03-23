@@ -13,36 +13,42 @@
     .app{max-width:1320px;margin:0 auto;padding:16px}
     .hero{background:linear-gradient(135deg,#191a1f 0%,#24252d 50%,#b40f15 100%);color:#fff;padding:18px;border-radius:30px;box-shadow:var(--shadow)}
     .hero-grid{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center}.hero img{width:120px;height:120px;border-radius:24px;object-fit:cover;background:#fff;border:1px solid rgba(255,255,255,.15)}
-    h1,h2,h3{margin:0 0 10px}.hero p{margin:0;color:rgba(255,255,255,.9);line-height:1.5}
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);font-size:.9rem}
-    .grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr);margin-top:16px}.main{grid-template-columns:1.5fr 1fr;margin-top:16px}.two{grid-template-columns:1fr 1fr;margin-top:16px}
+    h1,h2,h3{margin:0 0 10px}.hero h1,.hero p{color:#fff}.hero p{margin:0;line-height:1.5;font-weight:600}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);font-size:.9rem;color:#fff;font-weight:700}
+    .grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(5,1fr);margin-top:16px}.main{grid-template-columns:1.5fr 1fr;margin-top:16px}.two{grid-template-columns:1fr 1fr;margin-top:16px}
     .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.sub{color:var(--muted);line-height:1.45;font-size:.95rem}
     .stat .big{font-size:2rem;font-weight:800}.label{color:var(--muted);margin-top:6px}
     label{display:block;font-weight:700;margin-bottom:8px;font-size:.93rem} input,select,textarea{width:100%;padding:14px;border:1px solid #d8dce3;border-radius:16px;font:inherit;outline:none} textarea{min-height:100px;resize:vertical}
     input:focus,select:focus,textarea:focus{border-color:var(--red2);box-shadow:0 0 0 4px rgba(199,18,24,.12)}
     .search-grid,.form-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)} .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    button,.button{border:none;background:var(--red);color:#fff;padding:13px 16px;border-radius:16px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.secondary{background:#fff;color:var(--black);border:1px solid var(--line)}.dark{background:var(--black)}.danger{background:#7f1014}
-    .results{display:grid;gap:18px}.result{border:1px solid var(--line);border-radius:26px;padding:24px;background:linear-gradient(180deg,#fff,#fcfcfd);box-shadow:0 16px 40px rgba(15,23,42,.08)} .head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}.ref{font-weight:900;font-size:1.8rem}.badges{display:flex;gap:10px;flex-wrap:wrap}.badge{padding:9px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.9rem;font-weight:800}.badge.red{background:#fff0f1;border-color:#ffd5d8;color:#b70f16}.badge.green{background:#eefcf6;border-color:#ccefdc;color:#08784b}.badge.dark{background:#16171b;color:#fff;border-color:#16171b}
+    button,.button{border:none;background:var(--red);color:#fff;padding:13px 16px;border-radius:16px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.secondary{background:#fff;color:var(--red);border:1px solid var(--line)}.dark{background:var(--black)}.danger{background:#7f1014}
+    .results{display:grid;gap:18px}.result{border:1px solid var(--line);border-radius:26px;padding:24px;background:linear-gradient(180deg,#fff,#fcfcfd);box-shadow:0 16px 40px rgba(15,23,42,.08)} .head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}.ref{font-weight:900;font-size:1.8rem}.badges{display:flex;gap:10px;flex-wrap:wrap}.badge{padding:9px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.9rem;font-weight:800}.badge.red{background:#fff0f1;border-color:#ffd5d8;color:#b70f16}.badge.green{background:#eefcf6;border-color:#ccefdc;color:#08784b}.badge.dark{background:#16171b;color:var(--red2);border-color:#16171b}.badge.stock{background:#fff7e8;border-color:#ffe1a3;color:#9a5a00}
     .meta-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);margin:14px 0}.meta{padding:15px;border-radius:18px;border:1px solid var(--line);background:#fff;min-height:78px}.meta strong{display:block;color:var(--muted);font-size:.82rem;margin-bottom:8px}
     .toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}.list{display:grid;gap:10px;max-height:520px;overflow:auto}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare-card{min-height:180px;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.notice{padding:13px 14px;border-radius:16px;background:#f5f7ff;border:1px solid #d9e1ff;color:#33417a}.empty{text-align:center;padding:28px;border:1px dashed #d7dbe2;border-radius:18px;color:var(--muted)}
     .footer{margin-top:16px;color:var(--muted);font-size:.92rem;line-height:1.55}
     .result-top{display:flex;gap:14px;align-items:flex-start}.result-media{width:92px;height:92px;flex:0 0 92px;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center}.result-media img{width:100%;height:100%;object-fit:contain;display:block}.result-main{flex:1;min-width:0}
-    
-    .sidebar-toggle{position:fixed;top:14px;left:14px;z-index:1200;width:52px;height:52px;border-radius:16px;background:#121317;color:#fff;box-shadow:var(--shadow)}
+    .sidebar-toggle{position:fixed;top:14px;left:14px;z-index:1200;width:52px;height:52px;border-radius:16px;background:#121317;color:var(--red2);box-shadow:var(--shadow)}
     .sidebar{position:fixed;top:0;left:0;height:100vh;width:290px;background:#fff;border-right:1px solid var(--line);box-shadow:0 16px 40px rgba(15,23,42,.12);z-index:1150;transform:translateX(-100%);transition:transform .25s ease;padding:18px;display:flex;flex-direction:column;gap:12px}
     .sidebar.open{transform:translateX(0)}
     .sidebar-backdrop{position:fixed;inset:0;background:rgba(18,19,23,.35);backdrop-filter:blur(2px);z-index:1100;opacity:0;pointer-events:none;transition:opacity .25s ease}
     .sidebar-backdrop.show{opacity:1;pointer-events:auto}
     .sidebar-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
     .sidebar-nav{display:grid;gap:10px;margin-top:6px}
-    .sidebar-link{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;background:#fff;border:1px solid var(--line);font-weight:800;cursor:pointer;text-align:left}
+    .sidebar-link{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;background:#fff;border:1px solid var(--line);font-weight:800;cursor:pointer;text-align:left;color:var(--red)}
     .sidebar-link:hover{background:#f8fafc}
     .top-anchor{position:relative;top:-12px}
-    .floating-home{position:fixed;right:16px;bottom:20px;z-index:1000;width:58px;height:58px;border-radius:20px;background:#121317;color:#fff;box-shadow:var(--shadow);display:none}
+    .floating-home{position:fixed;right:16px;bottom:20px;z-index:1000;width:58px;height:58px;border-radius:20px;background:#121317;color:var(--red2);box-shadow:var(--shadow);display:none}
     .floating-home.show{display:inline-flex}
     .vvdi-ok{color:#08784b;font-weight:800}
     .vvdi-limited{color:#b36b00;font-weight:800}
     .vvdi-no{color:#b70f16;font-weight:800}
+    .stock-ok{color:#08784b;font-weight:800}.stock-low{color:#b36b00;font-weight:800}.stock-out{color:#b70f16;font-weight:800}
+    .recent-searches,.stock-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.recent-tag,.mini-btn{padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--red);font-weight:800;cursor:pointer}
+    .intervention-box{display:grid;gap:14px}.intervention-summary{padding:16px;border-radius:18px;border:1px solid #ffd5d8;background:#fff7f7}.intervention-title{font-weight:900;color:var(--black);font-size:1.05rem}.muted-red{color:inherit}.sidebar-title{color:var(--red)}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(18,19,23,.45);backdrop-filter:blur(3px);z-index:1300;display:none;align-items:center;justify-content:center;padding:18px}
+    .modal-backdrop.show{display:flex}
+    .modal-card{width:min(980px,100%);max-height:92vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:0 22px 50px rgba(15,23,42,.2);padding:20px}
+    .hidden{display:none !important}
 
     @media (max-width:1100px){.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr 1fr}}
     @media (max-width:720px){.hero-grid,.stats,.main,.two,.search-grid,.form-grid,.meta-grid,.compare{grid-template-columns:1fr}.hero img{width:100px;height:100px}.ref{font-size:1.2rem}}
@@ -53,7 +59,7 @@
 <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
 <aside id="sidebar" class="sidebar" aria-hidden="true">
   <div class="sidebar-head">
-    <h3 style="margin:0">Menu</h3>
+    <h3 style="margin:0" class="sidebar-title">Menu</h3>
     <button id="sidebarClose" class="secondary" style="padding:10px 12px">Fermer</button>
   </div>
   <div class="sub">Accès rapide aux sections principales.</div>
@@ -61,7 +67,9 @@
     <button class="sidebar-link" data-scroll="#topPage">🏠 Accueil</button>
     <button class="sidebar-link" data-scroll="#searchSection">🔎 Recherche</button>
     <button class="sidebar-link" data-scroll="#resultsSection">📋 Résultats</button>
-    <button class="sidebar-link" data-scroll="#addSection">➕ Ajouter une fiche</button>
+    <button class="sidebar-link" data-scroll="#interventionSection">🚨 Intervention</button>
+    <button class="sidebar-link" data-scroll="#stockSection">📦 Stock</button>
+    <button class="sidebar-link" id="openAddModalBtn">➕ Ajouter une fiche</button>
     <button class="sidebar-link" data-scroll="#datasetSection">🗂️ Base locale</button>
   </nav>
 </aside>
@@ -74,12 +82,12 @@
       <img src="logo-keymaster.jpg" alt="Logo KeyMaster Auto">
       <div>
         <h1>KeyMaster Auto Expert</h1>
-        <p>Comparateur serrurier auto niveau atelier : profils Silca / JMA / Keyline / Errebi, Lishi, Xhorse, transpondeur, familles véhicules, ajout de fiches, favoris, comparaison, export JSON et recherche plaque en démo locale.</p>
+        <p>Comparateur serrurier auto niveau atelier : profils Silca / JMA / Keyline / Errebi, Lishi, Xhorse, transpondeur, gestion du stock, mode terrain intervention, ajout de fiches par pop-up, export JSON et base locale.</p>
         <div class="chips">
           <span class="chip">Expert serrurier auto</span>
           <span class="chip">Lishi + Xhorse</span>
-          <span class="chip">Transpondeur</span>
-          <span class="chip">Import / export JSON</span>
+          <span class="chip">Gestion du stock</span>
+          <span class="chip">Mode intervention</span>
         </div>
       </div>
     </div>
@@ -89,7 +97,7 @@
     <div class="card stat"><div class="big" id="statRecords">0</div><div class="label">Fiches chargées</div></div>
     <div class="card stat"><div class="big" id="statBrands">0</div><div class="label">Familles</div></div>
     <div class="card stat"><div class="big" id="statResults">0</div><div class="label">Résultats</div></div>
-    <div class="card stat"><div class="big" id="statFavs">0</div><div class="label">Favoris</div></div>
+        <div class="card stat"><div class="big" id="statLowStock">0</div><div class="label">Stock faible</div></div>
   </section>
 
   <section id="searchSection" class="grid main">
@@ -104,8 +112,7 @@
       <div class="btns">
         <button id="searchBtn">Rechercher</button>
         <button class="secondary" id="resetBtn">Réinitialiser</button>
-        <button class="secondary" id="showFavsBtn">Voir favoris</button>
-        <button class="secondary" id="seedBtn">Réinitialiser la base pro</button>
+                <button class="secondary" id="seedBtn">Réinitialiser la base pro</button>
         <button class="secondary" id="exportBtn">Exporter JSON</button>
       </div>
       <div id="recentBox" class="card" style="margin-top:12px;padding:14px 16px;box-shadow:none">
@@ -116,13 +123,7 @@
       <div class="footer">La recherche couvre : Silca / JMA / Keyline / Errebi, famille, modèles exemples, Lishi, Xhorse, type de lame, transpondeur et notes atelier.</div>
     </div>
 
-    <div class="card">
-      <h2>Recherche plaque</h2>
-      <div class="sub">Mode démo locale. Pour du vrai temps réel, il faudra une API véhicule.</div>
-      <div style="margin-top:12px"><label for="plateInput">Plaque</label><input id="plateInput" placeholder="Ex : AA-123-AA"></div>
-      <div class="btns"><button id="plateBtn">Chercher la plaque</button><button class="secondary" id="plateExamplesBtn">Exemples</button></div>
-      <div id="plateOutput" class="notice">Aucune plaque recherchée.</div>
-    </div>
+
   </section>
 
   <section id="resultsSection" class="grid main">
@@ -131,36 +132,58 @@
       <div id="results" class="results"></div>
     </div>
     <div class="grid">
-      <div class="card"><div class="toolbar"><h3>Comparateur rapide</h3><button class="secondary" id="clearCompareBtn">Vider</button></div><div id="compareBox" class="compare"></div></div>
-      <div class="card"><div class="toolbar"><h3>Favoris</h3><button class="secondary" id="clearFavsBtn">Vider</button></div><div id="favoritesList" class="list"></div></div>
+      <div class="card">
+        <h3>Accès rapide</h3>
+        <div class="sub">Depuis chaque résultat tu peux copier la référence, ajuster le stock ou pré-remplir une intervention terrain.</div>
+        <div class="notice" style="margin-top:12px">Le comparateur rapide, les favoris et la recherche plaque ont été retirés pour alléger l’application.</div>
+      </div>
     </div>
   </section>
 
-  <section class="grid two">
-    <div id="addSection" class="top-anchor"></div>
+  <section id="interventionSection" class="grid two">
     <div class="card">
-      <h2>Ajouter une fiche</h2>
-      <div class="form-grid">
-        <div><label for="newFamily">Famille</label><input id="newFamily" placeholder="Toyota"></div>
-        <div><label for="newSilca">Silca</label><input id="newSilca" placeholder="TOY43"></div>
-        <div><label for="newJma">JMA</label><input id="newJma" placeholder="TOY-43"></div>
-        <div><label for="newKeyline">Keyline</label><input id="newKeyline" placeholder="TOY43"></div>
-        <div><label for="newErrebi">Errebi</label><input id="newErrebi" placeholder="TY30"></div>
-        <div><label for="newLishi">Lishi</label><input id="newLishi" placeholder="TOY43"></div>
-        <div><label for="newXhorse">Xhorse</label><input id="newXhorse" placeholder="XKTOY43"></div>
-        <div><label for="newBladeType">Type lame</label><select id="newBladeType"><option value="laser">Laser / interne</option><option value="standard">Standard</option><option value="flip">Flip / plip</option><option value="smart">Smart key</option></select></div>
-        <div><label for="newTransponder">Transpondeur</label><input id="newTransponder" placeholder="4C / ID48 / PCF7946"></div>
-        <div><label for="newYears">Années</label><input id="newYears" placeholder="2002-2008"></div>
-        <div><label for="newModels">Modèles</label><input id="newModels" placeholder="Yaris 1, Corolla..."></div>
-        <div><label for="newRefCode">Code interne</label><input id="newRefCode" placeholder="KM-TOY43-99"></div>
-        <div><label for="newShellType">Type de coque</label><input id="newShellType" placeholder="Coque pliante / flip"></div>
-        <div><label for="newVvdiMini">VVDI MINI Key Tool</label><select id="newVvdiMini"><option value="Oui">Oui</option><option value="Partiel">Partiel</option><option value="À vérifier">À vérifier</option><option value="Non">Non</option></select></div>
+      <h2>Mode terrain · Intervention</h2>
+      <div class="sub">Prépare rapidement une intervention serrurerie auto depuis le terrain.</div>
+      <div class="form-grid" style="margin-top:12px">
+        <div><label for="interClient">Client</label><input id="interClient" placeholder="Nom client"></div>
+        <div><label for="interPhone">Téléphone</label><input id="interPhone" placeholder="06..."></div>
+        <div><label for="interPlate">Plaque</label><input id="interPlate" placeholder="AA-123-AA"></div>
+        <div><label for="interVehicle">Véhicule</label><input id="interVehicle" placeholder="Ex : Clio 3"></div>
+        <div><label for="interProblem">Problème</label><select id="interProblem"><option>Clé perdue</option><option>Double clé</option><option>Télécommande HS</option><option>Transpondeur HS</option><option>Clé cassée</option><option>Véhicule verrouillé</option></select></div>
+        <div><label for="interUrgency">Urgence</label><select id="interUrgency"><option>Normale</option><option>Rapide</option><option>Urgente</option></select></div>
+        <div><label for="interProfile">Profil / référence</label><input id="interProfile" placeholder="Ex : HU83"></div>
+        <div><label for="interQty">Qté à prévoir</label><input id="interQty" type="number" min="1" value="1"></div>
       </div>
-      <div style="margin-top:12px"><label for="newVvdiNote">Note VVDI MINI</label><textarea id="newVvdiNote" placeholder="Clonage, génération, précodage ou programmation OBD selon le cas..."></textarea></div>
-      <div style="margin-top:12px"><label for="newNotes">Notes atelier</label><textarea id="newNotes" placeholder="Notes utiles atelier..."></textarea></div>
-      <div class="btns"><button id="addBtn">Ajouter la fiche</button><button class="secondary" id="clearFormBtn">Vider</button><label class="button secondary">Importer JSON<input id="importFile" type="file" accept="application/json" style="display:none"></label></div>
+      <div style="margin-top:12px"><label for="interNotes">Notes terrain</label><textarea id="interNotes" placeholder="Code client, état serrure, tests à faire, outil à prendre..."></textarea></div>
+      <div class="btns">
+        <button id="interventionBtn">Créer l’intervention</button>
+        <button class="secondary" id="usePlateForInterBtn">Pré-remplir depuis la plaque</button>
+        <button class="secondary" id="clearInterventionBtn">Vider</button>
+      </div>
     </div>
 
+    <div class="card intervention-box">
+      <div class="toolbar"><h3>Résumé intervention</h3><button class="secondary" id="copyInterventionBtn">Copier</button></div>
+      <div id="interventionOutput" class="intervention-summary">
+        <div class="intervention-title">Aucune intervention générée</div>
+        <div class="sub">Choisis une référence ou remplis le formulaire puis crée la fiche intervention.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stockSection" class="grid main">
+    <div class="card">
+      <div class="toolbar"><div><h2>Gestion du stock</h2><div class="sub">Visualise les quantités, repère le stock faible et ajuste rapidement.</div></div><button class="secondary" id="stockSortBtn">Trier stock faible</button></div>
+      <div id="stockList" class="list"></div>
+    </div>
+    <div class="card">
+      <h2>Alerte stock</h2>
+      <div id="stockAlert" class="notice">Aucune alerte pour le moment.</div>
+      <div class="footer">Seuil stock faible : inférieur ou égal à 2 pièces.</div>
+    </div>
+  </section>
+
+  <section class="grid">
     <div id="datasetSection" class="card">
       <div class="toolbar"><div><h2>Base locale</h2><div class="sub">Tu peux supprimer les fiches ajoutées ou repartir de la base pro.</div></div><button class="danger" id="clearCustomBtn">Tout vider</button></div>
       <div id="datasetList" class="list"></div>
@@ -168,131 +191,78 @@
   </section>
 </div>
 
+<div id="addModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal-card">
+    <div class="toolbar">
+      <div><h2>Créer une fiche</h2><div class="sub">Ajoute directement une nouvelle fiche depuis ce pop-up.</div></div>
+      <button class="secondary" id="closeAddModalBtn">Fermer</button>
+    </div>
+    <div class="form-grid" style="margin-top:12px">
+      <div><label for="newFamily">Famille</label><input id="newFamily" placeholder="Toyota"></div>
+      <div><label for="newSilca">Silca</label><input id="newSilca" placeholder="TOY43"></div>
+      <div><label for="newJma">JMA</label><input id="newJma" placeholder="TOY-43"></div>
+      <div><label for="newKeyline">Keyline</label><input id="newKeyline" placeholder="TOY43"></div>
+      <div><label for="newErrebi">Errebi</label><input id="newErrebi" placeholder="TY30"></div>
+      <div><label for="newLishi">Lishi</label><input id="newLishi" placeholder="TOY43"></div>
+      <div><label for="newXhorse">Xhorse</label><input id="newXhorse" placeholder="XKTOY43"></div>
+      <div><label for="newBladeType">Type lame</label><select id="newBladeType"><option value="laser">Laser / interne</option><option value="standard">Standard</option><option value="flip">Flip / plip</option><option value="smart">Smart key</option></select></div>
+      <div><label for="newTransponder">Transpondeur</label><input id="newTransponder" placeholder="4C / ID48 / PCF7946"></div>
+      <div><label for="newYears">Années</label><input id="newYears" placeholder="2002-2008"></div>
+      <div><label for="newModels">Modèles</label><input id="newModels" placeholder="Yaris 1, Corolla..."></div>
+      <div><label for="newRefCode">Code interne</label><input id="newRefCode" placeholder="KM-TOY43-99"></div>
+      <div><label for="newShellType">Type de coque</label><input id="newShellType" placeholder="Coque pliante / flip"></div>
+      <div><label for="newVvdiMini">VVDI MINI Key Tool</label><select id="newVvdiMini"><option value="Oui">Oui</option><option value="Partiel">Partiel</option><option value="À vérifier">À vérifier</option><option value="Non">Non</option></select></div>
+      <div><label for="newStock">Stock initial</label><input id="newStock" type="number" min="0" value="0"></div>
+    </div>
+    <div style="margin-top:12px"><label for="newVvdiNote">Note VVDI MINI</label><textarea id="newVvdiNote" placeholder="Clonage, génération, précodage ou programmation OBD selon le cas..."></textarea></div>
+    <div style="margin-top:12px"><label for="newNotes">Notes atelier</label><textarea id="newNotes" placeholder="Notes utiles atelier..."></textarea></div>
+    <div class="btns"><button id="addBtn">Ajouter la fiche</button><button class="secondary" id="clearFormBtn">Vider</button><label class="button secondary">Importer JSON<input id="importFile" type="file" accept="application/json" style="display:none"></label></div>
+  </div>
+</div>
+
 <script>
 const STORAGE_KEY = 'keymaster_auto_expert_v1';
-const FAVORITES_KEY = 'keymaster_auto_expert_favs_v1';
-const COMPARE_KEY = 'keymaster_auto_expert_compare_v1';
 const RECENT_KEY = 'keymaster_recent_searches_v1';
 
-// ==========================
-// 🔴 BASE DE DONNÉES AUTO
-// ==========================
-
 const autoKeySeed = [
-  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Lame plip / transpondeur", note:"Très courant VAG, attention ID48", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[
-    ["Golf V","2003-2009"],["Golf VI","2008-2012"],["Passat B6","2005-2010"],["Polo 9N","2001-2009"],["Touran","2003-2010"],["A3 8P","2003-2012"],["A4 B7","2004-2008"],["Leon II","2005-2012"],["Octavia II","2004-2013"],["Fabia II","2007-2014"]
-  ]},
-  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"VAG récent AES", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", variants:[
-    ["Golf VII","2013-2020"],["Golf VIII","2020+"],["A3 8V","2013-2020"],["A4 B9","2015+"],["Leon III","2012-2020"],["Octavia III","2013-2020"],["Kodiaq","2016+"],["Tiguan II","2016+"]
-  ]},
-  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162", jma:"HU162", keyline:"HU162", errebi:"HU162", type:"Flip / plip", note:"VAG transition", lishi:"HU162", xhorse:"XKHU162", bladeType:"flip", transponder:"ID48 / MQB selon version", variants:[
-    ["Polo 6R","2009-2017"],["Golf Plus","2009-2014"],["Jetta VI","2010-2018"],["A1","2010-2018"],["Fabia III","2014-2021"],["Rapid","2012-2019"]
-  ]},
-  { family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"HU83", jma:"HU83", keyline:"HU83", errebi:"HU83", type:"Transpondeur", note:"Très courant PSA", lishi:"HU83", xhorse:"XKHU83", bladeType:"laser", transponder:"ID46 / PCF7941 / PCF7946", variants:[
-    ["206+","2009-2013"],["207","2006-2014"],["208","2012-2019"],["307","2001-2008"],["308 I","2007-2013"],["3008 I","2009-2016"],["Partner II","2008-2018"],["C3","2002-2016"],["C4","2004-2018"],["Berlingo II","2008-2018"]
-  ]},
-  { family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"VA2", jma:"VA2", keyline:"VA2", errebi:"VA2", type:"Lame plip", note:"Anciennes PSA", lishi:"VA2", xhorse:"XKVA2", bladeType:"flip", transponder:"ID46 / PCF7941", variants:[
-    ["106","1998-2003"],["206","1998-2009"],["306","1997-2002"],["406","1999-2004"],["Saxo","1998-2003"],["Xsara","1998-2005"],["Xsara Picasso","2000-2010"],["Berlingo I","1999-2008"]
-  ]},
-  { family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"SX9", jma:"SX9", keyline:"SX9", errebi:"SX9", type:"Laser", note:"PSA récent", lishi:"SX9", xhorse:"XKSX9", bladeType:"laser", transponder:"ID46 / ID49", variants:[
-    ["208 II","2019+"],["2008 II","2020+"],["308 II","2013-2021"],["308 III","2021+"],["3008 II","2016+"],["508 II","2018+"],["C3 III","2016+"],["C4 III","2020+"],["Berlingo III","2018+"],["Jumpy III","2016+"]
-  ]},
-  { family:"Renault / Dacia", marque:"Renault / Dacia", silca:"VA2T", jma:"VA2T", keyline:"VA2T", errebi:"VA2T", type:"Plip", note:"Clio, Megane anciennes", lishi:"VA2T", xhorse:"XKVA2T", bladeType:"flip", transponder:"ID46 / PCF7946", variants:[
-    ["Clio II","2001-2006"],["Clio III","2005-2012"],["Megane II","2002-2009"],["Scenic II","2003-2009"],["Kangoo I","2003-2008"],["Modus","2004-2012"],["Laguna II","2001-2007"],["Master II","2003-2010"]
-  ]},
-  { family:"Renault / Dacia", marque:"Renault / Dacia", silca:"NE72", jma:"NE72", keyline:"NE72", errebi:"NE72", type:"Carte / transpondeur", note:"Clé carte Renault", lishi:"NE72", xhorse:"XKNE72", bladeType:"smart", transponder:"PCF7947 / HITAG AES selon version", variants:[
-    ["Megane III","2008-2016"],["Scenic III","2009-2016"],["Clio IV","2012-2019"],["Captur I","2013-2019"],["Laguna III","2007-2015"],["Talisman","2015+"],["Espace V","2015+"],["Kadjar","2015+"],["Master III","2010+"]
-  ]},
-  { family:"Renault / Dacia", marque:"Renault / Dacia", silca:"DA34", jma:"DA34", keyline:"DA34", errebi:"DA34", type:"Standard", note:"Profil Dacia courant", lishi:"DA34", xhorse:"XKDA34", bladeType:"standard", transponder:"ID46", variants:[
-    ["Logan I","2004-2012"],["Sandero I","2008-2012"],["Duster I","2010-2017"],["Dokker","2012-2021"],["Lodgy","2012-2022"],["Logan II","2012-2020"],["Sandero II","2012-2020"],["Duster II","2018+"]
-  ]},
-  { family:"Ford", marque:"Ford", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Plip", note:"Ford modernes", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID63 / 80bit", variants:[
-    ["Fiesta VI","2008-2017"],["Focus III","2011-2018"],["Mondeo IV","2007-2014"],["Kuga I","2008-2013"],["C-Max","2010-2019"],["B-Max","2012-2017"],["Transit Custom","2012-2023"],["EcoSport","2014+"]
-  ]},
-  { family:"Ford", marque:"Ford", silca:"FO21", jma:"FO21", keyline:"FO21", errebi:"FO21", type:"Ancien", note:"Ford anciennes", lishi:"FO21", xhorse:"XKFO21", bladeType:"standard", transponder:"4D60 / 4D63", variants:[
-    ["Focus I","1998-2005"],["Mondeo III","2000-2007"],["Fiesta V","2002-2008"],["Fusion","2002-2012"],["Transit","2000-2006"],["Connect I","2002-2013"]
-  ]},
-  { family:"Ford", marque:"Ford", silca:"HU198", jma:"HU198", keyline:"HU198", errebi:"HU198", type:"Smart key", note:"Ford récent", lishi:"HU198", xhorse:"XKHU198", bladeType:"smart", transponder:"AES / 128bit", variants:[
-    ["Focus IV","2018+"],["Fiesta VII","2017+"],["Puma","2020+"],["Kuga II","2013-2019"],["Kuga III","2020+"],["Mondeo V","2014+"]
-  ]},
-  { family:"BMW / Mini", marque:"BMW / Mini", silca:"HU92", jma:"HU92", keyline:"HU92", errebi:"HU92", type:"Plip", note:"Très courant BMW", lishi:"HU92", xhorse:"XKHU92", bladeType:"laser", transponder:"ID46 / PCF7945", variants:[
-    ["Serie 1 E87","2004-2011"],["Serie 3 E46","1998-2005"],["Serie 3 E90","2005-2012"],["Serie 5 E60","2003-2010"],["X3 E83","2003-2010"],["X5 E53","2000-2006"],["Mini R50","2001-2006"],["Mini R56","2006-2014"]
-  ]},
-  { family:"BMW / Mini", marque:"BMW / Mini", silca:"HU100R", jma:"HU100R", keyline:"HU100R", errebi:"HU100R", type:"Smart key", note:"BMW F series", lishi:"HU100R", xhorse:"XKHU100R", bladeType:"smart", transponder:"FEM / CAS4", variants:[
-    ["Serie 1 F20","2011-2019"],["Serie 3 F30","2012-2019"],["Serie 5 F10","2010-2017"],["X1 F48","2015+"],["X3 F25","2010-2017"],["Mini F56","2014+"]
-  ]},
-  { family:"Mercedes", marque:"Mercedes", silca:"HU64", jma:"HU64", keyline:"HU64", errebi:"HU64", type:"Plip", note:"Classe A/B/C", lishi:"HU64", xhorse:"XKHU64", bladeType:"laser", transponder:"IR / NEC / BGA selon génération", variants:[
-    ["Classe A W169","2004-2012"],["Classe B W245","2005-2011"],["Classe C W203","2000-2007"],["Classe C W204","2007-2014"],["Classe E W211","2002-2009"],["Sprinter","2006-2018"],["Vito","2004-2014"],["CLS W219","2004-2010"]
-  ]},
-  { family:"Mercedes", marque:"Mercedes", silca:"HU39", jma:"HU39", keyline:"HU39", errebi:"HU39", type:"Ancien", note:"Anciennes Mercedes", lishi:"HU39", xhorse:"XKHU39", bladeType:"standard", transponder:"IR ancien", variants:[
-    ["Classe C W202","1993-2000"],["Classe E W210","1995-2002"],["SLK R170","1996-2004"],["ML W163","1997-2005"]
-  ]},
-  { family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY43", jma:"TOY43", keyline:"TOY43", errebi:"TOY43", type:"Transpondeur", note:"Très courant Toyota", lishi:"TOY43", xhorse:"XKTOY43", bladeType:"laser", transponder:"4C / 4D", variants:[
-    ["Yaris I","1999-2005"],["Corolla E12","2001-2007"],["Avensis T25","2003-2008"],["RAV4 II","2000-2005"],["Land Cruiser 120","2002-2009"],["Hilux VII","2005-2015"],["Prius II","2003-2009"],["Lexus IS200","1999-2005"]
-  ]},
-  { family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY47", jma:"TOY47", keyline:"TOY47", errebi:"TOY47", type:"Transpondeur", note:"Toyota plus récent", lishi:"TOY47", xhorse:"XKTOY47", bladeType:"laser", transponder:"G chip / 8A selon version", variants:[
-    ["Yaris II","2005-2011"],["Yaris III","2011-2020"],["Auris I","2007-2012"],["Auris II","2012-2018"],["Prius III","2009-2015"],["Corolla E17","2013-2019"],["Aygo II","2014-2021"],["Lexus CT200h","2011-2020"]
-  ]},
-  { family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY50", jma:"TOY50", keyline:"TOY50", errebi:"TOY50", type:"Smart key", note:"Toyota / Lexus récent", lishi:"TOY50", xhorse:"XKTOY50", bladeType:"smart", transponder:"8A / H", variants:[
-    ["Corolla XII","2019+"],["C-HR","2016+"],["RAV4 V","2018+"],["Camry VIII","2018+"],["Yaris Cross","2021+"],["Lexus UX","2018+"],["Lexus ES","2018+"]
-  ]},
-  { family:"Nissan / Infiniti", marque:"Nissan / Infiniti", silca:"NSN14", jma:"NSN14", keyline:"NSN14", errebi:"NSN14", type:"Plip", note:"Qashqai, Micra", lishi:"NSN14", xhorse:"XKNSN14", bladeType:"laser", transponder:"ID46 / PCF7936", variants:[
-    ["Qashqai J10","2007-2013"],["Qashqai J11","2014-2021"],["Micra K12","2003-2010"],["Micra K13","2010-2017"],["Note E11","2006-2013"],["Juke F15","2010-2019"],["X-Trail T31","2007-2014"],["Navara D40","2005-2015"]
-  ]},
-  { family:"Nissan / Infiniti", marque:"Nissan / Infiniti", silca:"NSN11", jma:"NSN11", keyline:"NSN11", errebi:"NSN11", type:"Standard", note:"Nissan ancien", lishi:"NSN11", xhorse:"XKNSN11", bladeType:"standard", transponder:"4D60", variants:[
-    ["Almera N16","2000-2006"],["Primera P12","2002-2008"],["Terrano II","1998-2006"],["Patrol Y61","1998-2010"]
-  ]},
-  { family:"Honda", marque:"Honda", silca:"HON66", jma:"HON66", keyline:"HON66", errebi:"HON66", type:"Transpondeur", note:"Civic, CR-V", lishi:"HON66", xhorse:"XKHON66", bladeType:"laser", transponder:"ID46", variants:[
-    ["Civic VIII","2006-2011"],["Civic IX","2012-2017"],["CR-V III","2006-2012"],["CR-V IV","2012-2018"],["Jazz II","2008-2015"],["Accord VIII","2008-2015"],["HR-V II","2015+"]
-  ]},
-  { family:"Opel / Vauxhall", marque:"Opel / Vauxhall", silca:"HU100", jma:"HU100", keyline:"HU100", errebi:"HU100", type:"Plip", note:"Corsa, Astra", lishi:"HU100", xhorse:"XKHU100", bladeType:"laser", transponder:"ID46", variants:[
-    ["Corsa D","2006-2014"],["Corsa E","2014-2019"],["Astra J","2009-2015"],["Meriva B","2010-2017"],["Insignia A","2008-2017"],["Zafira Tourer","2011-2019"],["Mokka","2012-2019"]
-  ]},
-  { family:"Opel / Vauxhall", marque:"Opel / Vauxhall", silca:"HU46", jma:"HU46", keyline:"HU46", errebi:"HU46", type:"Standard", note:"Opel ancien", lishi:"HU46", xhorse:"XKHU46", bladeType:"standard", transponder:"ID40 / ID46", variants:[
-    ["Corsa C","2000-2006"],["Astra G","1998-2004"],["Vectra C","2002-2008"],["Zafira A","1999-2005"]
-  ]},
-  { family:"Hyundai / Kia", marque:"Hyundai / Kia", silca:"HYN20", jma:"HYN20", keyline:"HYN20", errebi:"HYN20", type:"Plip", note:"Très courant", lishi:"HYN20", xhorse:"XKHYN20", bladeType:"laser", transponder:"ID46", variants:[
-    ["i20","2008-2020"],["i30","2007-2020"],["Tucson","2015+"],["ix35","2010-2015"],["Ceed","2006-2021"],["Sportage","2010+"],["Rio","2011-2020"],["Picanto","2011+"]
-  ]},
-  { family:"Hyundai / Kia", marque:"Hyundai / Kia", silca:"HY18", jma:"HY18", keyline:"HY18", errebi:"HY18", type:"Standard", note:"Ancien Hyundai / Kia", lishi:"HY18", xhorse:"XKHY18", bladeType:"standard", transponder:"ID46", variants:[
-    ["Getz","2002-2011"],["Accent","2000-2010"],["Matrix","2001-2010"],["Atos","1999-2008"],["Cerato","2004-2009"],["Picanto I","2004-2011"]
-  ]},
-  { family:"Fiat / Alfa / Lancia", marque:"Fiat / Alfa / Lancia", silca:"SIP22", jma:"SIP22", keyline:"SIP22", errebi:"SIP22", type:"Laser", note:"Groupe Fiat courant", lishi:"SIP22", xhorse:"XKSIP22", bladeType:"laser", transponder:"ID46", variants:[
-    ["500","2007+"],["Punto Evo","2009-2018"],["Bravo II","2007-2014"],["Doblo II","2010-2021"],["Ducato X250","2006+"],["Giulietta","2010+"],["Mito","2008-2018"],["Ypsilon","2011+"]
-  ]},
-  { family:"Fiat / Alfa / Lancia", marque:"Fiat / Alfa / Lancia", silca:"SIP16", jma:"SIP16", keyline:"SIP16", errebi:"SIP16", type:"Standard", note:"Fiat ancien", lishi:"SIP16", xhorse:"XKSIP16", bladeType:"standard", transponder:"ID48 / ID46", variants:[
-    ["Punto II","1999-2010"],["Panda II","2003-2012"],["Stilo","2001-2010"],["Idea","2003-2012"],["Multipla","1999-2010"],["Doblo I","2000-2010"]
-  ]},
-  { family:"Mazda", marque:"Mazda", silca:"MAZ24", jma:"MAZ24", keyline:"MAZ24", errebi:"MAZ24", type:"Laser", note:"Mazda récent", lishi:"MAZ24", xhorse:"XKMAZ24", bladeType:"laser", transponder:"ID46 / 80bit", variants:[
-    ["Mazda 2","2007+"],["Mazda 3","2003+"],["Mazda 6","2002+"],["CX-3","2015+"],["CX-5","2012+"],["MX-5 NC","2005-2015"]
-  ]},
-  { family:"Mazda", marque:"Mazda", silca:"MAZ20", jma:"MAZ20", keyline:"MAZ20", errebi:"MAZ20", type:"Standard", note:"Mazda ancien", lishi:"MAZ20", xhorse:"XKMAZ20", bladeType:"standard", transponder:"4C / 4D63", variants:[
-    ["Mazda 323","1998-2004"],["Mazda Premacy","1999-2005"],["Mazda Tribute","2001-2007"],["Mazda 626","1998-2002"]
-  ]},
-  { family:"Mitsubishi", marque:"Mitsubishi", silca:"MIT11", jma:"MIT11", keyline:"MIT11", errebi:"MIT11", type:"Laser", note:"Mitsubishi courant", lishi:"MIT11", xhorse:"XKMIT11", bladeType:"laser", transponder:"ID46", variants:[
-    ["Outlander II","2006-2012"],["ASX","2010+"],["Lancer X","2007-2017"],["Colt VI","2004-2012"],["Pajero IV","2006+"],["L200","2006+"]
-  ]},
-  { family:"Mitsubishi", marque:"Mitsubishi", silca:"MIT8", jma:"MIT8", keyline:"MIT8", errebi:"MIT8", type:"Standard", note:"Mitsubishi ancien", lishi:"MIT8", xhorse:"XKMIT8", bladeType:"standard", transponder:"4D61", variants:[
-    ["Carisma","1999-2004"],["Space Star","1998-2005"],["Pajero III","1999-2006"],["Galant","1997-2004"]
-  ]},
-  { family:"Volvo", marque:"Volvo", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Laser", note:"Volvo plateforme Ford", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID46 / 80bit", variants:[
-    ["C30","2006-2013"],["S40 II","2004-2012"],["V50","2004-2012"],["C70 II","2005-2013"],["V40","2012+"]
-  ]},
-  { family:"Jaguar / Land Rover", marque:"Jaguar / Land Rover", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Laser", note:"JLR plateforme Ford", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID46 / 80bit", variants:[
-    ["Freelander 2","2006-2014"],["Evoque","2011+"],["Discovery Sport","2014+"],["XF","2008+"],["XJ X351","2009+"],["XE","2015+"]
-  ]},
-  { family:"Subaru", marque:"Subaru", silca:"DAT17", jma:"DAT17", keyline:"DAT17", errebi:"DAT17", type:"Laser", note:"Subaru / Nissan dérivé", lishi:"DAT17", xhorse:"XKDAT17", bladeType:"laser", transponder:"ID46", variants:[
-    ["Forester SJ","2012-2018"],["Outback","2010+"],["Legacy","2010+"],["XV","2011+"],["Impreza","2012+"]
-  ]},
-  { family:"Suzuki", marque:"Suzuki", silca:"SZ14R", jma:"SZ14R", keyline:"SZ14R", errebi:"SZ14R", type:"Laser", note:"Suzuki récent", lishi:"SZ14R", xhorse:"XKSZ14R", bladeType:"laser", transponder:"ID46", variants:[
-    ["Swift III","2010-2017"],["Vitara","2015+"],["S-Cross","2013+"],["Baleno","2015+"],["Ignis","2016+"]
-  ]},
-  { family:"Chevrolet / Daewoo", marque:"Chevrolet / Daewoo", silca:"DW04R", jma:"DW04R", keyline:"DW04R", errebi:"DW04R", type:"Laser", note:"Chevrolet Europe", lishi:"DW04R", xhorse:"XKDW04R", bladeType:"laser", transponder:"ID46", variants:[
-    ["Aveo","2011-2020"],["Cruze","2009-2016"],["Orlando","2011-2018"],["Trax","2013-2020"],["Spark","2010-2020"]
-  ]},
-  { family:"Chrysler / Jeep / Dodge", marque:"Chrysler / Jeep / Dodge", silca:"CY24", jma:"CY24", keyline:"CY24", errebi:"CY24", type:"Laser", note:"Groupe Chrysler", lishi:"CY24", xhorse:"XKCY24", bladeType:"laser", transponder:"ID46 / 4D64", variants:[
-    ["300C","2004-2011"],["Voyager","2004-2016"],["Grand Cherokee WK2","2010+"],["Cherokee KL","2013+"],["Renegade","2014+"],["Dodge Journey","2008-2020"]
-  ]}
+  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Lame plip / transpondeur", note:"Très courant VAG, attention ID48", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["Golf V","2003-2009"],["Golf VI","2008-2012"],["Passat B6","2005-2010"],["Polo 9N","2001-2009"],["Touran","2003-2010"],["A3 8P","2003-2012"],["A4 B7","2004-2008"],["Leon II","2005-2012"],["Octavia II","2004-2013"],["Fabia II","2007-2014"]]},
+  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"VAG récent AES", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", variants:[["Golf VII","2013-2020"],["Golf VIII","2020+"],["A3 8V","2013-2020"],["A4 B9","2015+"],["Leon III","2012-2020"],["Octavia III","2013-2020"],["Kodiaq","2016+"],["Tiguan II","2016+"]]},
+  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162", jma:"HU162", keyline:"HU162", errebi:"HU162", type:"Flip / plip", note:"VAG transition", lishi:"HU162", xhorse:"XKHU162", bladeType:"flip", transponder:"ID48 / MQB selon version", variants:[["Polo 6R","2009-2017"],["Golf Plus","2009-2014"],["Jetta VI","2010-2018"],["A1","2010-2018"],["Fabia III","2014-2021"],["Rapid","2012-2019"]]},
+  { family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"HU83", jma:"HU83", keyline:"HU83", errebi:"HU83", type:"Transpondeur", note:"Très courant PSA", lishi:"HU83", xhorse:"XKHU83", bladeType:"laser", transponder:"ID46 / PCF7941 / PCF7946", variants:[["206+","2009-2013"],["207","2006-2014"],["208","2012-2019"],["307","2001-2008"],["308 I","2007-2013"],["3008 I","2009-2016"],["Partner II","2008-2018"],["C3","2002-2016"],["C4","2004-2018"],["Berlingo II","2008-2018"]]},
+  { family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"VA2", jma:"VA2", keyline:"VA2", errebi:"VA2", type:"Lame plip", note:"Anciennes PSA", lishi:"VA2", xhorse:"XKVA2", bladeType:"flip", transponder:"ID46 / PCF7941", variants:[["106","1998-2003"],["206","1998-2009"],["306","1997-2002"],["406","1999-2004"],["Saxo","1998-2003"],["Xsara","1998-2005"],["Xsara Picasso","2000-2010"],["Berlingo I","1999-2008"]]},
+  { family:"Peugeot / Citroën", marque:"Peugeot / Citroën", silca:"SX9", jma:"SX9", keyline:"SX9", errebi:"SX9", type:"Laser", note:"PSA récent", lishi:"SX9", xhorse:"XKSX9", bladeType:"laser", transponder:"ID46 / ID49", variants:[["208 II","2019+"],["2008 II","2020+"],["308 II","2013-2021"],["308 III","2021+"],["3008 II","2016+"],["508 II","2018+"],["C3 III","2016+"],["C4 III","2020+"],["Berlingo III","2018+"],["Jumpy III","2016+"]]},
+  { family:"Renault / Dacia", marque:"Renault / Dacia", silca:"VA2T", jma:"VA2T", keyline:"VA2T", errebi:"VA2T", type:"Plip", note:"Clio, Megane anciennes", lishi:"VA2T", xhorse:"XKVA2T", bladeType:"flip", transponder:"ID46 / PCF7946", variants:[["Clio II","2001-2006"],["Clio III","2005-2012"],["Megane II","2002-2009"],["Scenic II","2003-2009"],["Kangoo I","2003-2008"],["Modus","2004-2012"],["Laguna II","2001-2007"],["Master II","2003-2010"]]},
+  { family:"Renault / Dacia", marque:"Renault / Dacia", silca:"NE72", jma:"NE72", keyline:"NE72", errebi:"NE72", type:"Carte / transpondeur", note:"Clé carte Renault", lishi:"NE72", xhorse:"XKNE72", bladeType:"smart", transponder:"PCF7947 / HITAG AES selon version", variants:[["Megane III","2008-2016"],["Scenic III","2009-2016"],["Clio IV","2012-2019"],["Captur I","2013-2019"],["Laguna III","2007-2015"],["Talisman","2015+"],["Espace V","2015+"],["Kadjar","2015+"],["Master III","2010+"]]},
+  { family:"Renault / Dacia", marque:"Renault / Dacia", silca:"DA34", jma:"DA34", keyline:"DA34", errebi:"DA34", type:"Standard", note:"Profil Dacia courant", lishi:"DA34", xhorse:"XKDA34", bladeType:"standard", transponder:"ID46", variants:[["Logan I","2004-2012"],["Sandero I","2008-2012"],["Duster I","2010-2017"],["Dokker","2012-2021"],["Lodgy","2012-2022"],["Logan II","2012-2020"],["Sandero II","2012-2020"],["Duster II","2018+"]]},
+  { family:"Ford", marque:"Ford", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Plip", note:"Ford modernes", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID63 / 80bit", variants:[["Fiesta VI","2008-2017"],["Focus III","2011-2018"],["Mondeo IV","2007-2014"],["Kuga I","2008-2013"],["C-Max","2010-2019"],["B-Max","2012-2017"],["Transit Custom","2012-2023"],["EcoSport","2014+"]]},
+  { family:"Ford", marque:"Ford", silca:"FO21", jma:"FO21", keyline:"FO21", errebi:"FO21", type:"Ancien", note:"Ford anciennes", lishi:"FO21", xhorse:"XKFO21", bladeType:"standard", transponder:"4D60 / 4D63", variants:[["Focus I","1998-2005"],["Mondeo III","2000-2007"],["Fiesta V","2002-2008"],["Fusion","2002-2012"],["Transit","2000-2006"],["Connect I","2002-2013"]]},
+  { family:"Ford", marque:"Ford", silca:"HU198", jma:"HU198", keyline:"HU198", errebi:"HU198", type:"Smart key", note:"Ford récent", lishi:"HU198", xhorse:"XKHU198", bladeType:"smart", transponder:"AES / 128bit", variants:[["Focus IV","2018+"],["Fiesta VII","2017+"],["Puma","2020+"],["Kuga II","2013-2019"],["Kuga III","2020+"],["Mondeo V","2014+"]]},
+  { family:"BMW / Mini", marque:"BMW / Mini", silca:"HU92", jma:"HU92", keyline:"HU92", errebi:"HU92", type:"Plip", note:"Très courant BMW", lishi:"HU92", xhorse:"XKHU92", bladeType:"laser", transponder:"ID46 / PCF7945", variants:[["Serie 1 E87","2004-2011"],["Serie 3 E46","1998-2005"],["Serie 3 E90","2005-2012"],["Serie 5 E60","2003-2010"],["X3 E83","2003-2010"],["X5 E53","2000-2006"],["Mini R50","2001-2006"],["Mini R56","2006-2014"]]},
+  { family:"BMW / Mini", marque:"BMW / Mini", silca:"HU100R", jma:"HU100R", keyline:"HU100R", errebi:"HU100R", type:"Smart key", note:"BMW F series", lishi:"HU100R", xhorse:"XKHU100R", bladeType:"smart", transponder:"FEM / CAS4", variants:[["Serie 1 F20","2011-2019"],["Serie 3 F30","2012-2019"],["Serie 5 F10","2010-2017"],["X1 F48","2015+"],["X3 F25","2010-2017"],["Mini F56","2014+"]]},
+  { family:"Mercedes", marque:"Mercedes", silca:"HU64", jma:"HU64", keyline:"HU64", errebi:"HU64", type:"Plip", note:"Classe A/B/C", lishi:"HU64", xhorse:"XKHU64", bladeType:"laser", transponder:"IR / NEC / BGA selon génération", variants:[["Classe A W169","2004-2012"],["Classe B W245","2005-2011"],["Classe C W203","2000-2007"],["Classe C W204","2007-2014"],["Classe E W211","2002-2009"],["Sprinter","2006-2018"],["Vito","2004-2014"],["CLS W219","2004-2010"]]},
+  { family:"Mercedes", marque:"Mercedes", silca:"HU39", jma:"HU39", keyline:"HU39", errebi:"HU39", type:"Ancien", note:"Anciennes Mercedes", lishi:"HU39", xhorse:"XKHU39", bladeType:"standard", transponder:"IR ancien", variants:[["Classe C W202","1993-2000"],["Classe E W210","1995-2002"],["SLK R170","1996-2004"],["ML W163","1997-2005"]]},
+  { family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY43", jma:"TOY43", keyline:"TOY43", errebi:"TOY43", type:"Transpondeur", note:"Très courant Toyota", lishi:"TOY43", xhorse:"XKTOY43", bladeType:"laser", transponder:"4C / 4D", variants:[["Yaris I","1999-2005"],["Corolla E12","2001-2007"],["Avensis T25","2003-2008"],["RAV4 II","2000-2005"],["Land Cruiser 120","2002-2009"],["Hilux VII","2005-2015"],["Prius II","2003-2009"],["Lexus IS200","1999-2005"]]},
+  { family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY47", jma:"TOY47", keyline:"TOY47", errebi:"TOY47", type:"Transpondeur", note:"Toyota plus récent", lishi:"TOY47", xhorse:"XKTOY47", bladeType:"laser", transponder:"G chip / 8A selon version", variants:[["Yaris II","2005-2011"],["Yaris III","2011-2020"],["Auris I","2007-2012"],["Auris II","2012-2018"],["Prius III","2009-2015"],["Corolla E17","2013-2019"],["Aygo II","2014-2021"],["Lexus CT200h","2011-2020"]]},
+  { family:"Toyota / Lexus", marque:"Toyota / Lexus", silca:"TOY50", jma:"TOY50", keyline:"TOY50", errebi:"TOY50", type:"Smart key", note:"Toyota / Lexus récent", lishi:"TOY50", xhorse:"XKTOY50", bladeType:"smart", transponder:"8A / H", variants:[["Corolla XII","2019+"],["C-HR","2016+"],["RAV4 V","2018+"],["Camry VIII","2018+"],["Yaris Cross","2021+"],["Lexus UX","2018+"],["Lexus ES","2018+"]]},
+  { family:"Nissan / Infiniti", marque:"Nissan / Infiniti", silca:"NSN14", jma:"NSN14", keyline:"NSN14", errebi:"NSN14", type:"Plip", note:"Qashqai, Micra", lishi:"NSN14", xhorse:"XKNSN14", bladeType:"laser", transponder:"ID46 / PCF7936", variants:[["Qashqai J10","2007-2013"],["Qashqai J11","2014-2021"],["Micra K12","2003-2010"],["Micra K13","2010-2017"],["Note E11","2006-2013"],["Juke F15","2010-2019"],["X-Trail T31","2007-2014"],["Navara D40","2005-2015"]]},
+  { family:"Nissan / Infiniti", marque:"Nissan / Infiniti", silca:"NSN11", jma:"NSN11", keyline:"NSN11", errebi:"NSN11", type:"Standard", note:"Nissan ancien", lishi:"NSN11", xhorse:"XKNSN11", bladeType:"standard", transponder:"4D60", variants:[["Almera N16","2000-2006"],["Primera P12","2002-2008"],["Terrano II","1998-2006"],["Patrol Y61","1998-2010"]]},
+  { family:"Honda", marque:"Honda", silca:"HON66", jma:"HON66", keyline:"HON66", errebi:"HON66", type:"Transpondeur", note:"Civic, CR-V", lishi:"HON66", xhorse:"XKHON66", bladeType:"laser", transponder:"ID46", variants:[["Civic VIII","2006-2011"],["Civic IX","2012-2017"],["CR-V III","2006-2012"],["CR-V IV","2012-2018"],["Jazz II","2008-2015"],["Accord VIII","2008-2015"],["HR-V II","2015+"]]},
+  { family:"Opel / Vauxhall", marque:"Opel / Vauxhall", silca:"HU100", jma:"HU100", keyline:"HU100", errebi:"HU100", type:"Plip", note:"Corsa, Astra", lishi:"HU100", xhorse:"XKHU100", bladeType:"laser", transponder:"ID46", variants:[["Corsa D","2006-2014"],["Corsa E","2014-2019"],["Astra J","2009-2015"],["Meriva B","2010-2017"],["Insignia A","2008-2017"],["Zafira Tourer","2011-2019"],["Mokka","2012-2019"]]},
+  { family:"Opel / Vauxhall", marque:"Opel / Vauxhall", silca:"HU46", jma:"HU46", keyline:"HU46", errebi:"HU46", type:"Standard", note:"Opel ancien", lishi:"HU46", xhorse:"XKHU46", bladeType:"standard", transponder:"ID40 / ID46", variants:[["Corsa C","2000-2006"],["Astra G","1998-2004"],["Vectra C","2002-2008"],["Zafira A","1999-2005"]]},
+  { family:"Hyundai / Kia", marque:"Hyundai / Kia", silca:"HYN20", jma:"HYN20", keyline:"HYN20", errebi:"HYN20", type:"Plip", note:"Très courant", lishi:"HYN20", xhorse:"XKHYN20", bladeType:"laser", transponder:"ID46", variants:[["i20","2008-2020"],["i30","2007-2020"],["Tucson","2015+"],["ix35","2010-2015"],["Ceed","2006-2021"],["Sportage","2010+"],["Rio","2011-2020"],["Picanto","2011+"]]},
+  { family:"Hyundai / Kia", marque:"Hyundai / Kia", silca:"HY18", jma:"HY18", keyline:"HY18", errebi:"HY18", type:"Standard", note:"Ancien Hyundai / Kia", lishi:"HY18", xhorse:"XKHY18", bladeType:"standard", transponder:"ID46", variants:[["Getz","2002-2011"],["Accent","2000-2010"],["Matrix","2001-2010"],["Atos","1999-2008"],["Cerato","2004-2009"],["Picanto I","2004-2011"]]},
+  { family:"Fiat / Alfa / Lancia", marque:"Fiat / Alfa / Lancia", silca:"SIP22", jma:"SIP22", keyline:"SIP22", errebi:"SIP22", type:"Laser", note:"Groupe Fiat courant", lishi:"SIP22", xhorse:"XKSIP22", bladeType:"laser", transponder:"ID46", variants:[["500","2007+"],["Punto Evo","2009-2018"],["Bravo II","2007-2014"],["Doblo II","2010-2021"],["Ducato X250","2006+"],["Giulietta","2010+"],["Mito","2008-2018"],["Ypsilon","2011+"]]},
+  { family:"Fiat / Alfa / Lancia", marque:"Fiat / Alfa / Lancia", silca:"SIP16", jma:"SIP16", keyline:"SIP16", errebi:"SIP16", type:"Standard", note:"Fiat ancien", lishi:"SIP16", xhorse:"XKSIP16", bladeType:"standard", transponder:"ID48 / ID46", variants:[["Punto II","1999-2010"],["Panda II","2003-2012"],["Stilo","2001-2010"],["Idea","2003-2012"],["Multipla","1999-2010"],["Doblo I","2000-2010"]]},
+  { family:"Mazda", marque:"Mazda", silca:"MAZ24", jma:"MAZ24", keyline:"MAZ24", errebi:"MAZ24", type:"Laser", note:"Mazda récent", lishi:"MAZ24", xhorse:"XKMAZ24", bladeType:"laser", transponder:"ID46 / 80bit", variants:[["Mazda 2","2007+"],["Mazda 3","2003+"],["Mazda 6","2002+"],["CX-3","2015+"],["CX-5","2012+"],["MX-5 NC","2005-2015"]]},
+  { family:"Mazda", marque:"Mazda", silca:"MAZ20", jma:"MAZ20", keyline:"MAZ20", errebi:"MAZ20", type:"Standard", note:"Mazda ancien", lishi:"MAZ20", xhorse:"XKMAZ20", bladeType:"standard", transponder:"4C / 4D63", variants:[["Mazda 323","1998-2004"],["Mazda Premacy","1999-2005"],["Mazda Tribute","2001-2007"],["Mazda 626","1998-2002"]]},
+  { family:"Mitsubishi", marque:"Mitsubishi", silca:"MIT11", jma:"MIT11", keyline:"MIT11", errebi:"MIT11", type:"Laser", note:"Mitsubishi courant", lishi:"MIT11", xhorse:"XKMIT11", bladeType:"laser", transponder:"ID46", variants:[["Outlander II","2006-2012"],["ASX","2010+"],["Lancer X","2007-2017"],["Colt VI","2004-2012"],["Pajero IV","2006+"],["L200","2006+"]]},
+  { family:"Mitsubishi", marque:"Mitsubishi", silca:"MIT8", jma:"MIT8", keyline:"MIT8", errebi:"MIT8", type:"Standard", note:"Mitsubishi ancien", lishi:"MIT8", xhorse:"XKMIT8", bladeType:"standard", transponder:"4D61", variants:[["Carisma","1999-2004"],["Space Star","1998-2005"],["Pajero III","1999-2006"],["Galant","1997-2004"]]},
+  { family:"Volvo", marque:"Volvo", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Laser", note:"Volvo plateforme Ford", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID46 / 80bit", variants:[["C30","2006-2013"],["S40 II","2004-2012"],["V50","2004-2012"],["C70 II","2005-2013"],["V40","2012+"]]},
+  { family:"Jaguar / Land Rover", marque:"Jaguar / Land Rover", silca:"HU101", jma:"HU101", keyline:"HU101", errebi:"HU101", type:"Laser", note:"JLR plateforme Ford", lishi:"HU101", xhorse:"XKHU101", bladeType:"laser", transponder:"ID46 / 80bit", variants:[["Freelander 2","2006-2014"],["Evoque","2011+"],["Discovery Sport","2014+"],["XF","2008+"],["XJ X351","2009+"],["XE","2015+"]]},
+  { family:"Subaru", marque:"Subaru", silca:"DAT17", jma:"DAT17", keyline:"DAT17", errebi:"DAT17", type:"Laser", note:"Subaru / Nissan dérivé", lishi:"DAT17", xhorse:"XKDAT17", bladeType:"laser", transponder:"ID46", variants:[["Forester SJ","2012-2018"],["Outback","2010+"],["Legacy","2010+"],["XV","2011+"],["Impreza","2012+"]]},
+  { family:"Suzuki", marque:"Suzuki", silca:"SZ14R", jma:"SZ14R", keyline:"SZ14R", errebi:"SZ14R", type:"Laser", note:"Suzuki récent", lishi:"SZ14R", xhorse:"XKSZ14R", bladeType:"laser", transponder:"ID46", variants:[["Swift III","2010-2017"],["Vitara","2015+"],["S-Cross","2013+"],["Baleno","2015+"],["Ignis","2016+"]]},
+  { family:"Chevrolet / Daewoo", marque:"Chevrolet / Daewoo", silca:"DW04R", jma:"DW04R", keyline:"DW04R", errebi:"DW04R", type:"Laser", note:"Chevrolet Europe", lishi:"DW04R", xhorse:"XKDW04R", bladeType:"laser", transponder:"ID46", variants:[["Aveo","2011-2020"],["Cruze","2009-2016"],["Orlando","2011-2018"],["Trax","2013-2020"],["Spark","2010-2020"]]},
+  { family:"Chrysler / Jeep / Dodge", marque:"Chrysler / Jeep / Dodge", silca:"CY24", jma:"CY24", keyline:"CY24", errebi:"CY24", type:"Laser", note:"Groupe Chrysler", lishi:"CY24", xhorse:"XKCY24", bladeType:"laser", transponder:"ID46 / 4D64", variants:[["300C","2004-2011"],["Voyager","2004-2016"],["Grand Cherokee WK2","2010+"],["Cherokee KL","2013+"],["Renegade","2014+"],["Dodge Journey","2008-2020"]]}
 ];
 
 const autoKeysDatabase = autoKeySeed.flatMap(seed => {
@@ -312,6 +282,7 @@ const autoKeysDatabase = autoKeySeed.flatMap(seed => {
     transponder: seed.transponder,
     years,
     models: model,
+    stock: defaultStock(seed.bladeType),
     shellType: guessShellType({bladeType: seed.bladeType, type: seed.type}),
     vvdiMini: guessVvdiMini({transponder: seed.transponder, bladeType: seed.bladeType, type: seed.type}).label,
     vvdiMiniNote: guessVvdiMini({transponder: seed.transponder, bladeType: seed.bladeType, type: seed.type}).note
@@ -328,12 +299,23 @@ const plateDatabase = {
 
 let hasSearched = false;
 let lastResults = [];
-let records = loadJson(STORAGE_KEY, autoKeysDatabase);
-if (!Array.isArray(records) || !records.length) records = structuredClone(autoKeysDatabase);
-let favorites = loadJson(FAVORITES_KEY, []);
-let compareIds = loadJson(COMPARE_KEY, []);
+let records = sanitizeRecords(loadJson(STORAGE_KEY, autoKeysDatabase));
+if (!Array.isArray(records) || !records.length) records = sanitizeRecords(structuredClone(autoKeysDatabase));
 
 function loadJson(key, fallback){ try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : structuredClone(fallback);} catch(e){ return structuredClone(fallback);} }
+function saveJson(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
+function normalize(v){ return (v||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
+function escapeHtml(v){ return (v||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+function uniqueFamilies(){ return [...new Set(records.map(r => r.family || r.marque).filter(Boolean))].sort((a,b)=>a.localeCompare(b)); }
+function saveRecords(){ saveJson(STORAGE_KEY, records); }
+function defaultStock(bladeType){ return bladeType === 'smart' ? 1 : bladeType === 'flip' ? 2 : 3; }
+function stockStatus(stock){ const qty = Number(stock) || 0; if (qty <= 0) return {label:'Rupture', className:'stock-out'}; if (qty <= 2) return {label:'Faible', className:'stock-low'}; return {label:'OK', className:'stock-ok'}; }
+function sanitizeRecords(list){
+  return (Array.isArray(list) ? list : []).map(r => {
+    const stock = Number.isFinite(Number(r.stock)) ? Math.max(0, Number(r.stock)) : defaultStock(r.bladeType);
+    return {...r, stock, shellType: r.shellType || guessShellType(r), vvdiMini: r.vvdiMini || guessVvdiMini(r).label, vvdiMiniNote: r.vvdiMiniNote || guessVvdiMini(r).note};
+  });
+}
 
 function guessShellType(record){
   const blade = (record.bladeType || '').toLowerCase();
@@ -359,11 +341,6 @@ function guessVvdiMini(record){
   return {label:'À vérifier', className:'vvdi-limited', note:'Compatibilité non garantie selon année / puce'};
 }
 
-function getPhotoUrl(record){
-  const ref = encodeURIComponent((record.silca || '').toUpperCase());
-  return `images/${ref}.jpg`;
-}
-
 function saveRecentSearch(query){
   const q = (query || '').trim();
   if (!q) return;
@@ -379,21 +356,14 @@ function renderRecentSearches(){
   const box = document.getElementById('recentSearches');
   if (!box) return;
   const list = loadJson(RECENT_KEY, []);
-  box.innerHTML = list.length
-    ? list.map(q => `<button class="recent-tag" data-recent="${escapeHtml(q)}">${escapeHtml(q)}</button>`).join('')
-    : '<div class="sub">Aucune recherche</div>';
+  box.innerHTML = list.length ? list.map(q => `<button class="recent-tag" data-recent="${escapeHtml(q)}">${escapeHtml(q)}</button>`).join('') : '<div class="sub">Aucune recherche</div>';
 }
-function saveJson(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
-function normalize(v){ return (v||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
-function escapeHtml(v){ return (v||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
-function uniqueFamilies(){ return [...new Set(records.map(r => r.family || r.marque).filter(Boolean))].sort((a,b)=>a.localeCompare(b)); }
-function saveRecords(){ saveJson(STORAGE_KEY, records); }
 
 function refreshStats(resultCount = 0){
   document.getElementById('statRecords').textContent = records.length;
   document.getElementById('statBrands').textContent = uniqueFamilies().length;
   document.getElementById('statResults').textContent = resultCount;
-  document.getElementById('statFavs').textContent = favorites.length;
+    document.getElementById('statLowStock').textContent = records.filter(r => (Number(r.stock) || 0) <= 2).length;
 }
 
 function refreshFamilyFilter(){
@@ -408,18 +378,8 @@ function searchableText(r){
   return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models,r.shellType,r.vvdiMini,r.vvdiMiniNote].join(' | '));
 }
 
-function codeFields(r){
-  return [r.id,r.silca,r.jma,r.keyline,r.errebi,r.lishi,r.xhorse].map(normalize).filter(Boolean);
-}
-
-function currentFilters(){
-  return {
-    q: normalize(document.getElementById('searchInput').value),
-    family: document.getElementById('brandFilter').value,
-    blade: document.getElementById('bladeFilter').value,
-    transponder: normalize(document.getElementById('transponderFilter').value)
-  };
-}
+function codeFields(r){ return [r.id,r.silca,r.jma,r.keyline,r.errebi,r.lishi,r.xhorse].map(normalize).filter(Boolean); }
+function currentFilters(){ return { q: normalize(document.getElementById('searchInput').value), family: document.getElementById('brandFilter').value, blade: document.getElementById('bladeFilter').value, transponder: normalize(document.getElementById('transponderFilter').value) }; }
 
 function applyFilters(source, filters){
   const {q, family, blade, transponder} = filters;
@@ -429,18 +389,14 @@ function applyFilters(source, filters){
     const transOk = !transponder || normalize(r.transponder).includes(transponder);
     return familyOk && bladeOk && transOk;
   });
-
   if (!q) return scoped;
-
   const exact = scoped.filter(r => codeFields(r).includes(q));
   if (exact.length) return exact;
-
   return scoped.filter(r => searchableText(r).includes(q));
 }
 
 function clearResultsState(message = 'Lance une recherche pour afficher les fiches.'){
-  hasSearched = false;
-  lastResults = [];
+  hasSearched = false; lastResults = [];
   document.getElementById('results').innerHTML = `<div class="empty">${message}</div>`;
   document.getElementById('searchSummary').textContent = 'En attente de recherche';
   refreshStats(0);
@@ -449,14 +405,10 @@ function clearResultsState(message = 'Lance une recherche pour afficher les fich
 function runSearch(source = records){
   const filters = currentFilters();
   const hasFilter = !!(filters.q || filters.family || filters.blade || filters.transponder);
-  if (!hasFilter) {
-    clearResultsState('Renseigne une référence, un modèle ou un filtre puis appuie sur Rechercher.');
-    return;
-  }
+  if (!hasFilter) { clearResultsState('Renseigne une référence, un modèle ou un filtre puis appuie sur Rechercher.'); return; }
   const filtered = applyFilters(source, filters);
   if (filters.q) saveRecentSearch(filters.q);
-  hasSearched = true;
-  lastResults = filtered;
+  hasSearched = true; lastResults = filtered;
   renderResults(filtered);
   document.getElementById('searchSummary').textContent = `${filtered.length} résultat(s)`;
   refreshStats(filtered.length);
@@ -467,16 +419,11 @@ function renderResults(list){
   if (!list.length) { box.innerHTML = '<div class="empty">Aucun résultat</div>'; return; }
   box.innerHTML = list.map(r => {
     const id = escapeHtml(r.id || '');
-    const isFav = favorites.includes(r.id);
-    const inCompare = compareIds.includes(r.id);
-    const hasImage = !!(r.image && String(r.image).trim());
-    const imageHtml = hasImage
-      ? `<div class="result-media"><img src="${escapeHtml(r.image)}" alt="Ébauche ${escapeHtml(r.silca || '')}" loading="lazy" onerror="this.closest('.result-media').remove()"></div>`
-      : '';
+    const stock = Number(r.stock) || 0;
+    const status = stockStatus(stock);
     return `
       <div class="result">
         <div class="result-top">
-          ${imageHtml}
           <div class="result-main">
             <div class="head">
               <div>
@@ -488,6 +435,7 @@ function renderResults(list){
                 <span class="badge">${escapeHtml(r.transponder || '-')}</span>
                 <span class="badge dark">${escapeHtml(r.lishi || '-')}</span>
                 <span class="badge green">${escapeHtml(r.xhorse || '-')}</span>
+                <span class="badge stock">Stock : ${stock}</span>
               </div>
             </div>
             <div class="meta-grid">
@@ -497,11 +445,12 @@ function renderResults(list){
               <div class="meta"><strong>Années</strong>${escapeHtml(r.years || '-')}</div>
             </div>
             <div class="sub"><strong>Note atelier :</strong> ${escapeHtml(r.note || r.notes || '-')}</div>
-            <div class="sub" style="margin-top:8px"><strong>Code fiche :</strong> ${id}</div>
+            <div class="sub" style="margin-top:8px"><strong>État stock :</strong> <span class="${status.className}">${status.label}</span> · <strong>Code fiche :</strong> ${id}</div>
             <div class="btns">
-              <button class="secondary" data-action="fav" data-id="${id}">${isFav ? 'Retirer favori' : 'Ajouter favori'}</button>
-              <button class="secondary" data-action="compare" data-id="${id}">${inCompare ? 'Retirer comparaison' : 'Comparer'}</button>
               <button class="secondary" data-action="copy" data-id="${id}">Copier réf.</button>
+              <button class="secondary" data-action="prefill-intervention" data-id="${id}">Intervention</button>
+              <button class="secondary" data-action="stock-plus" data-id="${id}">+ Stock</button>
+              <button class="secondary" data-action="stock-minus" data-id="${id}">- Stock</button>
             </div>
           </div>
         </div>
@@ -509,54 +458,51 @@ function renderResults(list){
   }).join('');
 }
 
-function renderFavorites(){
-  const box = document.getElementById('favoritesList');
-  const favRecords = records.filter(r => favorites.includes(r.id));
-  if (!favRecords.length) { box.innerHTML = '<div class="empty">Aucun favori.</div>'; return; }
-  box.innerHTML = favRecords.map(r => `<div class="item"><div><strong>${escapeHtml(r.silca)}</strong><div class="sub">${escapeHtml(r.family || r.marque)}</div></div><button class="secondary" data-action="fav" data-id="${escapeHtml(r.id)}">Retirer</button></div>`).join('');
-}
-
-function renderCompare(){
-  const box = document.getElementById('compareBox');
-  const selected = compareIds.map(id => records.find(r => r.id === id)).filter(Boolean).slice(0,3);
-  const cards = [];
-  for (let i = 0; i < 3; i++) {
-    const r = selected[i];
-    cards.push(r ? `<div class="compare-card"><h3>${escapeHtml(r.silca)}</h3><div class="sub"><strong>${escapeHtml(r.family || r.marque)}</strong></div><div class="sub">JMA: ${escapeHtml(r.jma || '-')}</div><div class="sub">Keyline: ${escapeHtml(r.keyline || '-')}</div><div class="sub">Errebi: ${escapeHtml(r.errebi || '-')}</div><div class="sub">Lishi: ${escapeHtml(r.lishi || '-')}</div><div class="sub">Xhorse: ${escapeHtml(r.xhorse || '-')}</div><div class="sub">Transpondeur: ${escapeHtml(r.transponder || '-')}</div><div class="sub">Coque: ${escapeHtml(r.shellType || guessShellType(r) || '-')}</div><div class="sub">VVDI MINI: ${escapeHtml(r.vvdiMini || guessVvdiMini(r).label || '-')}</div></div>` : '<div class="compare-card"><div class="empty">Aucune fiche sélectionnée.</div></div>');
-  }
-  box.innerHTML = cards.join('');
-}
 
 function renderDatasetList(){
   const box = document.getElementById('datasetList');
   if (!records.length) { box.innerHTML = '<div class="empty">Base vide.</div>'; return; }
-  box.innerHTML = records.map(r => `<div class="item"><div><strong>${escapeHtml(r.silca || '-')}</strong><div class="sub">${escapeHtml(r.family || r.marque || '-')} · ${escapeHtml(r.id || '')}</div></div><button class="secondary" data-action="delete" data-id="${escapeHtml(r.id)}">Supprimer</button></div>`).join('');
+  box.innerHTML = records.map(r => `<div class="item"><div><strong>${escapeHtml(r.silca || '-')}</strong><div class="sub">${escapeHtml(r.family || r.marque || '-')} · ${escapeHtml(r.id || '')} · Stock ${Number(r.stock)||0}</div></div><button class="secondary" data-action="delete" data-id="${escapeHtml(r.id)}">Supprimer</button></div>`).join('');
 }
 
-function toggleFavorite(id){
-  favorites = favorites.includes(id) ? favorites.filter(x => x !== id) : [...favorites, id];
-  saveJson(FAVORITES_KEY, favorites); renderFavorites(); renderResults(getCurrentResults()); refreshStats(getCurrentResults().length);
+function renderStockList(sortLow = false){
+  const box = document.getElementById('stockList');
+  const list = [...records];
+  list.sort((a,b) => sortLow ? (Number(a.stock)||0) - (Number(b.stock)||0) || String(a.silca).localeCompare(String(b.silca)) : String(a.silca).localeCompare(String(b.silca)));
+  if (!list.length) { box.innerHTML = '<div class="empty">Aucune fiche dans le stock.</div>'; return; }
+  box.innerHTML = list.map(r => {
+    const qty = Number(r.stock) || 0;
+    const state = stockStatus(qty);
+    return `<div class="item"><div><strong>${escapeHtml(r.silca || '-')}</strong><div class="sub">${escapeHtml(r.family || r.marque || '-')} · <span class="${state.className}">${state.label}</span> · ${qty} pièce(s)</div></div><div class="stock-actions"><button class="mini-btn" data-action="stock-minus" data-id="${escapeHtml(r.id)}">-1</button><button class="mini-btn" data-action="stock-plus" data-id="${escapeHtml(r.id)}">+1</button><button class="mini-btn" data-action="prefill-intervention" data-id="${escapeHtml(r.id)}">Intervention</button></div></div>`;
+  }).join('');
+  renderStockAlert();
 }
 
-function toggleCompare(id){
-  if (compareIds.includes(id)) compareIds = compareIds.filter(x => x !== id);
-  else if (compareIds.length < 3) compareIds.push(id);
-  else { alert('Maximum 3 fiches dans le comparateur'); return; }
-  saveJson(COMPARE_KEY, compareIds); renderCompare(); renderResults(getCurrentResults());
+function renderStockAlert(){
+  const alertBox = document.getElementById('stockAlert');
+  const low = records.filter(r => (Number(r.stock) || 0) <= 2).sort((a,b) => (Number(a.stock)||0) - (Number(b.stock)||0));
+  if (!low.length) { alertBox.innerHTML = 'Aucune alerte pour le moment.'; return; }
+  alertBox.innerHTML = low.slice(0,8).map(r => `<strong>${escapeHtml(r.silca)}</strong> · ${escapeHtml(r.models || r.family || '')} · stock ${Number(r.stock)||0}`).join('<br>');
 }
+
 
 function deleteRecord(id){
   records = records.filter(r => r.id !== id);
-  favorites = favorites.filter(x => x !== id);
-  compareIds = compareIds.filter(x => x !== id);
-  saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds);
-  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList();
+  saveRecords();
+  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); renderStockList();
   if (hasSearched) runSearch(); else clearResultsState();
 }
 
-function getCurrentResults(){
-  return hasSearched ? lastResults : [];
+function updateStock(id, delta){
+  const record = records.find(r => r.id === id);
+  if (!record) return;
+  record.stock = Math.max(0, (Number(record.stock) || 0) + delta);
+  saveRecords();
+  renderStockList(); renderDatasetList(); renderFavorites(); renderCompare();
+  if (hasSearched) runSearch(); else refreshStats(0);
 }
+
+function getCurrentResults(){ return hasSearched ? lastResults : []; }
 
 function addKey(){
   const family = document.getElementById('newFamily').value.trim();
@@ -578,13 +524,14 @@ function addKey(){
     shellType: document.getElementById('newShellType').value.trim() || guessShellType({bladeType: document.getElementById('newBladeType').value, type: document.getElementById('newBladeType').options[document.getElementById('newBladeType').selectedIndex].text}),
     vvdiMini: document.getElementById('newVvdiMini').value,
     vvdiMiniNote: document.getElementById('newVvdiNote').value.trim(),
+    stock: Math.max(0, Number(document.getElementById('newStock').value) || 0),
     note: document.getElementById('newNotes').value.trim()
   };
-  records.unshift(record); saveRecords(); clearForm(); refreshFamilyFilter(); renderDatasetList(); if (hasSearched) runSearch(); alert('Fiche ajoutée');
+  records.unshift(record); saveRecords(); clearForm(); refreshFamilyFilter(); renderDatasetList(); renderStockList(); if (hasSearched) runSearch(); alert('Fiche ajoutée');
 }
 
-function clearForm(){ ['newFamily','newSilca','newJma','newKeyline','newErrebi','newLishi','newXhorse','newTransponder','newYears','newModels','newRefCode','newShellType','newVvdiNote','newNotes'].forEach(id=>document.getElementById(id).value=''); document.getElementById('newBladeType').value='laser'; document.getElementById('newVvdiMini').value='Oui'; }
-function resetDatabase(){ records = structuredClone(autoKeysDatabase); favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); clearResultsState('Base réinitialisée. Lance une nouvelle recherche.'); }
+function clearForm(){ ['newFamily','newSilca','newJma','newKeyline','newErrebi','newLishi','newXhorse','newTransponder','newYears','newModels','newRefCode','newShellType','newVvdiNote','newNotes'].forEach(id=>document.getElementById(id).value=''); document.getElementById('newBladeType').value='laser'; document.getElementById('newVvdiMini').value='Oui'; document.getElementById('newStock').value='0'; }
+function resetDatabase(){ records = sanitizeRecords(structuredClone(autoKeysDatabase)); saveRecords(); refreshFamilyFilter(); renderDatasetList(); renderStockList(); clearResultsState('Base réinitialisée. Lance une nouvelle recherche.'); }
 function exportData(){ const blob = new Blob([JSON.stringify(records, null, 2)], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'keymaster-auto-expert.json'; a.click(); URL.revokeObjectURL(url); }
 
 function importData(file){
@@ -593,32 +540,52 @@ function importData(file){
     try {
       const parsed = JSON.parse(reader.result);
       if (!Array.isArray(parsed)) throw new Error();
-      records = parsed; saveRecords(); refreshFamilyFilter(); renderDatasetList(); if (hasSearched) runSearch(); else clearResultsState('Import terminé. Lance une recherche.'); alert('Import terminé');
+      records = sanitizeRecords(parsed); saveRecords(); refreshFamilyFilter(); renderDatasetList(); renderStockList(); if (hasSearched) runSearch(); else clearResultsState('Import terminé. Lance une recherche.'); alert('Import terminé');
     } catch(e){ alert('JSON invalide'); }
   };
   reader.readAsText(file);
 }
 
-function searchPlate(){
-  const clean = (document.getElementById('plateInput').value || '').replace(/[^A-Za-z0-9]/g,'').toUpperCase();
-  const out = document.getElementById('plateOutput');
-  if (!clean) { out.textContent = 'Entre une plaque.'; return; }
-  const found = plateDatabase[clean];
-  if (!found) { out.textContent = 'Plaque non trouvée dans la démo locale.'; return; }
-  out.innerHTML = `<strong>${found.plate}</strong> · ${found.make} ${found.model} ${found.year}<br>Profil probable : <strong>${found.profile}</strong><br>${found.note}`;
-  document.getElementById('searchInput').value = found.profile;
-  runSearch();
+function usePlateForIntervention(){ alert('La recherche plaque a été retirée de cette version.'); }
+
+function createIntervention(){
+  const client = document.getElementById('interClient').value.trim() || 'Non renseigné';
+  const phone = document.getElementById('interPhone').value.trim() || 'Non renseigné';
+  const plate = document.getElementById('interPlate').value.trim() || 'Non renseignée';
+  const vehicle = document.getElementById('interVehicle').value.trim() || 'Non renseigné';
+  const problem = document.getElementById('interProblem').value;
+  const urgency = document.getElementById('interUrgency').value;
+  const profile = document.getElementById('interProfile').value.trim();
+  const qty = Math.max(1, Number(document.getElementById('interQty').value) || 1);
+  const notes = document.getElementById('interNotes').value.trim() || 'Aucune note';
+  const found = profile ? records.find(r => normalize(r.silca) === normalize(profile) || normalize(r.id) === normalize(profile)) : null;
+  const stockText = found ? `${Number(found.stock)||0} pièce(s) en stock` : 'Stock inconnu';
+  const toolText = found ? `${found.lishi || '-'} · ${found.xhorse || '-'} · ${found.transponder || '-'}` : 'Outil à confirmer';
+  document.getElementById('interventionOutput').innerHTML = `
+    <div class="intervention-title">Intervention prête</div>
+    <div class="sub"><strong>Client :</strong> ${escapeHtml(client)} · <strong>Tél :</strong> ${escapeHtml(phone)}</div>
+    <div class="sub"><strong>Plaque :</strong> ${escapeHtml(plate)} · <strong>Véhicule :</strong> ${escapeHtml(vehicle)}</div>
+    <div class="sub"><strong>Problème :</strong> ${escapeHtml(problem)} · <strong>Urgence :</strong> ${escapeHtml(urgency)}</div>
+    <div class="sub"><strong>Référence :</strong> ${escapeHtml(profile || 'À confirmer')} · <strong>Qté à prendre :</strong> ${qty}</div>
+    <div class="sub"><strong>Compatibilité terrain :</strong> ${escapeHtml(toolText)}</div>
+    <div class="sub"><strong>Stock :</strong> ${escapeHtml(stockText)}</div>
+    <div class="sub"><strong>Notes :</strong><br>${escapeHtml(notes).replace(/\n/g,'<br>')}</div>`;
 }
+
+function clearIntervention(){ ['interClient','interPhone','interPlate','interVehicle','interProfile','interNotes'].forEach(id => document.getElementById(id).value=''); document.getElementById('interProblem').value='Clé perdue'; document.getElementById('interUrgency').value='Normale'; document.getElementById('interQty').value='1'; document.getElementById('interventionOutput').innerHTML = '<div class="intervention-title">Aucune intervention générée</div><div class="sub">Choisis une référence ou remplis le formulaire puis crée la fiche intervention.</div>'; }
+function copyIntervention(){ navigator.clipboard.writeText(document.getElementById('interventionOutput').innerText).then(()=>alert('Résumé intervention copié')).catch(()=>alert('Copie impossible')); }
 
 function attachDelegates(){
   document.body.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-action]');
-    if (!btn) return;
-    const action = btn.dataset.action; const id = btn.dataset.id;
-    if (action === 'fav') toggleFavorite(id);
-    if (action === 'compare') toggleCompare(id);
-    if (action === 'delete') deleteRecord(id);
-    if (action === 'copy') navigator.clipboard.writeText(id).then(()=>alert('Référence copiée')).catch(()=>alert('Copie impossible'));
+    if (btn) {
+      const action = btn.dataset.action; const id = btn.dataset.id;
+      if (action === 'delete') deleteRecord(id);
+      if (action === 'copy') navigator.clipboard.writeText(id).then(()=>alert('Référence copiée')).catch(()=>alert('Copie impossible'));
+      if (action === 'stock-plus') updateStock(id, 1);
+      if (action === 'stock-minus') updateStock(id, -1);
+      if (action === 'prefill-intervention') prefillIntervention(records.find(r => r.id === id));
+    }
     const recent = e.target.closest('[data-recent]');
     if (recent) { document.getElementById('searchInput').value = recent.dataset.recent; runSearch(); }
     const scrollBtn = e.target.closest('[data-scroll]');
@@ -626,41 +593,35 @@ function attachDelegates(){
   });
 }
 
-
-function openSidebar(){
-  document.getElementById('sidebar').classList.add('open');
-  document.getElementById('sidebarBackdrop').classList.add('show');
-}
-function closeSidebar(){
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarBackdrop').classList.remove('show');
-}
-function handleScrollUi(){
-  const btn = document.getElementById('homeFloatBtn');
-  if (!btn) return;
-  btn.classList.toggle('show', window.scrollY > 500);
-}
+function openSidebar(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebarBackdrop').classList.add('show'); }
+function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarBackdrop').classList.remove('show'); }
+function openAddModal(){ document.getElementById('addModal').classList.add('show'); document.body.style.overflow='hidden'; closeSidebar(); }
+function closeAddModal(){ document.getElementById('addModal').classList.remove('show'); document.body.style.overflow=''; }
+function handleScrollUi(){ const btn = document.getElementById('homeFloatBtn'); if (!btn) return; btn.classList.toggle('show', window.scrollY > 500); }
 
 function init(){
-  refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); renderRecentSearches(); clearResultsState(); attachDelegates();
+  refreshFamilyFilter(); renderDatasetList(); renderRecentSearches(); renderStockList(); clearResultsState(); attachDelegates();
   document.getElementById('searchBtn').addEventListener('click', runSearch);
   document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; clearResultsState(); });
-  document.getElementById('showFavsBtn').addEventListener('click', () => { const favs = records.filter(r => favorites.includes(r.id)); hasSearched = true; lastResults = favs; renderResults(favs); document.getElementById('searchSummary').textContent = `${favs.length} favori(s)`; refreshStats(favs.length); });
   document.getElementById('seedBtn').addEventListener('click', resetDatabase);
   document.getElementById('exportBtn').addEventListener('click', exportData);
-  document.getElementById('addBtn').addEventListener('click', addKey);
+  document.getElementById('addBtn').addEventListener('click', () => { addKey(); closeAddModal(); });
   document.getElementById('clearFormBtn').addEventListener('click', clearForm);
-  document.getElementById('clearCustomBtn').addEventListener('click', () => { if (!confirm('Vider toute la base locale ?')) return; records = []; favorites=[]; compareIds=[]; saveRecords(); saveJson(FAVORITES_KEY, favorites); saveJson(COMPARE_KEY, compareIds); refreshFamilyFilter(); renderFavorites(); renderCompare(); renderDatasetList(); clearResultsState('Base locale vidée.'); });
-  document.getElementById('clearCompareBtn').addEventListener('click', () => { compareIds=[]; saveJson(COMPARE_KEY, compareIds); renderCompare(); if (hasSearched) renderResults(lastResults); });
-  document.getElementById('clearFavsBtn').addEventListener('click', () => { favorites=[]; saveJson(FAVORITES_KEY, favorites); renderFavorites(); if (hasSearched) renderResults(lastResults); refreshStats(getCurrentResults().length); });
-  document.getElementById('plateBtn').addEventListener('click', searchPlate);
-  document.getElementById('plateExamplesBtn').addEventListener('click', () => { document.getElementById('plateInput').value='AA-123-AA'; searchPlate(); });
+  document.getElementById('clearCustomBtn').addEventListener('click', () => { if (!confirm('Vider toute la base locale ?')) return; records = []; saveRecords(); refreshFamilyFilter(); renderDatasetList(); renderStockList(); clearResultsState('Base locale vidée.'); });
   document.getElementById('importFile').addEventListener('change', (e) => { if (e.target.files[0]) importData(e.target.files[0]); e.target.value=''; });
   document.getElementById('searchInput').addEventListener('keydown', (e)=>{ if (e.key === 'Enter') runSearch(); });
   document.getElementById('sidebarToggle').addEventListener('click', openSidebar);
   document.getElementById('sidebarClose').addEventListener('click', closeSidebar);
   document.getElementById('sidebarBackdrop').addEventListener('click', closeSidebar);
+  document.getElementById('openAddModalBtn').addEventListener('click', openAddModal);
+  document.getElementById('closeAddModalBtn').addEventListener('click', closeAddModal);
+  document.getElementById('addModal').addEventListener('click', (e) => { if (e.target.id === 'addModal') closeAddModal(); });
   document.getElementById('homeFloatBtn').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+  document.getElementById('interventionBtn').addEventListener('click', createIntervention);
+  document.getElementById('usePlateForInterBtn').addEventListener('click', usePlateForIntervention);
+  document.getElementById('clearInterventionBtn').addEventListener('click', clearIntervention);
+  document.getElementById('copyInterventionBtn').addEventListener('click', copyIntervention);
+  document.getElementById('stockSortBtn').addEventListener('click', () => renderStockList(true));
   window.addEventListener('scroll', handleScrollUi);
   handleScrollUi();
   ['brandFilter','bladeFilter','transponderFilter'].forEach(id => document.getElementById(id).addEventListener('change', () => { document.getElementById('searchSummary').textContent = 'Filtres prêts · appuie sur Rechercher'; }));
