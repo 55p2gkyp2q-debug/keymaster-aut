@@ -28,14 +28,14 @@
     .footer{margin-top:16px;color:var(--muted);font-size:.92rem;line-height:1.55}
     .result-top{display:flex;gap:14px;align-items:flex-start}.result-media{width:92px;height:92px;flex:0 0 92px;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center}.result-media img{width:100%;height:100%;object-fit:contain;display:block}.result-main{flex:1;min-width:0}
     .sidebar-toggle{position:fixed;top:14px;left:14px;z-index:1200;width:52px;height:52px;border-radius:16px;background:#121317;color:var(--red2);box-shadow:var(--shadow)}
-    .sidebar{position:fixed;top:0;left:0;height:100vh;width:290px;background:#fff;border-right:1px solid var(--line);box-shadow:0 16px 40px rgba(15,23,42,.12);z-index:1150;transform:translateX(-100%);transition:transform .25s ease;padding:18px;display:flex;flex-direction:column;gap:12px}
+    .sidebar{position:fixed;top:0;left:0;height:100vh;width:290px;background:#121317;border-right:1px solid rgba(255,255,255,.08);box-shadow:0 16px 40px rgba(0,0,0,.35);z-index:1150;transform:translateX(-100%);transition:transform .25s ease;padding:18px;display:flex;flex-direction:column;gap:12px;color:#fff}
     .sidebar.open{transform:translateX(0)}
     .sidebar-backdrop{position:fixed;inset:0;background:rgba(18,19,23,.35);backdrop-filter:blur(2px);z-index:1100;opacity:0;pointer-events:none;transition:opacity .25s ease}
     .sidebar-backdrop.show{opacity:1;pointer-events:auto}
     .sidebar-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
     .sidebar-nav{display:grid;gap:10px;margin-top:6px}
-    .sidebar-link{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;background:#fff;border:1px solid var(--line);font-weight:800;cursor:pointer;text-align:left;color:var(--red)}
-    .sidebar-link:hover{background:#f8fafc}
+    .sidebar-link{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;background:#1b1d22;border:1px solid rgba(255,255,255,.08);font-weight:800;cursor:pointer;text-align:left;color:#fff}
+    .sidebar-link:hover{background:#252830}
     .top-anchor{position:relative;top:-12px}
     .floating-home{position:fixed;right:16px;bottom:20px;z-index:1000;width:58px;height:58px;border-radius:20px;background:#121317;color:var(--red2);box-shadow:var(--shadow);display:none}
     .floating-home.show{display:inline-flex}
@@ -44,7 +44,7 @@
     .vvdi-no{color:#b70f16;font-weight:800}
     .stock-ok{color:#08784b;font-weight:800}.stock-low{color:#b36b00;font-weight:800}.stock-out{color:#b70f16;font-weight:800}
     .recent-searches,.stock-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.recent-tag,.mini-btn{padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--red);font-weight:800;cursor:pointer}
-    .intervention-box{display:grid;gap:14px}.intervention-summary{padding:16px;border-radius:18px;border:1px solid #ffd5d8;background:#fff7f7}.intervention-title{font-weight:900;color:var(--black);font-size:1.05rem}.muted-red{color:inherit}.sidebar-title{color:var(--red)}
+    .intervention-box{display:grid;gap:14px}.intervention-summary{padding:16px;border-radius:18px;border:1px solid #ffd5d8;background:#fff7f7}.intervention-title{font-weight:900;color:var(--black);font-size:1.05rem}.muted-red{color:inherit}.sidebar-title{color:#fff}
     .modal-backdrop{position:fixed;inset:0;background:rgba(18,19,23,.45);backdrop-filter:blur(3px);z-index:1300;display:none;align-items:center;justify-content:center;padding:18px}
     .modal-backdrop.show{display:flex}
     .modal-card{width:min(980px,100%);max-height:92vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:0 22px 50px rgba(15,23,42,.2);padding:20px}
@@ -105,6 +105,10 @@
     #stockSection .secondary,
     #stockList .secondary{color:var(--red) !important;}
 
+
+    .dark-menu-close{background:#1b1d22 !important;color:#fff !important;border:1px solid rgba(255,255,255,.08) !important}
+    #sidebar .sub{color:#d1d1d1 !important}
+
 </style>
   <link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 </head>
@@ -114,7 +118,7 @@
 <aside id="sidebar" class="sidebar" aria-hidden="true">
   <div class="sidebar-head">
     <h3 style="margin:0" class="sidebar-title">Menu</h3>
-    <button id="sidebarClose" class="secondary" style="padding:10px 12px">Fermer</button>
+    <button id="sidebarClose" class="secondary dark-menu-close" style="padding:10px 12px">Fermer</button>
   </div>
   <div class="sub">Accès rapide aux sections principales.</div>
   <nav class="sidebar-nav">
@@ -123,6 +127,7 @@
     <button class="sidebar-link" data-scroll="#resultsSection">📋 Résultats</button>
     <button class="sidebar-link" data-scroll="#interventionSection">🚨 Intervention</button>
     <button class="sidebar-link" data-scroll="#stockSection">📦 Stock</button>
+    <button class="sidebar-link" id="openQuoteModalBtn">🧾 Devis</button>
     <button class="sidebar-link" id="openAddModalBtn">➕ Ajouter une fiche</button>
     <button class="sidebar-link" data-scroll="#datasetSection">🗂️ Base locale</button>
   </nav>
@@ -260,7 +265,50 @@
   </section>
 </div>
 
+
+<div id="quoteModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal-card">
+    <div class="toolbar">
+      <div><h2>🧾 Générer un devis</h2><div class="sub" style="color:#69707d">Crée un devis rapide avec total automatique.</div></div>
+      <button class="secondary" id="closeQuoteModalBtn">Fermer</button>
+    </div>
+
+    <div class="form-grid" style="margin-top:12px">
+      <div><label for="quoteClient">Client</label><input id="quoteClient" placeholder="Nom du client"></div>
+      <div><label for="quotePhone">Téléphone</label><input id="quotePhone" placeholder="06..."></div>
+      <div><label for="quoteVehicle">Véhicule</label><input id="quoteVehicle" placeholder="Ex : Yaris 2010"></div>
+      <div><label for="quoteKeyType">Type de clé</label>
+        <select id="quoteKeyType">
+          <option value="simple">Clé simple</option>
+          <option value="telecommande">Clé télécommande</option>
+        </select>
+      </div>
+      <div><label for="quoteFamily">Famille</label><input id="quoteFamily" placeholder="Ex : Toyota / Lexus"></div>
+      <div><label for="quoteQty">Quantité</label><input id="quoteQty" type="number" min="1" value="1"></div>
+      <div><label for="quoteUnitPrice">Prix unitaire (€)</label><input id="quoteUnitPrice" type="number" min="0" value="95"></div>
+      <div><label for="quoteTravel">Déplacement (€)</label><input id="quoteTravel" type="number" min="0" value="30"></div>
+    </div>
+
+    <div style="margin-top:12px">
+      <label for="quoteDescription">Description</label>
+      <textarea id="quoteDescription" placeholder="Ex : Reproduction clé + programmation"></textarea>
+    </div>
+
+    <div class="btns">
+      <button id="generateQuoteBtn">Générer le devis</button>
+      <button class="secondary" id="copyQuoteBtn">Copier</button>
+      <button class="secondary" id="clearQuoteBtn">Vider</button>
+    </div>
+
+    <div id="quoteOutput" class="intervention-summary" style="margin-top:16px">
+      <div class="intervention-title">Aucun devis généré</div>
+      <div class="sub" style="color:#69707d">Renseigne les champs puis génère le devis.</div>
+    </div>
+  </div>
+</div>
+
 <div id="addModal" class="modal-backdrop" aria-hidden="true">
+
   <div class="modal-card">
     <div class="toolbar">
       <div><h2>➕ Créer une fiche</h2><div class="sub">Ajoute directement une nouvelle fiche depuis ce pop-up.</div></div>
@@ -771,6 +819,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
+const quoteModal = document.getElementById('quoteModal');
+const openQuoteModalBtn = document.getElementById('openQuoteModalBtn');
+const closeQuoteModalBtn = document.getElementById('closeQuoteModalBtn');
+const quoteTypeEl = document.getElementById('quoteKeyType');
+const quoteUnitPriceEl = document.getElementById('quoteUnitPrice');
+const quoteTravelEl = document.getElementById('quoteTravel');
+const quoteOutputEl = document.getElementById('quoteOutput');
+
+function openQuoteModal(){
+  quoteModal.classList.add('show');
+  quoteModal.setAttribute('aria-hidden','false');
+}
+function closeQuoteModal(){
+  quoteModal.classList.remove('show');
+  quoteModal.setAttribute('aria-hidden','true');
+}
+function syncQuoteDefaults(){
+  if(quoteTypeEl.value === 'simple'){
+    quoteUnitPriceEl.value = '95';
+    quoteTravelEl.value = '30';
+  }else{
+    quoteUnitPriceEl.value = '150';
+    quoteTravelEl.value = '20';
+  }
+}
+function generateQuote(){
+  const client = document.getElementById('quoteClient').value.trim() || 'Non renseigné';
+  const phone = document.getElementById('quotePhone').value.trim() || 'Non renseigné';
+  const vehicle = document.getElementById('quoteVehicle').value.trim() || 'Non renseigné';
+  const keyType = quoteTypeEl.value === 'simple' ? 'Clé simple' : 'Clé télécommande';
+  const family = document.getElementById('quoteFamily').value.trim() || 'Non renseignée';
+  const qty = Math.max(1, Number(document.getElementById('quoteQty').value) || 1);
+  const unit = Math.max(0, Number(quoteUnitPriceEl.value) || 0);
+  const travel = Math.max(0, Number(quoteTravelEl.value) || 0);
+  const description = document.getElementById('quoteDescription').value.trim() || 'Prestation serrurerie auto';
+  const subtotal = qty * unit;
+  const total = subtotal + travel;
+  const today = new Date().toLocaleDateString('fr-FR');
+
+  quoteOutputEl.innerHTML = `
+    <div class="intervention-title">Devis KeyMaster Auto</div>
+    <div class="sub" style="color:#69707d;margin-top:8px"><strong>Date :</strong> ${today}</div>
+    <div class="sub" style="color:#69707d"><strong>Client :</strong> ${escapeHtml(client)}</div>
+    <div class="sub" style="color:#69707d"><strong>Téléphone :</strong> ${escapeHtml(phone)}</div>
+    <div class="sub" style="color:#69707d"><strong>Véhicule :</strong> ${escapeHtml(vehicle)}</div>
+    <div class="sub" style="color:#69707d"><strong>Famille :</strong> ${escapeHtml(family)}</div>
+    <div class="sub" style="color:#69707d"><strong>Type de clé :</strong> ${keyType}</div>
+    <div class="sub" style="color:#69707d"><strong>Description :</strong> ${escapeHtml(description)}</div>
+    <div class="sub" style="color:#69707d"><strong>Quantité :</strong> ${qty}</div>
+    <div class="sub" style="color:#69707d"><strong>Prix unitaire :</strong> ${unit.toFixed(0)} €</div>
+    <div class="sub" style="color:#69707d"><strong>Déplacement :</strong> ${travel.toFixed(0)} €</div>
+    <div class="sub" style="color:#69707d;font-weight:800;margin-top:10px"><strong>Total :</strong> ${total.toFixed(0)} €</div>
+  `;
+}
+function copyQuote(){
+  const text = quoteOutputEl.innerText.trim();
+  if(!text || text.includes('Aucun devis généré')) return;
+  navigator.clipboard.writeText(text).then(() => alert('Devis copié'));
+}
+function clearQuote(){
+  document.getElementById('quoteClient').value = '';
+  document.getElementById('quotePhone').value = '';
+  document.getElementById('quoteVehicle').value = '';
+  document.getElementById('quoteFamily').value = '';
+  document.getElementById('quoteQty').value = '1';
+  document.getElementById('quoteDescription').value = '';
+  quoteTypeEl.value = 'simple';
+  syncQuoteDefaults();
+  quoteOutputEl.innerHTML = '<div class="intervention-title">Aucun devis généré</div><div class="sub" style="color:#69707d">Renseigne les champs puis génère le devis.</div>';
+}
+openQuoteModalBtn?.addEventListener('click', openQuoteModal);
+closeQuoteModalBtn?.addEventListener('click', closeQuoteModal);
+quoteModal?.addEventListener('click', (e) => { if(e.target === quoteModal) closeQuoteModal(); });
+quoteTypeEl?.addEventListener('change', syncQuoteDefaults);
+document.getElementById('generateQuoteBtn')?.addEventListener('click', generateQuote);
+document.getElementById('copyQuoteBtn')?.addEventListener('click', copyQuote);
+document.getElementById('clearQuoteBtn')?.addEventListener('click', clearQuote);
 
 </script>
 </body>
