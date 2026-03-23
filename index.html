@@ -42,6 +42,8 @@
     .vvdi-ok{color:#08784b;font-weight:800}
     .vvdi-limited{color:#b36b00;font-weight:800}
     .vvdi-no{color:#b70f16;font-weight:800}
+    .xt57b-ok{color:#08784b;font-weight:800}
+    .xt57b-no{color:#b70f16;font-weight:800}
     .stock-ok{color:#08784b;font-weight:800}.stock-low{color:#b36b00;font-weight:800}.stock-out{color:#b70f16;font-weight:800}
     .recent-searches,.stock-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.recent-tag,.mini-btn{padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--red);font-weight:800;cursor:pointer}
     .intervention-box{display:grid;gap:14px}.intervention-summary{padding:16px;border-radius:18px;border:1px solid #ffd5d8;background:#fff7f7}.intervention-title{font-weight:900;color:var(--black);font-size:1.05rem}.muted-red{color:inherit}.sidebar-title{color:#fff}
@@ -477,7 +479,7 @@ function stockStatus(stock){ const qty = Number(stock) || 0; if (qty <= 0) retur
 function sanitizeRecords(list){
   return (Array.isArray(list) ? list : []).map(r => {
     const stock = Number.isFinite(Number(r.stock)) ? Math.max(0, Number(r.stock)) : defaultStock(r.bladeType);
-    return {...r, stock, shellType: r.shellType || guessShellType(r), vvdiMini: r.vvdiMini || guessVvdiMini(r).label, vvdiMiniNote: r.vvdiMiniNote || guessVvdiMini(r).note};
+    return {...r, stock, shellType: r.shellType || guessShellType(r), vvdiMini: r.vvdiMini || guessVvdiMini(r).label, vvdiMiniNote: r.vvdiMiniNote || guessVvdiMini(r).note, xt57b: r.xt57b || guessXt57b(r).label};
   });
 }
 
@@ -503,6 +505,20 @@ function guessVvdiMini(record){
     return {label:'Partiel', className:'vvdi-limited', note:'Coque et préparation possibles, démarrage souvent via OBD ou outil complémentaire'};
   }
   return {label:'À vérifier', className:'vvdi-limited', note:'Compatibilité non garantie selon année / puce'};
+}
+
+function guessXt57b(record){
+  const t = normalize(record.transponder || '');
+  if (!t) return {label:'Non compatible XT57B', className:'xt57b-no'};
+  const compatibleTokens = [
+    'id11','id12','id13','id33','id34','id35','id36','id37','id38','id39','id40','id41','id42','id43','id44',
+    'id46','id47','id48','id49','id4a','id4c','id4d','id4e','id64','id5c','id8a','id8c','id8e','mqb48',
+    'pcf7935','pcf7936','pcf7941','pcf7945','pcf7946','pcf7947','dst40','dst80','g chip','g-chip','texas 80','80bit'
+  ];
+  const incompatibleTokens = ['aes','hitag aes','smart','fem','cas4','bga','nec','ir'];
+  if (compatibleTokens.some(token => t.includes(token))) return {label:'Compatible XT57B', className:'xt57b-ok'};
+  if (incompatibleTokens.some(token => t.includes(token))) return {label:'Non compatible XT57B', className:'xt57b-no'};
+  return {label:'Non compatible XT57B', className:'xt57b-no'};
 }
 
 function saveRecentSearch(query){
@@ -539,7 +555,7 @@ function refreshFamilyFilter(){
 }
 
 function searchableText(r){
-  return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models,r.shellType,r.vvdiMini,r.vvdiMiniNote].join(' | '));
+  return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models,r.shellType,r.vvdiMini,r.vvdiMiniNote,r.xt57b].join(' | '));
 }
 
 function codeFields(r){ return [r.id,r.silca,r.jma,r.keyline,r.errebi,r.lishi,r.xhorse].map(normalize).filter(Boolean); }
@@ -585,6 +601,7 @@ function renderResults(list){
     const id = escapeHtml(r.id || '');
     const stock = Number(r.stock) || 0;
     const status = stockStatus(stock);
+    const xt57b = guessXt57b(r);
     return `
       <div class="result">
         <div class="result-top">
@@ -609,6 +626,7 @@ function renderResults(list){
               <div class="meta"><strong>Années</strong>${escapeHtml(r.years || '-')}</div>
             </div>
             <div class="sub"><strong>Note atelier :</strong> ${escapeHtml(r.note || r.notes || '-')}</div>
+            <div class="sub" style="margin-top:8px"><strong>XT57B :</strong> <span class="${xt57b.className}">${escapeHtml(r.xt57b || xt57b.label)}</span></div>
             <div class="sub" style="margin-top:8px"><strong>État stock :</strong> <span class="${status.className}">${status.label}</span> · <strong>Code fiche :</strong> ${id}</div>
             <div class="btns">
               <button class="secondary" data-action="copy" data-id="${id}">Copier réf.</button>
