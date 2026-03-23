@@ -21,7 +21,7 @@
     label{display:block;font-weight:700;margin-bottom:8px;font-size:.93rem} input,select,textarea{width:100%;padding:14px;border:1px solid #d8dce3;border-radius:16px;font:inherit;outline:none;background:#fff;color:#000} textarea{min-height:100px;resize:vertical}
     input:focus,select:focus,textarea:focus{border-color:var(--red2);box-shadow:0 0 0 4px rgba(199,18,24,.12)}
     .search-grid,.form-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)} .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    button,.button{border:none;background:var(--red);color:#fff;padding:13px 16px;border-radius:16px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.secondary{background:#fff;color:var(--red);border:1px solid var(--line)}.dark{background:var(--black)}.danger{background:#7f1014}
+    button,.button{border:none;background:var(--red);color:#fff;padding:13px 16px;border-radius:16px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;transition:transform .14s ease, box-shadow .18s ease, opacity .18s ease;will-change:transform} button:hover,.button:hover{box-shadow:0 8px 18px rgba(0,0,0,.18)} button:active,.button:active{transform:scale(.96)} button.pressed,.button.pressed{animation:buttonTap .18s ease} .secondary{background:#fff;color:var(--red);border:1px solid var(--line)}.dark{background:var(--black)}.danger{background:#7f1014}
     .results{display:grid;gap:18px}.result{border:1px solid var(--line);border-radius:26px;padding:24px;background:linear-gradient(180deg,#fff,#fcfcfd);box-shadow:0 16px 40px rgba(15,23,42,.08)} .head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}.ref{font-weight:900;font-size:1.8rem}.badges{display:flex;gap:10px;flex-wrap:wrap}.badge{padding:9px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.9rem;font-weight:800}.badge.red{background:#fff0f1;border-color:#ffd5d8;color:#b70f16}.badge.green{background:#eefcf6;border-color:#ccefdc;color:#08784b}.badge.dark{background:#16171b;color:var(--red2);border-color:#16171b}.badge.stock{background:#fff7e8;border-color:#ffe1a3;color:#9a5a00}
     .meta-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);margin:14px 0}.meta{padding:15px;border-radius:18px;border:1px solid var(--line);background:#fff;min-height:78px}.meta strong{display:block;color:var(--muted);font-size:.82rem;margin-bottom:8px}
     .toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}.list{display:grid;gap:10px;max-height:900px;overflow:auto}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare-card{min-height:180px;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.notice{padding:13px 14px;border-radius:16px;background:#f5f7ff;border:1px solid #d9e1ff;color:#33417a}.empty{text-align:center;padding:28px;border:1px dashed #d7dbe2;border-radius:18px;color:var(--muted)}
@@ -42,8 +42,6 @@
     .vvdi-ok{color:#08784b;font-weight:800}
     .vvdi-limited{color:#b36b00;font-weight:800}
     .vvdi-no{color:#b70f16;font-weight:800}
-    .xt57b-ok{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:#eefcf6;border:1px solid #ccefdc;color:#08784b;font-weight:800}
-    .xt57b-no{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:#fff0f1;border:1px solid #ffd5d8;color:#b70f16;font-weight:800}
     .stock-ok{color:#08784b;font-weight:800}.stock-low{color:#b36b00;font-weight:800}.stock-out{color:#b70f16;font-weight:800}
     .recent-searches,.stock-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.recent-tag,.mini-btn{padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--red);font-weight:800;cursor:pointer}
     .intervention-box{display:grid;gap:14px}.intervention-summary{padding:16px;border-radius:18px;border:1px solid #ffd5d8;background:#fff7f7}.intervention-title{font-weight:900;color:var(--black);font-size:1.05rem}.muted-red{color:inherit}.sidebar-title{color:#fff}
@@ -111,10 +109,134 @@
     .dark-menu-close{background:#1b1d22 !important;color:#fff !important;border:1px solid rgba(255,255,255,.08) !important}
     #sidebar .sub{color:#d1d1d1 !important}
 
+
+/* 🎯 Thème noir demandé */
+body{
+  background:#121317;
+}
+#searchSection > .card,
+#resultsSection > .card,
+#interventionSection > .card,
+#stockSection > .card,
+#datasetSection,
+#recentBox,
+.stats .card{
+  background:#000 !important;
+  color:#fff !important;
+  border-color:rgba(255,255,255,.08) !important;
+}
+#searchSection h2,
+#resultsSection h2,
+#interventionSection h2,
+#datasetSection h2,
+#stockSection h2,
+#recentBox h3,
+.stats .big,
+.stats .label,
+#searchSection .sub,
+#resultsSection .sub,
+#interventionSection .sub,
+#datasetSection .sub,
+#stockSection .sub,
+#recentBox .sub{
+  color:#fff !important;
+}
+#stockAlert{
+  background:#000 !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  color:#fff !important;
+}
+#stockAlert strong{color:#fff !important;}
+#interventionOutput,
+#quoteOutput{
+  background:#000 !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+}
+#interventionOutput .intervention-title,
+#interventionOutput .sub,
+#quoteOutput .intervention-title,
+#quoteOutput .sub{
+  color:#fff !important;
+}
+
+/* 🔴 Dégradé rouge uniquement quand les fiches sont affichées */
+.result{
+  background:linear-gradient(135deg,#3a0508 0%,#7f1014 45%,#c71218 100%) !important;
+  border-color:rgba(255,255,255,.08) !important;
+  color:#fff !important;
+  animation:resultReveal .38s ease both;
+}
+.result .ref,
+.result .sub,
+.result .sub strong,
+.result .meta,
+.result .meta div,
+.result .badges,
+.result .head,
+.result .meta strong,
+.result .btns,
+.result span,
+.result div{
+  color:#fff !important;
+}
+.result .meta{
+  background:rgba(255,255,255,.08) !important;
+  border-color:rgba(255,255,255,.12) !important;
+}
+.result .meta strong{color:#ffd6d8 !important;}
+.result .badge{
+  background:rgba(255,255,255,.12) !important;
+  border-color:rgba(255,255,255,.18) !important;
+  color:#fff !important;
+}
+.result .badge.green{color:#7dffbb !important;}
+.result .badge.red{color:#ffb0b5 !important;}
+.result .badge.dark{color:#fff !important;}
+.result .badge.stock{color:#ffe29c !important;}
+.result .secondary{
+  background:rgba(255,255,255,.12) !important;
+  border-color:rgba(255,255,255,.18) !important;
+  color:#fff !important;
+}
+@keyframes resultReveal{
+  from{opacity:0;transform:translateY(14px) scale(.985)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes buttonTap{
+  0%{transform:scale(1)}
+  50%{transform:scale(.96)}
+  100%{transform:scale(1)}
+}
+
+
+    .lock-screen{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at top, rgba(199,18,24,.35), rgba(0,0,0,.92) 45%), #000}
+    .lock-card{width:min(430px,100%);background:#121317;border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:24px;box-shadow:0 24px 60px rgba(0,0,0,.45);color:#fff}
+    .lock-card h2{margin:0 0 8px;color:#fff}
+    .lock-card .sub{color:#d1d1d1}
+    .lock-form{display:grid;gap:12px;margin-top:18px}
+    .lock-input{letter-spacing:.18em;text-align:center;font-size:1.15rem;font-weight:800}
+    .lock-error{display:none;padding:12px 14px;border-radius:14px;background:#2a0d0f;border:1px solid rgba(229,42,47,.35);color:#ffd9db;font-weight:700}
+    .lock-error.show{display:block}
+    .app.locked{filter:blur(10px);pointer-events:none;user-select:none}
+    body.locked{overflow:hidden}
+
 </style>
   <link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 </head>
-<body>
+<body class="locked">
+<div id="lockScreen" class="lock-screen" role="dialog" aria-modal="true" aria-labelledby="lockTitle">
+  <div class="lock-card">
+    <h2 id="lockTitle">🔐 Accès KeyMaster</h2>
+    <div class="sub">Entre le code pour ouvrir l’application.</div>
+    <div id="lockError" class="lock-error">Code incorrect</div>
+    <div class="lock-form">
+      <input id="lockCodeInput" class="lock-input" type="password" inputmode="numeric" autocomplete="off" placeholder="Code d’accès">
+      <button id="unlockBtn">Déverrouiller</button>
+    </div>
+    <div class="footer" style="margin-top:14px;color:#d1d1d1">Code actuel par défaut : <strong style="color:#fff">2580</strong></div>
+  </div>
+</div>
+
 <button id="sidebarToggle" class="sidebar-toggle" aria-label="Ouvrir le menu">☰</button>
 <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
 <aside id="sidebar" class="sidebar" aria-hidden="true">
@@ -137,7 +259,7 @@
 <button id="homeFloatBtn" class="floating-home" aria-label="Retour en haut">↑</button>
 <div id="topPage" class="top-anchor"></div>
 
-<div class="app">
+<div class="app locked" id="appRoot">
   <section class="hero">
     <div class="hero-grid">
       <img src="logo-keymaster.jpg" alt="Logo KeyMaster Auto">
@@ -479,7 +601,7 @@ function stockStatus(stock){ const qty = Number(stock) || 0; if (qty <= 0) retur
 function sanitizeRecords(list){
   return (Array.isArray(list) ? list : []).map(r => {
     const stock = Number.isFinite(Number(r.stock)) ? Math.max(0, Number(r.stock)) : defaultStock(r.bladeType);
-    return {...r, stock, shellType: r.shellType || guessShellType(r), vvdiMini: r.vvdiMini || guessVvdiMini(r).label, vvdiMiniNote: r.vvdiMiniNote || guessVvdiMini(r).note, xt57b: r.xt57b || guessXt57b(r).label};
+    return {...r, stock, shellType: r.shellType || guessShellType(r), vvdiMini: r.vvdiMini || guessVvdiMini(r).label, vvdiMiniNote: r.vvdiMiniNote || guessVvdiMini(r).note};
   });
 }
 
@@ -505,20 +627,6 @@ function guessVvdiMini(record){
     return {label:'Partiel', className:'vvdi-limited', note:'Coque et préparation possibles, démarrage souvent via OBD ou outil complémentaire'};
   }
   return {label:'À vérifier', className:'vvdi-limited', note:'Compatibilité non garantie selon année / puce'};
-}
-
-function guessXt57b(record){
-  const t = normalize(record.transponder || '');
-  if (!t) return {label:'🔴 Non compatible XT57B', className:'xt57b-no'};
-  const compatibleTokens = [
-    'id11','id12','id13','id33','id34','id35','id36','id37','id38','id39','id40','id41','id42','id43','id44',
-    'id46','id47','id48','id49','id4a','id4c','id4d','id4e','id64','id5c','id8a','id8c','id8e','mqb48',
-    'pcf7935','pcf7936','pcf7941','pcf7945','pcf7946','pcf7947','dst40','dst80','g chip','g-chip','texas 80','80bit'
-  ];
-  const incompatibleTokens = ['aes','hitag aes','smart','fem','cas4','bga','nec','ir'];
-  if (compatibleTokens.some(token => t.includes(token))) return {label:'🟢 Compatible XT57B', className:'xt57b-ok'};
-  if (incompatibleTokens.some(token => t.includes(token))) return {label:'🔴 Non compatible XT57B', className:'xt57b-no'};
-  return {label:'🔴 Non compatible XT57B', className:'xt57b-no'};
 }
 
 function saveRecentSearch(query){
@@ -554,15 +662,8 @@ function refreshFamilyFilter(){
   if ([...select.options].some(o => o.value === current)) select.value = current;
 }
 
-function normalizeXt57bValue(value, record){
-  const raw = normalize(value || '');
-  if (raw.includes('compatible xt57b') && !raw.includes('non compatible')) return {label:'🟢 Compatible XT57B', className:'xt57b-ok'};
-  if (raw.includes('non compatible xt57b')) return {label:'🔴 Non compatible XT57B', className:'xt57b-no'};
-  return guessXt57b(record || {});
-}
-
 function searchableText(r){
-  return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models,r.shellType,r.vvdiMini,r.vvdiMiniNote,normalizeXt57bValue(r.xt57b, r).label].join(' | '));
+  return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models,r.shellType,r.vvdiMini,r.vvdiMiniNote].join(' | '));
 }
 
 function codeFields(r){ return [r.id,r.silca,r.jma,r.keyline,r.errebi,r.lishi,r.xhorse].map(normalize).filter(Boolean); }
@@ -599,6 +700,10 @@ function runSearch(source = records){
   renderResults(filtered);
   document.getElementById('searchSummary').textContent = `${filtered.length} résultat(s)`;
   refreshStats(filtered.length);
+  const resultsSection = document.getElementById('resultsSection');
+  if (resultsSection) {
+    resultsSection.scrollIntoView({behavior:'smooth', block:'start'});
+  }
 }
 
 function renderResults(list){
@@ -608,7 +713,6 @@ function renderResults(list){
     const id = escapeHtml(r.id || '');
     const stock = Number(r.stock) || 0;
     const status = stockStatus(stock);
-    const xt57b = normalizeXt57bValue(r.xt57b, r);
     return `
       <div class="result">
         <div class="result-top">
@@ -633,7 +737,6 @@ function renderResults(list){
               <div class="meta"><strong>Années</strong>${escapeHtml(r.years || '-')}</div>
             </div>
             <div class="sub"><strong>Note atelier :</strong> ${escapeHtml(r.note || r.notes || '-')}</div>
-            <div class="sub" style="margin-top:8px"><strong>XT57B :</strong> <span class="${xt57b.className}">${escapeHtml(xt57b.label)}</span></div>
             <div class="sub" style="margin-top:8px"><strong>État stock :</strong> <span class="${status.className}">${status.label}</span> · <strong>Code fiche :</strong> ${id}</div>
             <div class="btns">
               <button class="secondary" data-action="copy" data-id="${id}">Copier réf.</button>
@@ -925,5 +1028,64 @@ document.getElementById('copyQuoteBtn')?.addEventListener('click', copyQuote);
 document.getElementById('clearQuoteBtn')?.addEventListener('click', clearQuote);
 
 </script>
+
+<script>
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('button, .button, .recent-tag, .mini-btn');
+  if(!btn) return;
+  btn.classList.remove('pressed');
+  void btn.offsetWidth;
+  btn.classList.add('pressed');
+  setTimeout(() => btn.classList.remove('pressed'), 180);
+});
+</script>
+
+
+<script>
+(() => {
+  const ACCESS_CODE = '2580';
+  const lockScreen = document.getElementById('lockScreen');
+  const appRoot = document.getElementById('appRoot');
+  const lockInput = document.getElementById('lockCodeInput');
+  const unlockBtn = document.getElementById('unlockBtn');
+  const lockError = document.getElementById('lockError');
+  const STORAGE_KEY = 'keymaster_access_unlocked';
+
+  function unlockApp(){
+    document.body.classList.remove('locked');
+    appRoot?.classList.remove('locked');
+    lockScreen?.remove();
+    try{ localStorage.setItem(STORAGE_KEY, '1'); }catch(e){}
+  }
+
+  function checkCode(){
+    const code = (lockInput?.value || '').trim();
+    if(code === ACCESS_CODE){
+      lockError?.classList.remove('show');
+      unlockApp();
+    }else{
+      lockError?.classList.add('show');
+      if(lockInput){
+        lockInput.value = '';
+        lockInput.focus();
+      }
+    }
+  }
+
+  try{
+    if(localStorage.getItem(STORAGE_KEY) === '1'){
+      unlockApp();
+      return;
+    }
+  }catch(e){}
+
+  unlockBtn?.addEventListener('click', checkCode);
+  lockInput?.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') checkCode();
+  });
+  setTimeout(() => lockInput?.focus(), 60);
+})();
+</script>
+
 </body>
 </html>
