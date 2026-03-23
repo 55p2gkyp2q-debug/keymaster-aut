@@ -159,11 +159,11 @@ body{
   color:#fff !important;
 }
 
-/* 🔴 Dégradé rouge uniquement quand les fiches sont affichées */
+/* 🔴 Fiches résultats : fond blanc avec léger fondu rouge + texte noir */
 .result{
-  background:linear-gradient(135deg,#3a0508 0%,#7f1014 45%,#c71218 100%) !important;
-  border-color:rgba(255,255,255,.08) !important;
-  color:#fff !important;
+  background:linear-gradient(180deg,#ffffff 0%,#ffffff 72%,#ffe8ea 100%) !important;
+  border:1px solid #ffd5d8 !important;
+  color:#000 !important;
   animation:resultReveal .38s ease both;
 }
 .result .ref,
@@ -176,28 +176,54 @@ body{
 .result .meta strong,
 .result .btns,
 .result span,
-.result div{
-  color:#fff !important;
+.result div,
+.result strong{
+  color:#000 !important;
 }
 .result .meta{
-  background:rgba(255,255,255,.08) !important;
-  border-color:rgba(255,255,255,.12) !important;
+  background:#fff !important;
+  border-color:#ffd5d8 !important;
 }
-.result .meta strong{color:#ffd6d8 !important;}
+.result .meta strong{color:var(--muted) !important;}
 .result .badge{
-  background:rgba(255,255,255,.12) !important;
-  border-color:rgba(255,255,255,.18) !important;
-  color:#fff !important;
+  background:#fff !important;
+  border-color:#ffd5d8 !important;
+  color:#000 !important;
 }
-.result .badge.green{color:#7dffbb !important;}
-.result .badge.red{color:#ffb0b5 !important;}
-.result .badge.dark{color:#fff !important;}
-.result .badge.stock{color:#ffe29c !important;}
+.result .badge.green{background:#eefcf6 !important;border-color:#ccefdc !important;color:#08784b !important;}
+.result .badge.red{background:#fff0f1 !important;border-color:#ffd5d8 !important;color:#b70f16 !important;}
+.result .badge.dark{background:#16171b !important;border-color:#16171b !important;color:var(--red2) !important;}
+.result .badge.stock{background:#fff7e8 !important;border-color:#ffe1a3 !important;color:#9a5a00 !important;}
 .result .secondary{
-  background:rgba(255,255,255,.12) !important;
-  border-color:rgba(255,255,255,.18) !important;
-  color:#fff !important;
+  background:#fff !important;
+  border-color:#ffd5d8 !important;
+  color:var(--red) !important;
 }
+
+/* 🗂️ Base locale lisible : cartes blanches, texte noir */
+#datasetSection .item,
+#datasetList .item{
+  background:#fff !important;
+  color:#000 !important;
+  border-color:var(--line) !important;
+}
+#datasetSection .item strong,
+#datasetList .item strong,
+#datasetSection .item .sub,
+#datasetList .item .sub,
+#datasetSection .item div,
+#datasetList .item div{
+  color:#000 !important;
+}
+#datasetSection .item .sub,
+#datasetList .item .sub{color:#69707d !important;}
+#datasetSection .secondary,
+#datasetList .secondary{
+  background:#fff !important;
+  color:var(--red) !important;
+  border:1px solid var(--line) !important;
+}
+#datasetSection .danger{color:#fff !important;}
 @keyframes resultReveal{
   from{opacity:0;transform:translateY(14px) scale(.985)}
   to{opacity:1;transform:translateY(0) scale(1)}
