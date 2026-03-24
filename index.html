@@ -269,6 +269,55 @@ body{
   border:1px solid #ff3d00;
 }
 
+
+/* Badges compatibilité avancée */
+.badge-id48-compatible{
+  background:rgba(0,200,83,0.12) !important;
+  color:#00c853 !important;
+  border:1px solid #00c853 !important;
+}
+.badge-id48-incompatible{
+  background:rgba(255,61,0,0.12) !important;
+  color:#ff3d00 !important;
+  border:1px solid #ff3d00 !important;
+}
+.badge-xt27b-compatible{
+  background:rgba(0,200,83,0.12) !important;
+  color:#00c853 !important;
+  border:1px solid #00c853 !important;
+}
+.badge-xt27b-incompatible{
+  background:rgba(255,61,0,0.12) !important;
+  color:#ff3d00 !important;
+  border:1px solid #ff3d00 !important;
+}
+.badge-xd{
+  background:rgba(255,152,0,0.14) !important;
+  color:#ff9800 !important;
+  border:1px solid #ff9800 !important;
+}
+.badge-clone{
+  background:rgba(0,200,83,0.12) !important;
+  color:#00c853 !important;
+  border:1px solid #00c853 !important;
+}
+.badge-obd{
+  background:rgba(255,61,0,0.12) !important;
+  color:#ff3d00 !important;
+  border:1px solid #ff3d00 !important;
+}
+.badge-smartkey{
+  background:rgba(156,39,176,0.12) !important;
+  color:#9c27b0 !important;
+  border:1px solid #9c27b0 !important;
+}
+.extra-badges{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
 </style>
   <link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 </head>
@@ -536,6 +585,67 @@ function getXT57BStatus(transponder){
   return isCompatible
     ? '<div class="xt57b-badge compatible">🟢 Compatible XT57B</div>'
     : '<div class="xt57b-badge incompatible">🔴 Non compatible XT57B</div>';
+}
+
+
+function getID48Status(transponder){
+  const value = (transponder || '').toUpperCase();
+  const isCompatible = value.includes('ID48');
+  return isCompatible
+    ? '<span class="badge badge-id48-compatible">🟢 Compatible ID48</span>'
+    : '<span class="badge badge-id48-incompatible">🔴 Non compatible ID48</span>';
+}
+
+function getXT27BStatus(transponder){
+  const compatibles = ['ID11','ID12','ID13','ID33','ID40','ID41','ID42','ID43','ID44','ID46','ID48','4C','4D','PCF7941','PCF7946','PCF7947'];
+  const value = (transponder || '').toUpperCase();
+  const isCompatible = compatibles.some(c => value.includes(c));
+  return isCompatible
+    ? '<span class="badge badge-xt27b-compatible">🟢 Compatible XT27B</span>'
+    : '<span class="badge badge-xt27b-incompatible">🔴 Non compatible XT27B</span>';
+}
+
+function getSimpleXDBadge(record){
+  const blade = (record?.bladeType || '').toLowerCase();
+  return blade === 'standard'
+    ? '<span class="badge badge-xd">🟠 Compatible Clé simple XD</span>'
+    : '';
+}
+
+function getCloneBadge(record){
+  const value = (record?.transponder || '').toUpperCase();
+  const clonables = ['ID46','ID48','4C','4D','PCF7941','PCF7945','PCF7946','PCF7947','ID63','80BIT'];
+  const clonePossible = clonables.some(c => value.includes(c)) && (record?.bladeType || '').toLowerCase() !== 'smart';
+  return clonePossible
+    ? '<span class="badge badge-clone">🟢 Clone VVDI possible</span>'
+    : '';
+}
+
+function getOBDBadge(record){
+  const value = (record?.transponder || '').toUpperCase();
+  const obdRequired = ['AES','8A',' H','HITAG AES','FEM','CAS4','BDC','BGA','NEC','IR','MQB','SMART','CARTE'].some(c => value.includes(c)) || (record?.bladeType || '').toLowerCase() === 'smart';
+  return obdRequired
+    ? '<span class="badge badge-obd">🔴 Programmation OBD obligatoire</span>'
+    : '';
+}
+
+function getSmartKeyBadge(record){
+  const blade = (record?.bladeType || '').toLowerCase();
+  const type = (record?.type || '').toLowerCase();
+  return blade === 'smart' || type.includes('smart') || type.includes('carte')
+    ? '<span class="badge badge-smartkey">🟣 Smart Key</span>'
+    : '';
+}
+
+function getAdvancedBadges(record){
+  return [
+    getID48Status(record?.transponder),
+    getXT27BStatus(record?.transponder),
+    getSimpleXDBadge(record),
+    getCloneBadge(record),
+    getOBDBadge(record),
+    getSmartKeyBadge(record)
+  ].filter(Boolean).join('');
 }
 
 
@@ -820,6 +930,7 @@ function renderResults(list){
             <div class="sub"><strong>Note atelier :</strong> ${escapeHtml(r.note || r.notes || '-')}</div>
             <div class="sub" style="margin-top:8px"><strong>État stock :</strong> <span class="${status.className}">${status.label}</span> · <strong>Code fiche :</strong> ${id}</div>
             <div style="margin-top:10px">${getXT57BStatus(r.transponder)}</div>
+            <div class="extra-badges">${getAdvancedBadges(r)}</div>
 
             <div class="btns">
               <button class="secondary" data-action="copy" data-id="${id}">Copier réf.</button>
