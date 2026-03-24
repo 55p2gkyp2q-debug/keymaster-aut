@@ -269,55 +269,6 @@ body{
   border:1px solid #ff3d00;
 }
 
-
-/* Badges compatibilité avancée */
-.badge-id48-compatible{
-  background:rgba(0,200,83,0.12) !important;
-  color:#00c853 !important;
-  border:1px solid #00c853 !important;
-}
-.badge-id48-incompatible{
-  background:rgba(255,61,0,0.12) !important;
-  color:#ff3d00 !important;
-  border:1px solid #ff3d00 !important;
-}
-.badge-xt27b-compatible{
-  background:rgba(0,200,83,0.12) !important;
-  color:#00c853 !important;
-  border:1px solid #00c853 !important;
-}
-.badge-xt27b-incompatible{
-  background:rgba(255,61,0,0.12) !important;
-  color:#ff3d00 !important;
-  border:1px solid #ff3d00 !important;
-}
-.badge-xd{
-  background:rgba(255,152,0,0.14) !important;
-  color:#ff9800 !important;
-  border:1px solid #ff9800 !important;
-}
-.badge-clone{
-  background:rgba(0,200,83,0.12) !important;
-  color:#00c853 !important;
-  border:1px solid #00c853 !important;
-}
-.badge-obd{
-  background:rgba(255,61,0,0.12) !important;
-  color:#ff3d00 !important;
-  border:1px solid #ff3d00 !important;
-}
-.badge-smartkey{
-  background:rgba(156,39,176,0.12) !important;
-  color:#9c27b0 !important;
-  border:1px solid #9c27b0 !important;
-}
-.extra-badges{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-
 </style>
   <link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 </head>
@@ -347,6 +298,8 @@ body{
     <button class="sidebar-link" data-scroll="#topPage">🏠 Accueil</button>
     <button class="sidebar-link" data-scroll="#searchSection">🔎 Recherche</button>
     <button class="sidebar-link" data-scroll="#resultsSection">📋 Résultats</button>
+    <button class="sidebar-link" data-scroll="#cloneSection">🔑 Clonage clé simple</button>
+    <button class="sidebar-link" data-scroll="#remoteSection">📡 Clé télécommande</button>
     <button class="sidebar-link" data-scroll="#interventionSection">🚨 Intervention</button>
     <button class="sidebar-link" data-scroll="#stockSection">📦 Stock</button>
     <button class="sidebar-link" id="openQuoteModalBtn">🧾 Devis</button>
@@ -418,6 +371,47 @@ body{
     <div class="card">
       <h2>📋 Résultats</h2>
       <div id="results" class="results"></div>
+    </div>
+  
+</section>
+
+  <section id="cloneSection" class="grid">
+    <div class="card">
+      <h2>🔑 Étapes de clonage de clé simple</h2>
+      <div class="sub">Procédure rapide avec le VVDI Mini Key Tool pour les clés simples transpondeur.</div>
+      <div class="meta-grid" style="margin-top:12px">
+        <div class="meta"><strong>1️⃣ Lire la clé d’origine</strong>Place la clé d’origine sur le VVDI Mini Key Tool puis lance la lecture de la puce.</div>
+        <div class="meta"><strong>2️⃣ Identifier le transpondeur</strong>Vérifie le type détecté : ID46, ID48, 4C, 4D, PCF7946, etc.</div>
+        <div class="meta"><strong>3️⃣ Choisir la bonne puce</strong>Prépare une XT57B, XT27B ou une puce adaptée selon la compatibilité affichée dans la fiche.</div>
+        <div class="meta"><strong>4️⃣ Cloner / écrire</strong>Lance le clonage ou l’écriture sur la nouvelle puce depuis le VVDI Mini Key Tool.</div>
+      </div>
+      <div class="meta-grid">
+        <div class="meta"><strong>5️⃣ Tailler la lame</strong>Coupe la clé simple sur la machine adaptée puis contrôle le profil avant test.</div>
+        <div class="meta"><strong>6️⃣ Tester sur véhicule</strong>Teste l’ouverture mécanique puis le démarrage. Si échec, contrôle le type de puce ou passe par une autre solution.</div>
+        <div class="meta"><strong>⚠️ Cas particuliers</strong>ID48 sécurisé, AES, smart key ou cartes Renault : clonage souvent partiel ou impossible.</div>
+        <div class="meta"><strong>💡 Conseil terrain</strong>Si le badge “Programmation OBD obligatoire” apparaît, évite de perdre du temps en clonage simple.</div>
+      </div>
+      <div class="notice">Matériel conseillé : VVDI Mini Key Tool, puces XT57B / XT27B, machine de taille, clé test et batterie téléphone chargée pour l’app.</div>
+    </div>
+  </section>
+
+  <section id="remoteSection" class="grid">
+    <div class="card">
+      <h2>📡 Reproduction de clé télécommande</h2>
+      <div class="sub">Procédure terrain avec outils Xhorse OBD + VVDI Mini Key Tool pour les clés télécommandes.</div>
+      <div class="meta-grid" style="margin-top:12px">
+        <div class="meta"><strong>1️⃣ Identifier le véhicule</strong>Repère marque, modèle, année, type de lame et transpondeur avec la recherche principale.</div>
+        <div class="meta"><strong>2️⃣ Vérifier les badges</strong>Regarde si la fiche indique clone possible, smart key, XT57B / XT27B ou OBD obligatoire.</div>
+        <div class="meta"><strong>3️⃣ Préparer la télécommande</strong>Choisis la coque / remote Xhorse adaptée et prépare la puce compatible.</div>
+        <div class="meta"><strong>4️⃣ Lire ou générer</strong>Avec le VVDI Mini Key Tool, lis la clé existante ou prépare la nouvelle télécommande.</div>
+      </div>
+      <div class="meta-grid">
+        <div class="meta"><strong>5️⃣ Programmer avec OBD Xhorse</strong>Utilise l’outil OBD Xhorse adapté pour ajouter la clé au véhicule quand le clonage ne suffit pas.</div>
+        <div class="meta"><strong>6️⃣ Tailler la lame</strong>Coupe la lame selon le profil puis remonte proprement dans la coque.</div>
+        <div class="meta"><strong>7️⃣ Tester toutes les fonctions</strong>Ouverture, fermeture, démarrage, coffre, proximité/keyless selon le véhicule.</div>
+        <div class="meta"><strong>8️⃣ Finaliser</strong>Note dans l’intervention la référence utilisée, la quantité sortie du stock et le résultat du test.</div>
+      </div>
+      <div class="notice">Exemples d’outils : VVDI Mini Key Tool pour lecture / préparation, Xhorse OBD pour l’ajout de clé, coques Xhorse, puces XT57B / XT27B selon compatibilité.</div>
     </div>
   </section>
 
@@ -585,67 +579,6 @@ function getXT57BStatus(transponder){
   return isCompatible
     ? '<div class="xt57b-badge compatible">🟢 Compatible XT57B</div>'
     : '<div class="xt57b-badge incompatible">🔴 Non compatible XT57B</div>';
-}
-
-
-function getID48Status(transponder){
-  const value = (transponder || '').toUpperCase();
-  const isCompatible = value.includes('ID48');
-  return isCompatible
-    ? '<span class="badge badge-id48-compatible">🟢 Compatible ID48</span>'
-    : '<span class="badge badge-id48-incompatible">🔴 Non compatible ID48</span>';
-}
-
-function getXT27BStatus(transponder){
-  const compatibles = ['ID11','ID12','ID13','ID33','ID40','ID41','ID42','ID43','ID44','ID46','ID48','4C','4D','PCF7941','PCF7946','PCF7947'];
-  const value = (transponder || '').toUpperCase();
-  const isCompatible = compatibles.some(c => value.includes(c));
-  return isCompatible
-    ? '<span class="badge badge-xt27b-compatible">🟢 Compatible XT27B</span>'
-    : '<span class="badge badge-xt27b-incompatible">🔴 Non compatible XT27B</span>';
-}
-
-function getSimpleXDBadge(record){
-  const blade = (record?.bladeType || '').toLowerCase();
-  return blade === 'standard'
-    ? '<span class="badge badge-xd">🟠 Compatible Clé simple XD</span>'
-    : '';
-}
-
-function getCloneBadge(record){
-  const value = (record?.transponder || '').toUpperCase();
-  const clonables = ['ID46','ID48','4C','4D','PCF7941','PCF7945','PCF7946','PCF7947','ID63','80BIT'];
-  const clonePossible = clonables.some(c => value.includes(c)) && (record?.bladeType || '').toLowerCase() !== 'smart';
-  return clonePossible
-    ? '<span class="badge badge-clone">🟢 Clone VVDI possible</span>'
-    : '';
-}
-
-function getOBDBadge(record){
-  const value = (record?.transponder || '').toUpperCase();
-  const obdRequired = ['AES','8A',' H','HITAG AES','FEM','CAS4','BDC','BGA','NEC','IR','MQB','SMART','CARTE'].some(c => value.includes(c)) || (record?.bladeType || '').toLowerCase() === 'smart';
-  return obdRequired
-    ? '<span class="badge badge-obd">🔴 Programmation OBD obligatoire</span>'
-    : '';
-}
-
-function getSmartKeyBadge(record){
-  const blade = (record?.bladeType || '').toLowerCase();
-  const type = (record?.type || '').toLowerCase();
-  return blade === 'smart' || type.includes('smart') || type.includes('carte')
-    ? '<span class="badge badge-smartkey">🟣 Smart Key</span>'
-    : '';
-}
-
-function getAdvancedBadges(record){
-  return [
-    getID48Status(record?.transponder),
-    getXT27BStatus(record?.transponder),
-    getSimpleXDBadge(record),
-    getCloneBadge(record),
-    getOBDBadge(record),
-    getSmartKeyBadge(record)
-  ].filter(Boolean).join('');
 }
 
 
@@ -930,7 +863,6 @@ function renderResults(list){
             <div class="sub"><strong>Note atelier :</strong> ${escapeHtml(r.note || r.notes || '-')}</div>
             <div class="sub" style="margin-top:8px"><strong>État stock :</strong> <span class="${status.className}">${status.label}</span> · <strong>Code fiche :</strong> ${id}</div>
             <div style="margin-top:10px">${getXT57BStatus(r.transponder)}</div>
-            <div class="extra-badges">${getAdvancedBadges(r)}</div>
 
             <div class="btns">
               <button class="secondary" data-action="copy" data-id="${id}">Copier réf.</button>
