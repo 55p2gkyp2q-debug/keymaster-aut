@@ -269,6 +269,52 @@ body{
   border:1px solid #ff3d00;
 }
 
+
+/* Popups procédures */
+.procedure-modal .modal-card{
+  background:#ffffff !important;
+  color:#000 !important;
+}
+.procedure-modal h2,
+.procedure-modal h3,
+.procedure-modal .sub,
+.procedure-modal strong,
+.procedure-modal div,
+.procedure-modal p{
+  color:#000 !important;
+}
+.procedure-modal .sub{color:#444 !important}
+.procedure-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:12px;
+}
+.procedure-step{
+  padding:16px;
+  border:1px solid #ffd5d8;
+  border-radius:18px;
+  background:linear-gradient(180deg,#fff 0%,#fff5f6 100%);
+  color:#000 !important;
+}
+.procedure-step strong{
+  display:block;
+  margin-bottom:8px;
+  color:#8b1116 !important;
+}
+.procedure-note{
+  margin-top:14px;
+  padding:14px 16px;
+  border-radius:16px;
+  background:#fff3e0;
+  border:1px solid #ffd08a;
+  color:#8a5200 !important;
+  font-weight:700;
+}
+@media (max-width:720px){
+  .procedure-grid{grid-template-columns:1fr}
+}
+
 </style>
   <link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 </head>
@@ -298,8 +344,8 @@ body{
     <button class="sidebar-link" data-scroll="#topPage">🏠 Accueil</button>
     <button class="sidebar-link" data-scroll="#searchSection">🔎 Recherche</button>
     <button class="sidebar-link" data-scroll="#resultsSection">📋 Résultats</button>
-    <button class="sidebar-link" data-scroll="#cloneSection">🔑 Clonage clé simple</button>
-    <button class="sidebar-link" data-scroll="#remoteSection">📡 Clé télécommande</button>
+    <button class="sidebar-link" id="openCloneModalBtn">🔑 Clonage clé simple</button>
+    <button class="sidebar-link" id="openRemoteModalBtn">📡 Clé télécommande</button>
     <button class="sidebar-link" data-scroll="#interventionSection">🚨 Intervention</button>
     <button class="sidebar-link" data-scroll="#stockSection">📦 Stock</button>
     <button class="sidebar-link" id="openQuoteModalBtn">🧾 Devis</button>
@@ -375,46 +421,6 @@ body{
   
 </section>
 
-  <section id="cloneSection" class="grid">
-    <div class="card">
-      <h2>🔑 Étapes de clonage de clé simple</h2>
-      <div class="sub">Procédure rapide avec le VVDI Mini Key Tool pour les clés simples transpondeur.</div>
-      <div class="meta-grid" style="margin-top:12px">
-        <div class="meta"><strong>1️⃣ Lire la clé d’origine</strong>Place la clé d’origine sur le VVDI Mini Key Tool puis lance la lecture de la puce.</div>
-        <div class="meta"><strong>2️⃣ Identifier le transpondeur</strong>Vérifie le type détecté : ID46, ID48, 4C, 4D, PCF7946, etc.</div>
-        <div class="meta"><strong>3️⃣ Choisir la bonne puce</strong>Prépare une XT57B, XT27B ou une puce adaptée selon la compatibilité affichée dans la fiche.</div>
-        <div class="meta"><strong>4️⃣ Cloner / écrire</strong>Lance le clonage ou l’écriture sur la nouvelle puce depuis le VVDI Mini Key Tool.</div>
-      </div>
-      <div class="meta-grid">
-        <div class="meta"><strong>5️⃣ Tailler la lame</strong>Coupe la clé simple sur la machine adaptée puis contrôle le profil avant test.</div>
-        <div class="meta"><strong>6️⃣ Tester sur véhicule</strong>Teste l’ouverture mécanique puis le démarrage. Si échec, contrôle le type de puce ou passe par une autre solution.</div>
-        <div class="meta"><strong>⚠️ Cas particuliers</strong>ID48 sécurisé, AES, smart key ou cartes Renault : clonage souvent partiel ou impossible.</div>
-        <div class="meta"><strong>💡 Conseil terrain</strong>Si le badge “Programmation OBD obligatoire” apparaît, évite de perdre du temps en clonage simple.</div>
-      </div>
-      <div class="notice">Matériel conseillé : VVDI Mini Key Tool, puces XT57B / XT27B, machine de taille, clé test et batterie téléphone chargée pour l’app.</div>
-    </div>
-  </section>
-
-  <section id="remoteSection" class="grid">
-    <div class="card">
-      <h2>📡 Reproduction de clé télécommande</h2>
-      <div class="sub">Procédure terrain avec outils Xhorse OBD + VVDI Mini Key Tool pour les clés télécommandes.</div>
-      <div class="meta-grid" style="margin-top:12px">
-        <div class="meta"><strong>1️⃣ Identifier le véhicule</strong>Repère marque, modèle, année, type de lame et transpondeur avec la recherche principale.</div>
-        <div class="meta"><strong>2️⃣ Vérifier les badges</strong>Regarde si la fiche indique clone possible, smart key, XT57B / XT27B ou OBD obligatoire.</div>
-        <div class="meta"><strong>3️⃣ Préparer la télécommande</strong>Choisis la coque / remote Xhorse adaptée et prépare la puce compatible.</div>
-        <div class="meta"><strong>4️⃣ Lire ou générer</strong>Avec le VVDI Mini Key Tool, lis la clé existante ou prépare la nouvelle télécommande.</div>
-      </div>
-      <div class="meta-grid">
-        <div class="meta"><strong>5️⃣ Programmer avec OBD Xhorse</strong>Utilise l’outil OBD Xhorse adapté pour ajouter la clé au véhicule quand le clonage ne suffit pas.</div>
-        <div class="meta"><strong>6️⃣ Tailler la lame</strong>Coupe la lame selon le profil puis remonte proprement dans la coque.</div>
-        <div class="meta"><strong>7️⃣ Tester toutes les fonctions</strong>Ouverture, fermeture, démarrage, coffre, proximité/keyless selon le véhicule.</div>
-        <div class="meta"><strong>8️⃣ Finaliser</strong>Note dans l’intervention la référence utilisée, la quantité sortie du stock et le résultat du test.</div>
-      </div>
-      <div class="notice">Exemples d’outils : VVDI Mini Key Tool pour lecture / préparation, Xhorse OBD pour l’ajout de clé, coques Xhorse, puces XT57B / XT27B selon compatibilité.</div>
-    </div>
-  </section>
-
   <section id="interventionSection" class="grid two">
     <div class="card">
       <h2>🚨 Mode terrain · Intervention</h2>
@@ -479,6 +485,50 @@ body{
       <div id="datasetList" class="list"></div>
     </div>
   </section>
+</div>
+
+
+
+<div id="cloneModal" class="modal-backdrop procedure-modal" aria-hidden="true">
+  <div class="modal-card">
+    <div class="toolbar">
+      <div>
+        <h2>🔑 Étapes de clonage de clé simple</h2>
+        <div class="sub">Procédure rapide avec le VVDI Mini Key Tool pour les clés simples transpondeur.</div>
+      </div>
+      <button class="secondary" id="closeCloneModalBtn">Fermer</button>
+    </div>
+    <div class="procedure-grid">
+      <div class="procedure-step"><strong>1️⃣ Lire la clé d’origine</strong>Place la clé d’origine sur le VVDI Mini Key Tool puis lance la lecture de la puce.</div>
+      <div class="procedure-step"><strong>2️⃣ Identifier le transpondeur</strong>Vérifie le type de puce détecté : ID46, ID48, 4C, 4D, PCF7946, etc.</div>
+      <div class="procedure-step"><strong>3️⃣ Vérifier la compatibilité</strong>Regarde les badges de la fiche : clone VVDI possible, ID48, XT57B, XT27B ou OBD obligatoire.</div>
+      <div class="procedure-step"><strong>4️⃣ Préparer la nouvelle puce</strong>Utilise la puce adaptée dans le VVDI Mini Key Tool puis choisis la fonction clone ou générer.</div>
+      <div class="procedure-step"><strong>5️⃣ Écrire la puce</strong>Lance l’écriture sur la nouvelle puce et attends la confirmation du VVDI.</div>
+      <div class="procedure-step"><strong>6️⃣ Tailler et tester</strong>Taille la lame, monte la coque puis teste ouverture et démarrage du véhicule.</div>
+    </div>
+    <div class="procedure-note">⚠️ Si le véhicule est marqué « Programmation OBD obligatoire », le clonage seul ne suffira pas.</div>
+  </div>
+</div>
+
+<div id="remoteModal" class="modal-backdrop procedure-modal" aria-hidden="true">
+  <div class="modal-card">
+    <div class="toolbar">
+      <div>
+        <h2>📡 Reproduction de clé télécommande</h2>
+        <div class="sub">Procédure terrain avec outils Xhorse OBD + VVDI Mini Key Tool pour les clés télécommandes.</div>
+      </div>
+      <button class="secondary" id="closeRemoteModalBtn">Fermer</button>
+    </div>
+    <div class="procedure-grid">
+      <div class="procedure-step"><strong>1️⃣ Identifier le véhicule</strong>Repère marque, modèle, année, type de lame et transpondeur avec la recherche principale.</div>
+      <div class="procedure-step"><strong>2️⃣ Vérifier les badges</strong>Contrôle si la fiche indique smart key, clone VVDI possible ou programmation OBD obligatoire.</div>
+      <div class="procedure-step"><strong>3️⃣ Préparer la télécommande</strong>Choisis une coque / télécommande Xhorse compatible puis prépare la lame et la puce.</div>
+      <div class="procedure-step"><strong>4️⃣ Générer la télécommande</strong>Avec le VVDI Mini Key Tool, génère la télécommande Xhorse si le modèle le permet.</div>
+      <div class="procedure-step"><strong>5️⃣ Programmer avec l’outil OBD</strong>Utilise l’outil Xhorse OBD adapté pour ajouter la clé au véhicule quand nécessaire.</div>
+      <div class="procedure-step"><strong>6️⃣ Tester toutes les fonctions</strong>Vérifie ouverture, fermeture, démarrage, verrouillage centralisé et boutons de télécommande.</div>
+    </div>
+    <div class="procedure-note">⚠️ Les véhicules récents AES, MQB, FEM, BGA ou smart key demandent souvent une vraie programmation OBD.</div>
+  </div>
 </div>
 
 
@@ -1211,6 +1261,46 @@ document.addEventListener('click', (e) => {
   });
   setTimeout(() => lockInput?.focus(), 60);
 })();
+</script>
+
+
+<script>
+const cloneModal = document.getElementById('cloneModal');
+const remoteModal = document.getElementById('remoteModal');
+const openCloneModalBtn = document.getElementById('openCloneModalBtn');
+const openRemoteModalBtn = document.getElementById('openRemoteModalBtn');
+const closeCloneModalBtn = document.getElementById('closeCloneModalBtn');
+const closeRemoteModalBtn = document.getElementById('closeRemoteModalBtn');
+
+function openCloneModal(){
+  cloneModal?.classList.add('show');
+  cloneModal?.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  closeSidebar();
+}
+function closeCloneModal(){
+  cloneModal?.classList.remove('show');
+  cloneModal?.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+function openRemoteModal(){
+  remoteModal?.classList.add('show');
+  remoteModal?.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  closeSidebar();
+}
+function closeRemoteModal(){
+  remoteModal?.classList.remove('show');
+  remoteModal?.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+
+openCloneModalBtn?.addEventListener('click', openCloneModal);
+openRemoteModalBtn?.addEventListener('click', openRemoteModal);
+closeCloneModalBtn?.addEventListener('click', closeCloneModal);
+closeRemoteModalBtn?.addEventListener('click', closeRemoteModal);
+cloneModal?.addEventListener('click', (e) => { if(e.target === cloneModal) closeCloneModal(); });
+remoteModal?.addEventListener('click', (e) => { if(e.target === remoteModal) closeRemoteModal(); });
 </script>
 
 </body>
