@@ -315,6 +315,18 @@ body{
   .procedure-grid{grid-template-columns:1fr}
 }
 
+
+
+/* Badges compatibilité avancée */
+.badge-id48-ok{background:rgba(0,200,83,0.12) !important;color:#00c853 !important;border:1px solid #00c853 !important;}
+.badge-id48-no{background:rgba(255,61,0,0.12) !important;color:#ff3d00 !important;border:1px solid #ff3d00 !important;}
+.badge-xt27b-ok{background:rgba(0,200,83,0.12) !important;color:#00c853 !important;border:1px solid #00c853 !important;}
+.badge-xt27b-no{background:rgba(255,61,0,0.12) !important;color:#ff3d00 !important;border:1px solid #ff3d00 !important;}
+.badge-xd{background:rgba(255,152,0,0.14) !important;color:#ff9800 !important;border:1px solid #ff9800 !important;}
+.badge-clone{background:rgba(0,200,83,0.12) !important;color:#00c853 !important;border:1px solid #00c853 !important;}
+.badge-obd{background:rgba(255,61,0,0.12) !important;color:#ff3d00 !important;border:1px solid #ff3d00 !important;}
+.badge-smartkey{background:rgba(156,39,176,0.12) !important;color:#9c27b0 !important;border:1px solid #9c27b0 !important;}
+
 </style>
   <link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 </head>
@@ -632,6 +644,66 @@ function getXT57BStatus(transponder){
 }
 
 
+
+function isID48Compatible(transponder){
+  const value = (transponder || '').toUpperCase();
+  return value.includes('ID48');
+}
+
+function isXT27BCompatible(transponder){
+  const value = (transponder || '').toUpperCase();
+  const compatibles = ['ID11','ID12','ID13','ID46','ID48','4C','4D','PCF7941','PCF7946','PCF7947','G CHIP'];
+  return compatibles.some(c => value.includes(c));
+}
+
+function isClonePossible(record){
+  const trans = (record?.transponder || '').toUpperCase();
+  const blade = (record?.bladeType || '').toLowerCase();
+  const type = (record?.type || '').toLowerCase();
+  const hard = ['AES','8A','FEM','CAS4','BDC','BGA','IR','NEC','SMART','CARTE'];
+  if (blade === 'smart' || type.includes('smart') || type.includes('carte')) return false;
+  return !hard.some(c => trans.includes(c));
+}
+
+function isOBDRequired(record){
+  const trans = (record?.transponder || '').toUpperCase();
+  const blade = (record?.bladeType || '').toLowerCase();
+  const type = (record?.type || '').toLowerCase();
+  const required = ['AES','8A','FEM','CAS4','BDC','BGA','IR','NEC','SMART','CARTE'];
+  return blade === 'smart' || type.includes('smart') || type.includes('carte') || required.some(c => trans.includes(c));
+}
+
+function getCompatibilityBadges(record){
+  const transponder = record?.transponder || '';
+  const bladeType = (record?.bladeType || '').toLowerCase();
+  const type = (record?.type || '').toLowerCase();
+  let badges = '';
+
+  badges += isID48Compatible(transponder)
+    ? '<span class="badge badge-id48-ok">🟢 Compatible ID48</span>'
+    : '<span class="badge badge-id48-no">🔴 Non compatible ID48</span>';
+
+  badges += isXT27BCompatible(transponder)
+    ? '<span class="badge badge-xt27b-ok">🟢 Compatible XT27B</span>'
+    : '<span class="badge badge-xt27b-no">🔴 Non compatible XT27B</span>';
+
+  if (bladeType === 'standard') {
+    badges += '<span class="badge badge-xd">🟠 Compatible Clé simple XD</span>';
+  }
+  if (isClonePossible(record)) {
+    badges += '<span class="badge badge-clone">🟢 Clone VVDI possible</span>';
+  }
+  if (isOBDRequired(record)) {
+    badges += '<span class="badge badge-obd">🔴 Programmation OBD obligatoire</span>';
+  }
+  if (bladeType === 'smart' || type.includes('smart') || type.includes('carte')) {
+    badges += '<span class="badge badge-smartkey">🟣 Smart Key</span>';
+  }
+
+  return badges;
+}
+
+
 const autoKeySeed = [
   { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Lame plip / transpondeur", note:"Très courant VAG, attention ID48", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["Golf V","2003-2009"],["Golf VI","2008-2012"],["Passat B6","2005-2010"],["Polo 9N","2001-2009"],["Touran","2003-2010"],["A3 8P","2003-2012"],["A4 B7","2004-2008"],["Leon II","2005-2012"],["Octavia II","2004-2013"],["Fabia II","2007-2014"]]},
   { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"VAG récent AES", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", variants:[["Golf VII","2013-2020"],["Golf VIII","2020+"],["A3 8V","2013-2020"],["A4 B9","2015+"],["Leon III","2012-2020"],["Octavia III","2013-2020"],["Kodiaq","2016+"],["Tiguan II","2016+"]]},
@@ -900,6 +972,7 @@ function renderResults(list){
                 <span class="badge dark">${escapeHtml(r.lishi || '-')}</span>
                 <span class="badge green">${escapeHtml(r.xhorse || '-')}</span>
                 <span class="badge stock">Stock : ${stock}</span>
+                ${getCompatibilityBadges(r)}
               </div>
             </div>
 
