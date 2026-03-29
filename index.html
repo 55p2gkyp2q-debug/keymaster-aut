@@ -36,6 +36,13 @@
     .sidebar-nav{display:grid;gap:10px;margin-top:6px}
     .sidebar-link{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:16px;background:#1b1d22;border:1px solid rgba(255,255,255,.08);font-weight:800;cursor:pointer;text-align:left;color:#fff}
     .sidebar-link:hover{background:#252830}
+    .sidebar-group{margin-top:8px;border-top:1px solid rgba(255,255,255,.08);padding-top:10px}
+    .sidebar-details{border:1px solid rgba(255,255,255,.08);border-radius:16px;background:#1b1d22;overflow:hidden}
+    .sidebar-details summary{list-style:none;cursor:pointer;padding:13px 14px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:space-between}
+    .sidebar-details summary::-webkit-details-marker{display:none}
+    .sidebar-subnav{display:grid;gap:8px;padding:0 10px 10px}
+    .sidebar-sublink{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:14px;background:#252830;border:1px solid rgba(255,255,255,.06);font-weight:700;cursor:pointer;text-align:left;color:#fff}
+    .sidebar-sublink:hover{background:#2d313a}
     .top-anchor{position:relative;top:-12px}
     .floating-home{position:fixed;right:16px;bottom:20px;z-index:1000;width:58px;height:58px;border-radius:20px;background:#121317;color:var(--red2);box-shadow:var(--shadow);display:none}
     .floating-home.show{display:inline-flex}
@@ -330,19 +337,9 @@ body{
 </style>
   <link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 </head>
-<body class="locked">
-<div id="lockScreen" class="lock-screen" role="dialog" aria-modal="true" aria-labelledby="lockTitle">
-  <div class="lock-card">
-    <h2 id="lockTitle">🔐 Accès KeyMaster</h2>
-    <div class="sub">Entre le code pour ouvrir l’application.</div>
-    <div id="lockError" class="lock-error">Code incorrect</div>
-    <div class="lock-form">
-      <input id="lockCodeInput" class="lock-input" type="password" inputmode="numeric" autocomplete="off" placeholder="Code d’accès">
-      <button id="unlockBtn">Déverrouiller</button>
-    </div>
-    <div class="footer" style="margin-top:14px;color:#d1d1d1">Code actuel par défaut : <strong style="color:#fff">2580</strong></div>
-  </div>
-</div>
+<body>
+
+
 
 <button id="sidebarToggle" class="sidebar-toggle" aria-label="Ouvrir le menu">☰</button>
 <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
@@ -359,16 +356,27 @@ body{
     <button class="sidebar-link" id="openCloneModalBtn">🔑 Clonage clé simple</button>
     <button class="sidebar-link" id="openRemoteModalBtn">📡 Clé télécommande</button>
     <button class="sidebar-link" data-scroll="#interventionSection">🚨 Intervention</button>
-    <button class="sidebar-link" data-scroll="#stockSection">📦 Stock</button>
     <button class="sidebar-link" id="openQuoteModalBtn">🧾 Devis</button>
     <button class="sidebar-link" id="openAddModalBtn">➕ Ajouter une fiche</button>
-    <button class="sidebar-link" data-scroll="#datasetSection">🗂️ Base locale</button>
+
+    <div class="sidebar-group">
+      <details class="sidebar-details">
+        <summary>⚙️ Paramètres <span>▾</span></summary>
+        <div class="sidebar-subnav">
+          <button class="sidebar-sublink" id="menuResetBtn">↺ Réinitialiser la recherche</button>
+          <button class="sidebar-sublink" id="menuSeedBtn">🧩 Réinitialiser la base pro</button>
+          <button class="sidebar-sublink" id="menuExportBtn">⬇️ Exporter JSON</button>
+          <button class="sidebar-sublink" id="showStockSectionBtn">📦 Afficher gestion du stock</button>
+          <button class="sidebar-sublink" id="showDatasetSectionBtn">🗂️ Afficher base de donnée</button>
+        </div>
+      </details>
+    </div>
   </nav>
 </aside>
 <button id="homeFloatBtn" class="floating-home" aria-label="Retour en haut">↑</button>
 <div id="topPage" class="top-anchor"></div>
 
-<div class="app locked" id="appRoot">
+<div class="app" id="appRoot">
   <section class="hero">
     <div class="hero-grid">
       <img src="logo-keymaster.jpg" alt="Logo KeyMaster Auto">
@@ -394,25 +402,18 @@ body{
 
   <section id="searchSection" class="grid main">
     <div class="card">
-      <div class="toolbar"><div><h2>🔎 Recherche principale</h2><div class="sub">Recherche par référence, famille, modèle, Lishi, Xhorse, transpondeur ou note atelier.</div></div><div id="searchSummary" class="sub">En attente de recherche</div></div>
+      <div class="toolbar"><div><h2>🔎 Recherche principale</h2></div><div id="searchSummary" class="sub">En attente de recherche</div></div>
       <div class="search-grid">
         <div><label for="searchInput">Recherche globale</label><input id="searchInput" placeholder="Ex : HU66, Yaris, ID48, HU92, Clio, XKHU83..."></div>
-        <div><label for="brandFilter">Famille</label><select id="brandFilter"><option value="">Toutes</option></select></div>
-        <div><label for="bladeFilter">Type lame</label><select id="bladeFilter"><option value="">Tous</option><option value="laser">Laser / interne</option><option value="standard">Standard</option><option value="flip">Flip / plip</option><option value="smart">Smart key</option></select></div>
-        <div><label for="transponderFilter">Transpondeur</label><select id="transponderFilter"><option value="">Tous</option><option>ID46</option><option>ID48</option><option>ID4D</option><option>ID4C</option><option>PCF7941</option><option>PCF7946</option><option>PCF7947</option><option>Texas 80</option><option>8A</option><option>AES</option></select></div>
       </div>
       <div class="btns">
         <button id="searchBtn">Rechercher</button>
-        <button class="secondary" id="resetBtn">Réinitialiser</button>
-        <button class="secondary" id="seedBtn">Réinitialiser la base pro</button>
-        <button class="secondary" id="exportBtn">Exporter JSON</button>
       </div>
       <div id="recentBox" class="card" style="margin-top:12px;padding:14px 16px;box-shadow:none">
         <h3>🕘 Dernières recherches</h3>
         <div class="sub">Touchez une recherche pour la relancer instantanément.</div>
         <div id="recentSearches" class="recent-searches"></div>
       </div>
-      <div class="footer">La recherche couvre : Silca / JMA / Keyline / Errebi, famille, modèles exemples, Lishi, Xhorse, type de lame, transpondeur et notes atelier.</div>
     </div>
 
     <div class="card">
@@ -464,7 +465,7 @@ body{
     </div>
   </section>
 
-  <section id="stockSection" class="grid main">
+  <section id="stockSection" class="grid main hidden">
     <div class="card">
       <div class="toolbar">
         <div><h2>📦 Gestion du stock</h2><div class="sub">Visualise les quantités, repère le stock faible et ajuste rapidement.</div></div>
@@ -483,7 +484,7 @@ body{
   </section>
 
   <section class="grid">
-    <div id="datasetSection" class="card">
+    <div id="datasetSection" class="card hidden">
       <div class="toolbar">
     <div>
       <h2>🗂️ Base locale</h2>
@@ -893,33 +894,21 @@ function refreshStats(resultCount = 0){
     document.getElementById('statLowStock').textContent = records.filter(r => (Number(r.stock) || 0) <= 2).length;
 }
 
-function refreshFamilyFilter(){
-  const select = document.getElementById('brandFilter');
-  const current = select.value;
-  select.innerHTML = '<option value="">Toutes</option>';
-  uniqueFamilies().forEach(f => { const o = document.createElement('option'); o.value = f; o.textContent = f; select.appendChild(o); });
-  if ([...select.options].some(o => o.value === current)) select.value = current;
-}
+function refreshFamilyFilter(){ return; }
 
 function searchableText(r){
   return normalize([r.id,r.family,r.marque,r.silca,r.jma,r.keyline,r.errebi,r.type,r.note,r.lishi,r.xhorse,r.bladeType,r.transponder,r.years,r.models,r.shellType,r.vvdiMini,r.vvdiMiniNote].join(' | '));
 }
 
 function codeFields(r){ return [r.id,r.silca,r.jma,r.keyline,r.errebi,r.lishi,r.xhorse].map(normalize).filter(Boolean); }
-function currentFilters(){ return { q: normalize(document.getElementById('searchInput').value), family: document.getElementById('brandFilter').value, blade: document.getElementById('bladeFilter').value, transponder: normalize(document.getElementById('transponderFilter').value) }; }
+function currentFilters(){ return { q: normalize(document.getElementById('searchInput').value) }; }
 
 function applyFilters(source, filters){
-  const {q, family, blade, transponder} = filters;
-  const scoped = source.filter(r => {
-    const familyOk = !family || (r.family || r.marque) === family;
-    const bladeOk = !blade || (r.bladeType || '').toLowerCase() === blade;
-    const transOk = !transponder || normalize(r.transponder).includes(transponder);
-    return familyOk && bladeOk && transOk;
-  });
-  if (!q) return scoped;
-  const exact = scoped.filter(r => codeFields(r).includes(q));
+  const {q} = filters;
+  if (!q) return source;
+  const exact = source.filter(r => codeFields(r).includes(q));
   if (exact.length) return exact;
-  return scoped.filter(r => searchableText(r).includes(q));
+  return source.filter(r => searchableText(r).includes(q));
 }
 
 function clearResultsState(message = 'Lance une recherche pour afficher les fiches.'){
@@ -931,7 +920,7 @@ function clearResultsState(message = 'Lance une recherche pour afficher les fich
 
 function runSearch(source = records){
   const filters = currentFilters();
-  const hasFilter = !!(filters.q || filters.family || filters.blade || filters.transponder);
+  const hasFilter = !!filters.q;
   if (!hasFilter) { clearResultsState('Renseigne une référence, un modèle ou un filtre puis appuie sur Rechercher.'); return; }
   const filtered = applyFilters(source, filters);
   if (filters.q) saveRecentSearch(filters.q);
@@ -1143,9 +1132,9 @@ function handleScrollUi(){ const btn = document.getElementById('homeFloatBtn'); 
 function init(){
   refreshFamilyFilter(); renderDatasetList(); renderRecentSearches(); renderStockList(); clearResultsState(); attachDelegates();
   document.getElementById('searchBtn').addEventListener('click', runSearch);
-  document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; document.getElementById('brandFilter').value=''; document.getElementById('bladeFilter').value=''; document.getElementById('transponderFilter').value=''; clearResultsState(); });
-  document.getElementById('seedBtn').addEventListener('click', resetDatabase);
-  document.getElementById('exportBtn').addEventListener('click', exportData);
+  document.getElementById('menuResetBtn').addEventListener('click', () => { document.getElementById('searchInput').value=''; clearResultsState(); closeSidebar(); });
+  document.getElementById('menuSeedBtn').addEventListener('click', () => { resetDatabase(); closeSidebar(); });
+  document.getElementById('menuExportBtn').addEventListener('click', () => { exportData(); closeSidebar(); });
   document.getElementById('addBtn').addEventListener('click', () => { addKey(); closeAddModal(); });
   document.getElementById('clearFormBtn').addEventListener('click', clearForm);
   document.getElementById('clearCustomBtn').addEventListener('click', () => { if (!confirm('Vider toute la base locale ?')) return; records = []; saveRecords(); refreshFamilyFilter(); renderDatasetList(); renderStockList(); clearResultsState('Base locale vidée.'); });
@@ -1163,9 +1152,21 @@ function init(){
   document.getElementById('clearInterventionBtn').addEventListener('click', clearIntervention);
   document.getElementById('copyInterventionBtn').addEventListener('click', copyIntervention);
   document.getElementById('stockSortBtn').addEventListener('click', () => renderStockList(true));
+
+  document.getElementById('showStockSectionBtn').addEventListener('click', () => {
+    const section = document.getElementById('stockSection');
+    section.classList.remove('hidden');
+    section.scrollIntoView({behavior:'smooth', block:'start'});
+    closeSidebar();
+  });
+  document.getElementById('showDatasetSectionBtn').addEventListener('click', () => {
+    const section = document.getElementById('datasetSection');
+    section.classList.remove('hidden');
+    section.scrollIntoView({behavior:'smooth', block:'start'});
+    closeSidebar();
+  });
   window.addEventListener('scroll', handleScrollUi);
   handleScrollUi();
-  ['brandFilter','bladeFilter','transponderFilter'].forEach(id => document.getElementById(id).addEventListener('change', () => { document.getElementById('searchSummary').textContent = 'Filtres prêts · appuie sur Rechercher'; }));
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -1290,51 +1291,7 @@ document.addEventListener('click', (e) => {
 </script>
 
 
-<script>
-(() => {
-  const ACCESS_CODE = '2580';
-  const lockScreen = document.getElementById('lockScreen');
-  const appRoot = document.getElementById('appRoot');
-  const lockInput = document.getElementById('lockCodeInput');
-  const unlockBtn = document.getElementById('unlockBtn');
-  const lockError = document.getElementById('lockError');
-  const STORAGE_KEY = 'keymaster_access_unlocked';
 
-  function unlockApp(){
-    document.body.classList.remove('locked');
-    appRoot?.classList.remove('locked');
-    lockScreen?.remove();
-    try{ localStorage.setItem(STORAGE_KEY, '1'); }catch(e){}
-  }
-
-  function checkCode(){
-    const code = (lockInput?.value || '').trim();
-    if(code === ACCESS_CODE){
-      lockError?.classList.remove('show');
-      unlockApp();
-    }else{
-      lockError?.classList.add('show');
-      if(lockInput){
-        lockInput.value = '';
-        lockInput.focus();
-      }
-    }
-  }
-
-  try{
-    if(localStorage.getItem(STORAGE_KEY) === '1'){
-      unlockApp();
-      return;
-    }
-  }catch(e){}
-
-  unlockBtn?.addEventListener('click', checkCode);
-  lockInput?.addEventListener('keydown', (e) => {
-    if(e.key === 'Enter') checkCode();
-  });
-  setTimeout(() => lockInput?.focus(), 60);
-})();
-</script>
 
 
 <script>
