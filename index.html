@@ -706,6 +706,27 @@ function getCompatibilityBadges(record){
 
 
 const autoKeySeed = [
+,
+  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"MQB Smart Key", note:"Plateforme MQB très fréquente en France", lishi:"HU162T", xhorse:"XKHU162T", bladeType:"smart", transponder:"MQB / AES", variants:[["Golf VII Facelift","2017-2020"],["T-Roc","2017+"],["T-Cross","2019+"],["A1 GB","2018+"],["Q2","2016+"],["Kamiq","2019+"],["Scala","2019+"],["Formentor","2020+"]]},
+
+  { family:"Volkswagen Utilitaires", marque:"Volkswagen", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Utilitaire", note:"Très courant sur utilitaires VAG", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["Caddy","2004-2020"],["Transporter T5","2003-2015"],["Transporter T6","2015+"],["Crafter","2006+"],["Amarok","2010+"]]},
+
+  { family:"Audi", marque:"Audi", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Premium VAG", note:"Audi très répandu", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["A4 B8","2008-2015"],["A5","2007-2016"],["Q5","2008-2017"],["TT","2006-2014"],["Q3","2011-2018"]]},
+
+  { family:"Skoda", marque:"Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Skoda courant", note:"Très fréquent en France", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["Octavia I","1998-2010"],["Superb II","2008-2015"],["Yeti","2009-2017"],["Roomster","2006-2015"],["Citigo","2011-2020"]]},
+
+  { family:"Hyundai / Kia", marque:"Kia", silca:"HYN20", jma:"HYN20", keyline:"HYN20", errebi:"HYN20", type:"Kia moderne", note:"Très fréquent en France", lishi:"HYN20", xhorse:"XKHYN20", bladeType:"laser", transponder:"ID46", variants:[["Ceed II","2012-2018"],["Ceed III","2018+"],["Sportage III","2010-2015"],["Sportage IV","2015-2021"],["Niro","2016+"],["Stonic","2017+"],["Proceed","2019+"],["XCeed","2019+"]]},
+
+  { family:"Hyundai / Kia", marque:"Kia", silca:"HY22", jma:"HY22", keyline:"HY22", errebi:"HY22", type:"Kia Smart Key", note:"Smart key Hyundai/Kia", lishi:"HY22", xhorse:"XKHY22", bladeType:"smart", transponder:"AES / Smart", variants:[["EV6","2021+"],["Sorento IV","2020+"],["Tucson IV","2020+"],["Santa Fe","2018+"],["Kona","2018+"],["Ioniq 5","2021+"]]},
+
+  { family:"Hyundai / Kia", marque:"Hyundai", silca:"HYN14", jma:"HYN14", keyline:"HYN14", errebi:"HYN14", type:"Ancien Hyundai", note:"Très courant sur anciens modèles", lishi:"HYN14", xhorse:"XKHYN14", bladeType:"standard", transponder:"4D", variants:[["i10","2008-2013"],["i20","2008-2014"],["Accent","2006-2011"],["Elantra","2001-2010"],["Sonata","2001-2010"]]},
+
+  { family:"Seat", marque:"Seat", silca:"HU162", jma:"HU162", keyline:"HU162", errebi:"HU162", type:"Seat MQB", note:"Seat récentes", lishi:"HU162", xhorse:"XKHU162", bladeType:"flip", transponder:"MQB / ID48", variants:[["Ibiza V","2017+"],["Arona","2017+"],["Ateca","2016+"],["Leon IV","2020+"]]},
+
+  { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Entrée de gamme VAG", note:"Véhicules très répandus", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["Fox","2005-2011"],["Up!","2011-2023"],["Mii","2011-2021"],["Citigo","2011-2020"],["Fabia I","1999-2007"]]},
+
+  { family:"Kia", marque:"Kia", silca:"HYN20", jma:"HYN20", keyline:"HYN20", errebi:"HYN20", type:"Télécommande", note:"Télécommandes Kia modernes", lishi:"HYN20", xhorse:"XKHYN20", bladeType:"flip", transponder:"ID46 / PCF7945", variants:[["Rio IV","2017+"],["Picanto III","2017+"],["Carens","2013-2019"],["Optima","2015-2020"],["Soul","2014+"]]} 
+
   { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU66", jma:"HU66", keyline:"HU66", errebi:"HU66", type:"Lame plip / transpondeur", note:"Très courant VAG, attention ID48", lishi:"HU66", xhorse:"XKHU66", bladeType:"laser", transponder:"ID48", variants:[["Golf V","2003-2009"],["Golf VI","2008-2012"],["Passat B6","2005-2010"],["Polo 9N","2001-2009"],["Touran","2003-2010"],["A3 8P","2003-2012"],["A4 B7","2004-2008"],["Leon II","2005-2012"],["Octavia II","2004-2013"],["Fabia II","2007-2014"]]},
   { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162T", jma:"HU162T", keyline:"HU162T", errebi:"HU162T", type:"Smart key", note:"VAG récent AES", lishi:"HU162T", xhorse:"XKHU162", bladeType:"smart", transponder:"AES", variants:[["Golf VII","2013-2020"],["Golf VIII","2020+"],["A3 8V","2013-2020"],["A4 B9","2015+"],["Leon III","2012-2020"],["Octavia III","2013-2020"],["Kodiaq","2016+"],["Tiguan II","2016+"]]},
   { family:"Volkswagen / Audi / Seat / Skoda", marque:"Volkswagen / Audi / Seat / Skoda", silca:"HU162", jma:"HU162", keyline:"HU162", errebi:"HU162", type:"Flip / plip", note:"VAG transition", lishi:"HU162", xhorse:"XKHU162", bladeType:"flip", transponder:"ID48 / MQB selon version", variants:[["Polo 6R","2009-2017"],["Golf Plus","2009-2014"],["Jetta VI","2010-2018"],["A1","2010-2018"],["Fabia III","2014-2021"],["Rapid","2012-2019"]]},
